@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion Reportes</title>
+    <link rel="stylesheet" href="/CSS/reportes_gestion/reportes_gestion.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo"></div>
+        <ul>
+            <li><span class="icon">👤</span> Gestion de Usuarios</li>
+            <li class="active"><span class="icon">📋</span> Gestion de Reportes</li>
+            <li><span class="icon">📥</span> Existencia de Entrada</li>
+            <li><span class="icon">📤</span> Existencia de Salida</li>
+            <li><span class="icon">🛠️</span> Productos Dañados</li>
+            <li><span class="icon">📦</span> Artículos Uso Actual</li>
+            <li><span class="icon">🚪</span> Exit</li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <h1>Gestion Reportes</h1>
+        </div>
+        <div class="reportes-bar">
+            <div class="bienvenida">
+                Bienvenido Personal; Ingreso de Sesion a las 12:05:13
+            </div>
+            <div class="reportes-controls">
+                <input type="text" placeholder="Buscar...">
+                <button class="reportes-btn"><span class="icon">⚠️</span> Reportes</button>
+            </div>
+        </div>
+        <!-- Tabla de Gestión de Reportes -->
+        <div class="reportes-table-container">
+            <div class="reportes-box">
+                <table class="reportes-table">
+                    <thead>
+                        <tr>
+                            <th><span class="icon">👤</span> Usuario</th>
+                            <th><span class="icon">📍</span> Lugar del Problema</th>
+                            <th><span class="icon">📅</span> Fecha</th>
+                            <th><span class="icon">⚙️</span> Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>danielob</td>
+                            <td>Pabellon B Piso 3 Aula 312</td>
+                            <td>2024-07-11 17:23:34</td>
+                            <td>
+                                <span class="estado aprobado">✔ Aprobar Reporte</span>
+                                <button class="btn desaprobar" onclick="abrirModalDesaprobar()">
+    <span class="icon">⛔</span> Desaprobar Reporte
+</button>
+                                <button class="btn visualizar"><span class="icon">👁️</span> Visualizar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>danielob</td>
+                            <td>Pabellon B Piso 3 Aula 319</td>
+                            <td>2024-07-11 17:23:57</td>
+                            <td>
+                                <span class="estado aprobado">✔ Aprobar Reporte</span>
+                                <button class="btn desaprobar" onclick="abrirModalDesaprobar()">
+    <span class="icon">⛔</span> Desaprobar Reporte
+</button>
+                                <button class="btn visualizar"><span class="icon">👁️</span> Visualizar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>danielob</td>
+                            <td>Pabellon B Piso 9 Laboratorio 909</td>
+                            <td>2024-07-11 17:25:14</td>
+                            <td>
+                                <span class="estado aprobado">✔ Aprobar Reporte</span>
+                                <button class="btn desaprobar" onclick="abrirModalDesaprobar()">
+    <span class="icon">⛔</span> Desaprobar Reporte
+</button>
+                                <button class="btn visualizar"><span class="icon">👁️</span> Visualizar</button>
+                            </td>
+                        </tr>
+                        <!-- ...más filas aquí... -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Desaprobación de Reporte -->
+    <div id="modalDesaprobar" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarModalDesaprobar()">&times;</span>
+        <label>¿Estás seguro de que deseas desaprobar este reporte? Ingrese el motivo:</label>
+        <input type="text" id="motivoDesaprobacion" placeholder="Motivo..." />
+        <div class="modal-actions">
+          <button class="btn aceptar" onclick="aceptarDesaprobacion()">Aceptar</button>
+          <button class="btn cancelar" onclick="cerrarModalDesaprobar()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/JAVASCRIPT/reporte_gestion_M6.js"></script>
+</body>
+</html>
