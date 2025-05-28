@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes Globales</title>
+    <link rel="stylesheet" href="../../CSS/reportes_globales/reportes_globales.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <h1>
+            <i class="fas fa-chart-line"></i>
+            Reportes Globales
+        </h1>
+    </header>
+
+    <div class="container">
+        <div class="subtitle">
+            <i class="fas fa-info-circle fa-icon"></i>
+            <div>
+                <strong>Sistema de Gestión de Reportes</strong><br>
+                Puedes observar los reportes enviados de hoy. Haz clic en "Visualizar" para ver la información detallada del problema reportado.
+            </div>
+        </div>
+
+        <div class="reports-grid">
+            <!-- Reporte 1 -->
+            <div class="report-card">
+                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=200&fit=crop" alt="Equipo de laboratorio" class="card-image">
+                <div class="card-content">
+                    <div class="card-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        Fecha: 2024-07-03
+                    </div>
+                    <div class="card-shift">
+                        <i class="fas fa-sun"></i>
+                        Turno: Mañana
+                    </div>
+                    <div class="card-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Lugar del Reporte: Pabellón B, Piso 3
+                    </div>
+                    <div class="card-classroom">
+                        <i class="fas fa-door-open"></i>
+                        Ubicación: Aula 314
+                    </div>
+                    <button class="visualizar-btn" onclick="openModal('reporte1')">
+                        <i class="fas fa-eye"></i>
+                        Visualizar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte 2 -->
+            <div class="report-card">
+                <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=200&fit=crop" alt="Proyector" class="card-image">
+                <div class="card-content">
+                    <div class="card-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        Fecha: 2024-07-03
+                    </div>
+                    <div class="card-shift">
+                        <i class="fas fa-sun"></i>
+                        Turno: Tarde
+                    </div>
+                    <div class="card-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Lugar del Reporte: Pabellón B, Piso 4
+                    </div>
+                    <div class="card-classroom">
+                        <i class="fas fa-flask"></i>
+                        Ubicación: Laboratorio 905
+                    </div>
+                    <button class="visualizar-btn" onclick="openModal('reporte2')">
+                        <i class="fas fa-eye"></i>
+                        Visualizar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte 3 -->
+            <div class="report-card">
+                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=200&fit=crop" alt="Equipo técnico" class="card-image">
+                <div class="card-content">
+                    <div class="card-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        Fecha: 2024-07-03
+                    </div>
+                    <div class="card-shift">
+                        <i class="fas fa-moon"></i>
+                        Turno: Noche
+                    </div>
+                    <div class="card-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Lugar del Reporte: Pabellón B, Piso 5
+                    </div>
+                    <div class="card-classroom">
+                        <i class="fas fa-flask"></i>
+                        Ubicación: Laboratorio 913
+                    </div>
+                    <button class="visualizar-btn" onclick="openModal('reporte3')">
+                        <i class="fas fa-eye"></i>
+                        Visualizar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte 4 -->
+            <div class="report-card">
+                <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=200&fit=crop" alt="Aula" class="card-image">
+                <div class="card-content">
+                    <div class="card-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        Fecha: 2024-07-04
+                    </div>
+                    <div class="card-shift">
+                        <i class="fas fa-sun"></i>
+                        Turno: Mañana
+                    </div>
+                    <div class="card-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Lugar del Reporte: Pabellón B, Piso 3
+                    </div>
+                    <div class="card-classroom">
+                        <i class="fas fa-door-open"></i>
+                        Ubicación: Aula 320
+                    </div>
+                    <button class="visualizar-btn" onclick="openModal('reporte4')">
+                        <i class="fas fa-eye"></i>
+                        Visualizar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte 5 -->
+            <div class="report-card">
+                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=200&fit=crop" alt="Ventilador" class="card-image">
+                <div class="card-content">
+                    <div class="card-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        Fecha: 2024-07-05
+                    </div>
+                    <div class="card-shift">
+                        <i class="fas fa-sun"></i>
+                        Turno: Mañana
+                    </div>
+                    <div class="card-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Lugar del Reporte: Pabellón B, Piso 3
+                    </div>
+                    <div class="card-classroom">
+                        <i class="fas fa-door-open"></i>
+                        Ubicación: Aula 317
+                    </div>
+                    <button class="visualizar-btn" onclick="openModal('reporte5')">
+                        <i class="fas fa-eye"></i>
+                        Visualizar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte 6 -->
+            <div class="report-card">
+                <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=200&fit=crop" alt="Proyector" class="card-image">
+                <div class="card-content">
+                    <div class="card-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        Fecha: 2024-07-03
+                    </div>
+                    <div class="card-shift">
+                        <i class="fas fa-sun"></i>
+                        Turno: Mañana
+                    </div>
+                    <div class="card-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Lugar del Reporte: Pabellón B, Piso 3
+                    </div>
+                    <div class="card-classroom">
+                        <i class="fas fa-door-open"></i>
+                        Ubicación: Aula 315
+                    </div>
+                    <button class="visualizar-btn" onclick="openModal('reporte6')">
+                        <i class="fas fa-eye"></i>
+                        Visualizar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <i class="fas fa-file-alt"></i>
+                    Detalles del Reporte
+                </h2>
+                <button class="close-btn" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-info">
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-university"></i>
+                            Facultad:
+                        </span>
+                        <span class="info-value" id="modalFacultad">Ingeniería y Arquitectura</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-clock"></i>
+                            Turno:
+                        </span>
+                        <span class="info-value" id="modalTurno">Mañana</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-calendar-check"></i>
+                            Fecha:
+                        </span>
+                        <span class="info-value" id="modalFecha">2024-07-03 11:25:17</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-check-circle"></i>
+                            Estado:
+                        </span>
+                        <span class="info-value" id="modalEstado">Aprobado</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Lugar del Problema:
+                        </span>
+                        <span class="info-value" id="modalLugar">Pabellón B, Piso 3, Aula 314</span>
+                    </div>
+                </div>
+                <div class="evidence-section">
+                    <h3 class="evidence-title">
+                        <i class="fas fa-camera"></i>
+                        Evidencia:
+                    </h3>
+                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop" alt="Evidencia del problema" class="evidence-image" id="modalEvidencia">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos estáticos de los reportes (más tarde se conectará con el backend)
+        const reportesData = {
+            reporte1: {
+                facultad: "Ingeniería y Arquitectura",
+                turno: "Mañana",
+                fecha: "2024-07-03 11:25:17",
+                estado: "Aprobado",
+                lugar: "Pabellón B, Piso 3, Aula 314",
+                evidencia: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop"
+            },
+            reporte2: {
+                facultad: "Ingeniería y Arquitectura",
+                turno: "Tarde",
+                fecha: "2024-07-03 14:30:22",
+                estado: "En Proceso",
+                lugar: "Pabellón B, Piso 4, Laboratorio 905",
+                evidencia: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=300&fit=crop"
+            },
+            reporte3: {
+                facultad: "Ingeniería y Arquitectura",
+                turno: "Noche",
+                fecha: "2024-07-03 19:45:10",
+                estado: "Pendiente",
+                lugar: "Pabellón B, Piso 5, Laboratorio 913",
+                evidencia: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop"
+            },
+            reporte4: {
+                facultad: "Ingeniería y Arquitectura",
+                turno: "Mañana",
+                fecha: "2024-07-04 09:15:33",
+                estado: "Aprobado",
+                lugar: "Pabellón B, Piso 3, Aula 320",
+                evidencia: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=300&fit=crop"
+            },
+            reporte5: {
+                facultad: "Ingeniería y Arquitectura",
+                turno: "Mañana",
+                fecha: "2024-07-05 10:20:45",
+                estado: "En Proceso",
+                lugar: "Pabellón B, Piso 3, Aula 317",
+                evidencia: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop"
+            },
+            reporte6: {
+                facultad: "Ingeniería y Arquitectura",
+                turno: "Mañana",
+                fecha: "2024-07-03 08:50:12",
+                estado: "Aprobado",
+                lugar: "Pabellón B, Piso 3, Aula 315",
+                evidencia: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=300&fit=crop"
+            }
+        };
+
+        function openModal(reporteId) {
+            const reporte = reportesData[reporteId];
+            if (reporte) {
+                document.getElementById('modalFacultad').textContent = reporte.facultad;
+                document.getElementById('modalTurno').textContent = reporte.turno;
+                document.getElementById('modalFecha').textContent = reporte.fecha;
+                
+                // Agregar clases de color según el estado
+                const estadoElement = document.getElementById('modalEstado');
+                estadoElement.textContent = reporte.estado;
+                estadoElement.className = 'info-value';
+                if (reporte.estado === 'Aprobado') {
+                    estadoElement.classList.add('status-approved');
+                } else if (reporte.estado === 'Pendiente') {
+                    estadoElement.classList.add('status-pending');
+                } else if (reporte.estado === 'En Proceso') {
+                    estadoElement.classList.add('status-process');
+                }
+                
+                document.getElementById('modalLugar').textContent = reporte.lugar;
+                document.getElementById('modalEvidencia').src = reporte.evidencia;
+                
+                document.getElementById('modalOverlay').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Cerrar modal con tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Visualiza tus Reportes</title>
+    <link rel="stylesheet" href="../../CSS/reportes_ver/reportes_ver.css" />
+    <!-- FontAwesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="logo-section">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="logo-text">Sistema Reportes</div>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="#" class="nav-item">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Enviar Reporte</span>
+                </a>
+                <a href="#" class="nav-item active">
+                    <i class="fas fa-list-alt"></i>
+                    <span>Artículos Reportados</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-history"></i>
+                    <span>Historial</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Estadísticas</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Configuración</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Salir</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Overlay for mobile -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <header class="header">
+                <div class="header-content">
+                    <button class="mobile-toggle" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1>
+                        <i class="fas fa-eye"></i>
+                        <span>Visualiza tus Reportes</span>
+                    </h1>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <!-- Help Banner -->
+                <div class="help-banner">
+                    <i class="fas fa-info-circle"></i>
+                    <div class="help-content">
+                        <div class="help-text">
+                            <strong>Ayuda:</strong> Aquí puedes observar y revisar tus reportes enviados. Si no logras visualizarlo actualiza la página.
+                        </div>
+                        <button class="help-btn" onclick="irHistorial()">
+                            <i class="fas fa-history"></i>
+                            Historial
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Reports Table Container -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <i class="fas fa-table"></i>
+                        <h2>Lista de Reportes</h2>
+                    </div>
+                    
+                    <!-- Desktop Table -->
+                    <div class="desktop-table">
+                        <table class="reports-table">
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-calendar"></i>Fecha</th>
+                                    <th><i class="fas fa-map-marker-alt"></i>Lugar del Reporte</th>
+                                    <th><i class="fas fa-file-alt"></i>Descripción</th>
+                                    <th><i class="fas fa-exclamation-circle"></i>Motivo</th>
+                                    <th><i class="fas fa-cogs"></i>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="date-cell">2024-07-03</td>
+                                    <td class="location-cell">
+                                        Pabellón B,<br>
+                                        Piso 3, Aula 317
+                                    </td>
+                                    <td class="description-cell">Ventilador dañado arreglado</td>
+                                    <td class="status-cell status-revision">En revisión...</td>
+                                    <td class="actions-cell">
+                                        <button class="action-btn btn-visualizar" onclick="visualizarReporte(1)">
+                                            <i class="fas fa-eye"></i>
+                                            Visualizar
+                                        </button>
+                                        <button class="action-btn btn-editar" onclick="editarReporte(1)">
+                                            <i class="fas fa-edit"></i>
+                                            Editar
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="date-cell">2024-07-02</td>
+                                    <td class="location-cell">
+                                        Pabellón B,<br>
+                                        Piso 3, Aula 319
+                                    </td>
+                                    <td class="description-cell">Carpeta rota en el aula</td>
+                                    <td class="status-cell status-revision">En revisión...</td>
+                                    <td class="actions-cell">
+                                        <button class="action-btn btn-visualizar" onclick="visualizarReporte(2)">
+                                            <i class="fas fa-eye"></i>
+                                            Visualizar
+                                        </button>
+                                        <button class="action-btn btn-editar" onclick="editarReporte(2)">
+                                            <i class="fas fa-edit"></i>
+                                            Editar
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="date-cell">2024-07-01</td>
+                                    <td class="location-cell">
+                                        Pabellón B,<br>
+                                        Piso 5, Laboratorio 909
+                                    </td>
+                                    <td class="description-cell">El proyector no funciona correctamente</td>
+                                    <td class="status-cell status-proceso">En proceso...</td>
+                                    <td class="actions-cell">
+                                        <button class="action-btn btn-visualizar" onclick="visualizarReporte(3)">
+                                            <i class="fas fa-eye"></i>
+                                            Visualizar
+                                        </button>
+                                        <button class="action-btn btn-editar" onclick="editarReporte(3)">
+                                            <i class="fas fa-edit"></i>
+                                            Editar
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="date-cell">2024-06-30</td>
+                                    <td class="location-cell">
+                                        Pabellón A,<br>
+                                        Piso 2, Aula 205
+                                    </td>
+                                    <td class="description-cell">Sillas rotas en el aula</td>
+                                    <td class="status-cell status-aprobado">Aprobado</td>
+                                    <td class="actions-cell">
+                                        <button class="action-btn btn-visualizar" onclick="visualizarReporte(4)">
+                                            <i class="fas fa-eye"></i>
+                                            Visualizar
+                                        </button>
+                                        <button class="action-btn btn-editar" onclick="editarReporte(4)">
+                                            <i class="fas fa-edit"></i>
+                                            Editar
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="date-cell">2024-06-29</td>
+                                    <td class="location-cell">
+                                        Pabellón C,<br>
+                                        Piso 1, Laboratorio 101
+                                    </td>
+                                    <td class="description-cell">Computadora no enciende</td>
+                                    <td class="status-cell status-aprobado">Aprobado</td>
+                                    <td class="actions-cell">
+                                        <button class="action-btn btn-visualizar" onclick="visualizarReporte(5)">
+                                            <i class="fas fa-eye"></i>
+                                            Visualizar
+                                        </button>
+                                        <button class="action-btn btn-editar" onclick="editarReporte(5)">
+                                            <i class="fas fa-edit"></i>
+                                            Editar
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Mobile Cards -->
+                    <div class="mobile-cards">
+                        <div class="report-card">
+                            <div class="card-header">
+                                <div class="card-date">2024-07-03</div>
+                                <div class="card-status status-revision">En revisión</div>
+                            </div>
+                            <div class="card-info">
+                                <div class="info-row">
+                                    <div class="info-label">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Lugar:
+                                    </div>
+                                    <div class="info-value">Pabellón B, Piso 3, Aula 317</div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">
+                                        <i class="fas fa-file-alt"></i>
+                                        Descripción:
+                                    </div>
+                                    <div class="info-value">Ventilador dañado arreglado</div>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn btn-visualizar" onclick="visualizarReporte(1)">
+                                    <i class="fas fa-eye"></i>
+                                    Visualizar
+                                </button>
+                                <button class="action-btn btn-editar" onclick="editarReporte(1)">
+                                    <i class="fas fa-edit"></i>
+                                    Editar
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="card-header">
+                                <div class="card-date">2024-07-02</div>
+                                <div class="card-status status-revision">En revisión</div>
+                            </div>
+                            <div class="card-info">
+                                <div class="info-row">
+                                    <div class="info-label">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Lugar:
+                                    </div>
+                                    <div class="info-value">Pabellón B, Piso 3, Aula 319</div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">
+                                        <i class="fas fa-file-alt"></i>
+                                        Descripción:
+                                    </div>
+                                    <div class="info-value">Carpeta rota en el aula</div>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn btn-visualizar" onclick="visualizarReporte(2)">
+                                    <i class="fas fa-eye"></i>
+                                    Visualizar
+                                </button>
+                                <button class="action-btn btn-editar" onclick="editarReporte(2)">
+                                    <i class="fas fa-edit"></i>
+                                    Editar
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="card-header">
+                                <div class="card-date">2024-07-01</div>
+                                <div class="card-status status-proceso">En proceso</div>
+                            </div>
+                            <div class="card-info">
+                                <div class="info-row">
+                                    <div class="info-label">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Lugar:
+                                    </div>
+                                    <div class="info-value">Pabellón B, Piso 5, Laboratorio 909</div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">
+                                        <i class="fas fa-file-alt"></i>
+                                        Descripción:
+                                    </div>
+                                    <div class="info-value">El proyector no funciona correctamente</div>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn btn-visualizar" onclick="visualizarReporte(3)">
+                                    <i class="fas fa-eye"></i>
+                                    Visualizar
+                                </button>
+                                <button class="action-btn btn-editar" onclick="editarReporte(3)">
+                                    <i class="fas fa-edit"></i>
+                                    Editar
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="card-header">
+                                <div class="card-date">2024-06-30</div>
+                                <div class="card-status status-aprobado">Aprobado</div>
+                            </div>
+                            <div class="card-info">
+                                <div class="info-row">
+                                    <div class="info-label">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Lugar:
+                                    </div>
+                                    <div class="info-value">Pabellón A, Piso 2, Aula 205</div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">
+                                        <i class="fas fa-file-alt"></i>
+                                        Descripción:
+                                    </div>
+                                    <div class="info-value">Sillas rotas en el aula</div>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn btn-visualizar" onclick="visualizarReporte(4)">
+                                    <i class="fas fa-eye"></i>
+                                    Visualizar
+                                </button>
+                                <button class="action-btn btn-editar" onclick="editarReporte(4)">
+                                    <i class="fas fa-edit"></i>
+                                    Editar
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="card-header">
+                                <div class="card-date">2024-06-29</div>
+                                <div class="card-status status-aprobado">Aprobado</div>
+                            </div>
+                            <div class="card-info">
+                                <div class="info-row">
+                                    <div class="info-label">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Lugar:
+                                    </div>
+                                    <div class="info-value">Pabellón C, Piso 1, Laboratorio 101</div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">
+                                        <i class="fas fa-file-alt"></i>
+                                        Descripción:
+                                    </div>
+                                    <div class="info-value">Computadora no enciende</div>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="action-btn btn-visualizar" onclick="visualizarReporte(5)">
+                                    <i class="fas fa-eye"></i>
+                                    Visualizar
+                                </button>
+                                <button class="action-btn btn-editar" onclick="editarReporte(5)">
+                                    <i class="fas fa-edit"></i>
+                                    Editar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Datos estáticos de reportes (se conectará con backend más tarde)
+        const reportesData = {
+            1: {
+                fecha: "2024-07-03",
+                lugar: "Pabellón B, Piso 3, Aula 317",
+                descripcion: "Ventilador dañado arreglado",
+                motivo: "En revisión",
+                estado: "revision"
+            },
+            2: {
+                fecha: "2024-07-02", 
+                lugar: "Pabellón B, Piso 3, Aula 319",
+                descripcion: "Carpeta rota en el aula",
+                motivo: "En revisión",
+                estado: "revision"
+            },
+            3: {
+                fecha: "2024-07-01",
+                lugar: "Pabellón B, Piso 5, Laboratorio 909", 
+                descripcion: "El proyector no funciona correctamente",
+                motivo: "En proceso",
+                estado: "proceso"
+            },
+            4: {
+                fecha: "2024-06-30",
+                lugar: "Pabellón A, Piso 2, Aula 205",
+                descripcion: "Sillas rotas en el aula", 
+                motivo: "Aprobado",
+                estado: "aprobado"
+            },
+            5: {
+                fecha: "2024-06-29",
+                lugar: "Pabellón C, Piso 1, Laboratorio 101",
+                descripcion: "Computadora no enciende",
+                motivo: "Aprobado", 
+                estado: "aprobado"
+            }
+        };
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            sidebar.classList.toggle('mobile-visible');
+            overlay.classList.toggle('active');
+            
+            // Prevent body scroll when sidebar is open on mobile
+            if (sidebar.classList.contains('mobile-visible')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function irHistorial() {
+            const btn = event.target.closest('.help-btn');
+            const originalContent = btn.innerHTML;
+            
+            // Simular navegación al historial
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Cargando...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-check"></i> Redirigiendo...';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.disabled = false;
+                    alert('Redirigiendo al historial completo de reportes...\n\nEsta funcionalidad se conectará con la página de historial.');
+                }, 1000);
+            }, 1000);
+        }
+
+        function visualizarReporte(id) {
+            const reporte = reportesData[id];
+            if (reporte) {
+                // Simular loading
+                const btn = event.target.closest('.btn-visualizar');
+                const originalContent = btn.innerHTML;
+                btn.innerHTML = '<div class="loading"></div> Cargando...';
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.disabled = false;
+                    alert(`Visualizando reporte:\n\nFecha: ${reporte.fecha}\nLugar: ${reporte.lugar}\nDescripción: ${reporte.descripcion}\nEstado: ${reporte.motivo}`);
+                }, 1000);
+            }
+        }
+
+        function editarReporte(id) {
+            const reporte = reportesData[id];
+            if (reporte) {
+                // Simular loading
+                const btn = event.target.closest('.btn-editar');
+                const originalContent = btn.innerHTML;
+                btn.innerHTML = '<div class="loading"></div> Cargando...';
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.disabled = false;
+                    alert(`Editando reporte del ${reporte.fecha}\n\nEsta funcionalidad se conectará con el formulario de edición.`);
+                }, 1000);
+            }
+        }
+
+        // Cerrar sidebar al hacer clic fuera en móvil
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const mobileToggle = document.querySelector('.mobile-toggle');
+            
+            if (window.innerWidth <= 992 && 
+                !sidebar.contains(event.target) && 
+                !mobileToggle.contains(event.target)) {
+                sidebar.classList.remove('mobile-visible');
+                document.getElementById('sidebarOverlay').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Responsive handling
+        window.addEventListener('resize', function() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('mobile-visible');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Smooth scroll to top when clicking logo
+        document.querySelector('.logo-section').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Add touch support for better mobile experience
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', function(event) {
+            touchStartY = event.changedTouches[0].screenY;
+        });
+
+        document.addEventListener('touchend', function(event) {
+            touchEndY = event.changedTouches[0].screenY;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const sidebar = document.getElementById('sidebar');
+            
+            if (window.innerWidth <= 992) {
+                if (touchEndY - touchStartY > swipeThreshold) {
+                    // Swipe down - could add functionality here
+                } else if (touchStartY - touchEndY > swipeThreshold) {
+                    // Swipe up - could add functionality here
+                }
+            }
+        }
+    </script>
+</body>
+</html>
