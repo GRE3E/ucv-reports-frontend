@@ -1,0 +1,186 @@
+body {
+  position: relative;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('../../CSS/auth/images/recuperar.svg') center center/cover no-repeat;
+  filter: blur(18px) brightness(0.85);
+  z-index: 0;
+  pointer-events: none;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+.encabezado {
+  background: #ff0000;
+  color: #fff;
+  padding: 0.2rem 0 0.2rem 0; /* Más delgado */
+  text-align: center;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 40px;
+  box-shadow: 0 4px 20px rgba(46,134,222,0.1);
+}
+
+.contenedor {
+  background: #fff;
+  max-width: 500px; /* Más angosto */
+  margin: 24px auto 0 auto;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(46,134,222,0.15);
+  padding: 1rem 0.7rem 1.2rem 0.7rem; /* Menos padding */
+  position: relative;
+  z-index: 2;
+}
+
+h2 {
+  color: #2e86de;
+  margin-bottom: 1rem;
+  text-align: center;
+  letter-spacing: 1px;
+  font-size: 2rem; /* Más pequeño */
+  font-weight: bold;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem; /* Más compacto */
+}
+
+/* Diseño de dos columnas para el formulario en pantallas grandes */
+@media (min-width: 700px) {
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 0.8rem; /* Más compacto */
+    align-items: end;
+  }
+  form > * {
+    min-width: 0;
+  }
+  /* Para que el botón ocupe toda la fila */
+  button[type="submit"] {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+  /* Si algún campo debe ocupar toda la fila, puedes añadir una clase extra, por ejemplo: */
+  /* .full-width { grid-column: 1 / -1; } */
+}
+
+label {
+  font-weight: 600;
+  color: #34495e;
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.5px;
+}
+
+input[type="text"],
+select,
+textarea {
+  border: 2px solid #222; /* Borde negro */
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  background: #f4f8fb;
+  font-size: 1rem;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  box-shadow: 0 2px 8px rgba(46,134,222,0.05);
+  outline: none;
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+  box-shadow: 0 0 0 2px #2e86de55;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+  max-height: 200px;
+}
+
+/* Estilo para el input de archivo */
+input[type="file"] {
+  background: #f4f8fb;
+  /* border: 2px solid #222; */ /* Elimina o comenta esta línea */
+  border-radius: 8px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  color: #2e86de;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  width: 180px;
+  overflow: hidden;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  /* Solo el botón, sin texto extra */
+}
+
+/* Mejora visual del botón de archivo (solo para navegadores modernos) */
+input[type="file"]::file-selector-button {
+  background: linear-gradient(90deg, #2e86de 60%, #48c6ef 100%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  margin-right: 1rem;
+}
+
+/* OCULTAR el texto "Ningún archivo seleccionado" o el nombre del archivo */
+input[type="file"]::-webkit-file-upload-button + span,
+input[type="file"]::-webkit-file-upload-label,
+input[type="file"]::file-selector-label {
+  display: none !important;
+}
+input[type="file"]::-ms-value {
+  display: none !important;
+}
+input[type="file"]::after {
+  display: none !important;
+}
+
+button[type="submit"] {
+  margin-top: 1.2rem;
+  background: linear-gradient(90deg, #2e86de 60%, #48c6ef 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(46,134,222,0.13);
+  transition: background 0.2s, transform 0.1s;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(90deg, #48c6ef 0%, #2e86de 100%);
+  transform: translateY(-2px) scale(1.03);
+}
+
+@media (max-width: 500px) {
+  .contenedor {
+    padding: 1.2rem 0.5rem;
+    max-width: 98vw;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+}

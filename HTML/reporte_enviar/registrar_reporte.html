@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registrar Reporte</title>
+  <link rel="stylesheet" href="../../CSS/reporte_enviar/registrar_reporte.css" />
+</head>
+<body>
+
+  <header class="encabezado">
+    <h1>Envía tu Reporte</h1>
+  </header>
+
+  <main class="contenedor">
+    <h2>Registrar Reporte</h2>
+
+    <form>
+      <label for="facultad">Facultad:</label>
+      <select id="facultad" name="facultad">
+        <option>Ciencias de la Salud</option>
+      </select>
+
+      <label for="turno">Turno:</label>
+      <select id="turno" name="turno">
+        <option>Mañana</option>
+      </select>
+
+      <label for="pabellon">Pabellón:</label>
+      <select id="pabellon" name="pabellon">
+        <option>Seleccione un pabellón</option>
+      </select>
+
+      <label for="piso">Piso:</label>
+      <select id="piso" name="piso">
+        <option>Seleccione un piso</option>
+      </select>
+
+      <label for="aula">Aula:</label>
+      <input type="text" id="aula" name="aula" />
+
+      <label for="articulo">Artículo:</label>
+      <input type="text" id="articulo" name="articulo" value="Hardware" />
+
+      <label for="descripcion">Descripción:</label>
+      <textarea id="descripcion" name="descripcion" rows="4"></textarea>
+
+      <label for="archivo">Adjunta tu evidencia:</label>
+      <input type="file" id="archivo" name="archivo" />
+
+      <button type="submit">Enviar Reporte</button>
+    </form>
+  </main>
+
+</body>
+</html>
