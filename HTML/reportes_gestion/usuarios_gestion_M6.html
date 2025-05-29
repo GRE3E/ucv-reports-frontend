@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion Reportes</title>
+    <link rel="stylesheet" href="/CSS/reportes_gestion/usuarios_gestion_M6.css">
+    <!-- Puedes usar Font Awesome o similar para íconos, aquí ejemplo con Unicode -->
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo"></div>
+        <ul>
+            <li  class="active"><span class="icon">👤</span> Gestion de Usuarios</li>
+            <li><span class="icon">📋</span> Gestion de Reportes</li>
+            <li><span class="icon">📥</span> Existencia de Entrada</li>
+            <li><span class="icon">📤</span> Existencia de Salida</li>
+            <li><span class="icon">🛠️</span> Productos Dañados</li>
+            <li><span class="icon">📦</span> Artículos Uso Actual</li>
+            <li><span class="icon">🚪</span> Exit</li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <div class="header-logo"></div>
+            <h1>Gestion Usuarios</h1>
+        </div>
+        <div class="search-bar">
+            <label>Buscar Usuario:</label>
+            <div class="search-controls">
+                <select>
+                    <option>Ordenar por Rol</option>
+                </select>
+                <input type="text" placeholder="Buscar por apellidos.......">
+                <button class="disabled-btn" onclick="abrirModalDeshabilitados()">
+                    <span class="icon">🚫</span> Usuarios Deshabilitados
+                </button>
+            </div>
+        </div>
+        <div class="table-container">
+            <div class="usuarios-box">
+                <table class="usuarios-table">
+                    <thead>
+                        <tr>
+                            <th><span class="icon">👤</span> Usuario</th>
+                            <th><span class="icon">📝</span> Apellidos</th>
+                            <th><span class="icon">🎓</span> Rol</th>
+                            <th><span class="icon">🔒</span> Contraseña</th>
+                            <th><span class="icon">⚙️</span> Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>alumno12</td>
+                            <td>1 2</td>
+                            <td>Alumno</td>
+                            <td>**********</td>
+                            <td>
+                                <button class="btn editar"><span class="icon">✏️</span> EDITAR</button>
+                                <button class="btn deshabilitar"><span class="icon">🚫</span> DESHABILITAR</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>danielob</td>
+                            <td>Ore Berna</td>
+                            <td>Alumno</td>
+                            <td>**********</td>
+                            <td>
+                                <button class="btn editar"><span class="icon">✏️</span> EDITAR</button>
+                                <button class="btn deshabilitar"><span class="icon">🚫</span> DESHABILITAR</button>
+                            </td>
+                        </tr>
+                        <!-- ...más filas aquí... -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    <!-- Modal de Usuarios Deshabilitados -->
+    <div id="modalDeshabilitados" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarModalDeshabilitados()">&times;</span>
+        <h2>Usuarios Deshabilitados</h2>
+        <table class="usuarios-table">
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Apellidos</th>
+              <th>Rol</th>
+              <th>Contraseña</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>angiexs</td>
+              <td>Ximena Santillan</td>
+              <td>Alumno</td>
+              <td>**********</td>
+              <td>
+                <button class="btn reactivar"><span class="icon">✏️</span> Reactivar</button>
+              </td>
+            </tr>
+            <!-- ...más filas aquí... -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="/JAVASCRIPT/usurio_gestion_M6.js"></script>
+</body>
+</html>
