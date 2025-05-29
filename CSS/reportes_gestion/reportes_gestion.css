@@ -1,0 +1,341 @@
+/* Reset básico */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f8f8f8;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 230px;
+    height: 100vh;
+    background: #0c1745;
+    color: #fff;
+    padding-top: 20px;
+    z-index: 10;
+}
+
+.logo {
+    width: 100%;
+    height: 60px;
+    background: url('logo.png') no-repeat center center;
+    background-size: 50px 50px;
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 18px 30px;
+    cursor: pointer;
+    font-size: 16px;
+    border-left: 4px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.sidebar ul li.active,
+.sidebar ul li:hover {
+    background: #18225a;
+    border-left: 6px solid #b30000;
+    font-weight: bold;
+}
+
+/* Main content */
+.main-content {
+    margin-left: 230px;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    background: #990000;
+    color: #fff;
+    padding: 15px 0 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: normal;
+}
+
+/* Barra superior de reportes */
+.reportes-bar {
+    background: #fff;
+    padding: 18px 40px 10px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bienvenida {
+    font-weight: bold;
+    font-size: 1.1em;
+    font-size: 1em;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.reportes-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.reportes-controls input[type="text"] {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 1em;
+    border: 1px solid black;
+    border-radius: 4px 0 0 4px;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.reportes-btn {
+    background: #ffe082;
+    color: #222;
+    border: none;
+    padding: 8 18px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    transition: background 0.2s;
+}
+.reportes-btn:hover {
+    background: #ffd54f;
+}
+
+/* Caja y tabla de reportes */
+.reportes-box {
+    background: #1a274d;
+    border-radius: 18px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    margin: 30px 0;
+    overflow: hidden;
+}
+
+.reportes-header {
+    background: #1a274d;      /* Azul oscuro */
+    color: #fff;
+    padding: 18px 30px 12px 30px;
+    font-size: 1.3em;
+    font-weight: bold;
+    border-bottom: 2px solid #b30000;
+}
+
+.reportes-table-container {
+    padding: 20px 40px 40px 40px; /* Igual que usuarios */
+}
+
+.reportes-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.reportes-table th, .reportes-table td {
+    padding: 16px 18px;
+    text-align: left;
+    font-size: 1em;
+}
+
+.reportes-table th {
+    background: #1a274d;
+    color: #fff;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.reportes-table tr:not(:last-child) td {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.reportes-table tr {
+    transition: background 0.2s;
+}
+
+.reportes-table tr:hover {
+    background: #f5f7fa;
+}
+
+/* Estado aprobado igual que usuarios */
+.estado.aprobado {
+    background: #27ae60;
+    color: #fff;
+    border-radius: 8px;
+    padding: 4px 14px;
+    font-size: 0.98em;
+    font-weight: bold;
+    margin-right: 8px;
+    display: inline-block;
+    border: none;
+}
+
+/* Botones de acción */
+.btn {
+    border: none;
+    border-radius: 8px;
+    padding: 7px 16px;
+    margin-right: 6px;
+    font-size: 0.97em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 8px rgba(26,39,77,0.07);
+}
+
+.btn.visualizar {
+    background: #2196f3;
+    color: #fff;
+    border: none;
+}
+.btn.visualizar:hover {
+    background: #1769aa;
+}
+
+.btn.desaprobar {
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+}
+.btn.desaprobar:hover {
+    background: #c0392b;
+}
+
+/* Modal estilos */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: auto;
+  background: rgba(26, 39, 77, 0.25);
+}
+
+.modal-content {
+  background: #444;
+  color: #fff;
+  margin: 80px auto;
+  padding: 24px 28px 18px 28px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(26,39,77,0.18);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-content label {
+  font-size: 1em;
+  margin-bottom: 6px;
+}
+
+.modal-content input[type="text"] {
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  font-size: 1em;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.btn.aceptar {
+  background: #2196f3;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 7px 22px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn.aceptar:hover {
+  background: #1769aa;
+}
+
+.btn.cancelar {
+  background: #888;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 7px 18px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn.cancelar:hover {
+  background: #555;
+}
+
+.close {
+  color: #fff;
+  position: absolute;
+  right: 18px;
+  top: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.close:hover { color: #b30000; }
+
+/* Responsive */
+@media (max-width: 900px) {
+    .main-content {
+        margin-left: 0;
+    }
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+    }
+    .reportes-box, .reportes-bar {
+        margin: 10px;
+        padding: 10px;
+    }
+    .reportes-table th, .reportes-table td {
+        padding: 10px 6px;
+        font-size: 0.95em;
+    }
+}
