@@ -6,10 +6,16 @@
   padding: 0;
 }
 
-body, html {
+html, body {
   height: 100%;
+  min-height: 100vh;
+  width: 100vw;
   font-family: Arial, sans-serif;
-  background: url('../auth/images/fondo.svg') center/cover no-repeat;
+  /* Asegura que el fondo cubra todo y sea responsive */
+  background: url('../auth/images/fondo.svg') center center / cover no-repeat fixed;
+  /* Elimina cualquier fondo blanco por defecto */
+  background-color: #000; /* O el color que prefieras de fallback */
+  overflow-x: hidden;
 }
 
 .login-container {
@@ -22,7 +28,7 @@ body, html {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-  background: rgba(255,255,255,0.8);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 /* Panel izquierdo */
@@ -253,7 +259,6 @@ body, html {
   }
 }
 
-/* ...código existente... */
 
-
+/* ...código existente... *
 
