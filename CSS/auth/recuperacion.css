@@ -1,0 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+
+html, body {
+  height: 100%;
+  min-height: 100vh;
+  width: 100vw;
+  font-family: Arial, sans-serif;
+  /* Asegura que el fondo cubra todo y sea responsive */
+  background: url('../auth/images/fondo.svg') center center / cover no-repeat fixed;
+  /* Elimina cualquier fondo blanco por defecto */
+  background-color: #000; /* O el color que prefieras de fallback */
+  overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+.reset-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh; /* Asegura el centrado vertical */
+}
+
+.reset-box {
+  background: rgba(255,255,255,0.95);
+  padding: 40px 30px;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+  transition: box-shadow 0.3s;
+  animation: fadeInUp 0.7s cubic-bezier(.39,.575,.565,1) both;
+}
+
+.reset-box:hover {
+  box-shadow: 0 12px 40px 0 rgba(31,38,135,0.25);
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+form input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #f8f9fa;
+}
+
+form input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.15);
+  outline: none;
+}
+h1 {
+  font-size: 22px;
+  color: #000;
+  margin-bottom: 25px;
+}
+
+form input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  font-size: 16px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.10);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover {
+  background: linear-gradient(90deg, #0056b3 0%, #007bff 100%);
+  box-shadow: 0 4px 16px rgba(0,123,255,0.18);
+}
