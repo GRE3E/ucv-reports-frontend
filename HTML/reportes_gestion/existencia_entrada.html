@@ -5,11 +5,15 @@
     <title>Existencia Entrada</title>
     <link rel="stylesheet" href="../../CSS/reportes_gestion/existencia_entrada.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="image/png" href="/imagenes/logo_ucv_modal.png">
+
     <!-- Puedes usar Font Awesome o similar para íconos, aquí ejemplo con Unicode -->
 </head>
 <body>
     <div class="sidebar">
-        <div class="logo"></div>
+        <div class="logo">
+          <img src="/imagenes/logo_ucv.png" alt="logoUcv">
+        </div>
         <ul>
             <li><a href="gestion_usuarios.html"><i class="fas fa-users"></i> Gestion de Usuarios</a></li>
             <li><a href="reporte_gestion.html"><i class="fas fa-chart-bar"></i> Gestion de Reportes</a></li>
@@ -23,10 +27,13 @@
     <div class="main-content">
         <div class="header">
             <div class="header-logo"></div>
-            <h1>Gestion Reportes</h1>
+            <h1>Gestión de Reportes</h1>
         </div>
         <div class="productos-nuevos-section">
-            <button class="btn productos-nuevos-btn">+ Productos Nuevos</button>
+          <button class="btn productos-nuevos-btn">
+          <img src="/imagenes/addIcon.png" alt="icono nuevo" class="icono-btn">
+          Productos Nuevos
+          </button>
         </div>
         <div class="productos-grid-container">
             <!-- Aquí irán las tarjetas de productos -->
@@ -69,6 +76,10 @@
     <div id="modalAgregarProducto" class="modal">
       <div class="modal-content">
         <span class="close" onclick="cerrarModalAgregarProducto()">&times;</span>
+        <div class="icono-container-modal">
+          <img src="/imagenes/logo_ucv_modal.png" class="icono-btn-modal" alt="report_LOGO-ucv">
+        </div>
+    
         <h2>Agregar Nuevo Producto</h2>
         <form id="formAgregarProducto">
           <div class="form-group">
@@ -103,10 +114,13 @@
           </div>
           <div class="form-group">
             <label for="urlImagen">URL de la Imagen:</label>
-            <input type="text" id="urlImagen" name="urlImagen" placeholder="Ingrese la URL de la imagen del producto">
+            <input type="file" id="urlImagen" name="urlImagen" placeholder="Ingrese la URL de la imagen del producto">
           </div>
           <div class="form-actions">
-            <button type="submit" class="btn guardar">Guardar</button>
+            <button type="submit" class="btn guardar">
+              <img src="/imagenes/saveIcon.png" alt="save_Icon" class="icono-btn">
+              Guardar
+            </button>
           </div>
         </form>
       </div>

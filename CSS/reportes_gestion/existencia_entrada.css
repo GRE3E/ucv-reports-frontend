@@ -1,26 +1,33 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f8f8f8;
+    background: #e8e8e8;
 }
 
 .sidebar {
     position: fixed;
     left: 0;
     top: 0;
+    right: 0;
     width: 230px;
-    height: 100vh;
+    height: 100%;
     background: #0c1745;
     color: #fff;
     padding-top: 20px;
 }
 
-.logo {
-    width: 100%;
-    height: 60px;
+.logo{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    user-select: none;
+}
+
+.logo img{
+    width: auto;
+    height: 70px;
     background: url('logo.png') no-repeat center center;
-    background-size: 50px 50px;
-    margin-bottom: 30px;
+    background-size: 60px 60px;
 }
 
 .sidebar ul {
@@ -41,7 +48,7 @@ body {
 .sidebar ul li.active,
 .sidebar ul li:hover {
     background: #18225a;
-    border-left: 6px solid #b30000;
+    border-left: 6px solid #c01932;
     font-weight: bold;
 }
 
@@ -69,10 +76,13 @@ body {
 }
 
 .header {
-    background: #990000;
+    background: rgb(193, 26, 51);
     color: #fff;
-    padding: 15px 0 10px 0;
+    padding: 20px 0 20px 0;
     display: flex;
+    user-select: none;
+    border-radius: 15px;
+    margin: 10px 40px 10px 40px;
     align-items: center;
     justify-content: center;
     gap: 20px;
@@ -80,8 +90,8 @@ body {
 
 .header h1 {
     margin: 0;
-    font-size: 2.5em;
-    font-weight: normal;
+    font-size: 2em;
+    font-weight: 600;
 }
 
 .header .logo {
@@ -288,15 +298,15 @@ tr:nth-child(even) {
   left: 0; top: 0;
   width: 100%; height: 100%;
   overflow: auto;
-  background: rgba(26, 39, 77, 0.25);
+  background: rgb(26, 39, 77);
 }
 
 .modal-content {
   background: #fff;
-  margin: 60px auto;
+  margin: 20px auto;
   padding: 30px 30px 20px 30px;
   border-radius: 12px;
-  width: 90%;
+  width: 80%;
   max-width: 700px;
   box-shadow: 0 8px 32px rgba(26,39,77,0.18);
   position: relative;
@@ -341,55 +351,78 @@ tr:nth-child(even) {
 }
 
 .productos-nuevos-section {
-    padding: 20px 40px;
-    background: #f8f8f8;
-    border-bottom: 1px solid #e0e0e0;
+    padding: 5px 40px 20px;
+    background: #e8e8e8;
+
 }
 
 .productos-nuevos-btn {
-    background: #007bff;
-    color: #fff;
+    background: #f9f9f9;
+    color: #101010;
     border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
+    gap: 1.2em;
+    border-radius: 15px;
+    padding: 20px 40px 20px 20px;
     font-size: 1em;
-    font-weight: bold;
+    font-weight: normal;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: transform 0.2s ease-in-out;
+}
+
+.icono-btn {
+    width: 30px;
+    height: 30px;
+}
+
+.icono-container-modal{
+    justify-content: center;
+    display: flex;
+    height: 6em;
+}
+
+.icono-btn-modal {
+    width: 5em;
+    height: 5em;
+    justify-items: center;
+    color: #110033;
+    margin-bottom: 20px;
 }
 
 .productos-nuevos-btn:hover {
-    background: #0056b3;
+    transform: scale(1.03);
+
 }
 
 .productos-grid-container {
-    padding: 20px 40px;
+    padding: 30px 50px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    background: #f8f8f8;
+    gap: 30px;
+    background: #efefef;
 }
 
 /* Estilos mejorados para las tarjetas de producto */
 .producto-card {
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     overflow: hidden;
+    user-select: none;
     display: flex;
+    cursor:pointer ;
+    align-items: center;
     flex-direction: column;
     transition: transform 0.2s ease-in-out;
 }
 
 .producto-card:hover {
-    transform: translateY(-5px);
+    transform: scale(1.03);
 }
 
 .producto-card img {
-    width: 100%;
-    height: 180px;
+    width: 50%;
+    height: 200px;
     object-fit: cover;
-    border-bottom: 1px solid #eee;
 }
 
 .producto-card-info {
@@ -414,10 +447,12 @@ tr:nth-child(even) {
 }
 
 .producto-card .btn.comprar {
-    width: 100%;
-    background: #007bff;
-    color: #fff;
-    border-radius: 0 0 8px 8px;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    background: #3950af;
+    color: #fff;    
+    border-radius: 10px;
     padding: 10px;
     text-align: center;
     font-weight: bold;
@@ -425,11 +460,18 @@ tr:nth-child(even) {
     transition: background 0.2s;
     border: none;
     margin-top: auto;
+    margin-bottom: 20px;
     font-size: 1em;
+    text-decoration: none;
 }
 
 .producto-card .btn.comprar:hover {
-    background: #0056b3;
+    background: #0c1745;
+}
+
+.producto-card .btn.comprar .icono-btn{
+    width: 20px;
+    height: 20px;
 }
 
 /* Estilos para la tabla dentro del modal */
@@ -448,17 +490,6 @@ tr:nth-child(even) {
 
 .modal .usuarios-table th {
     background-color: #f2f2f2;
-}
-
-/* Estilos del modal */
-.modal-content {
-    margin: 60px auto;
-    padding: 30px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 700px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    background-color: #fff;
 }
 
 .modal {
@@ -531,7 +562,6 @@ tr:nth-child(even) {
     }
 
     .header {
-        flex-direction: column;
         text-align: center;
         padding: 15px;
     }
@@ -542,7 +572,7 @@ tr:nth-child(even) {
 
     .productos-nuevos-section,
     .productos-grid-container {
-        padding: 15px;
+        padding: 10px 10px 10px 40px;
     }
 
     .productos-grid-container {
@@ -558,7 +588,7 @@ tr:nth-child(even) {
 
 #modalAgregarProducto h2 {
     text-align: center;
-    color: #333;
+    color: #110033;
     margin-top: 0;
     margin-bottom: 20px;
 }
@@ -568,10 +598,11 @@ tr:nth-child(even) {
 }
 
 .form-group label {
+    font-size: 15px;
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
-    color: #555;
+    font-weight: bolder;
+    color: #0c0031;
 }
 
 .form-group input[type="text"],
@@ -592,31 +623,20 @@ tr:nth-child(even) {
 }
 
 .form-actions .btn.guardar {
-    background: #28a745; /* Color verde para el botón Guardar */
+    background: #129f88; /* Color verde para el botón Guardar */
     color: #fff;
     border: none;
+    user-select: none;
     border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 1em;
+    padding: 10px 30px;
+    font-size: 1.3em;
     font-weight: bold;
     cursor: pointer;
     transition: background 0.2s;
 }
 
 .form-actions .btn.guardar:hover {
-    background: #218838;
-}
-
-/* Asegurar que el modal aún se vea bien con los nuevos estilos */
-.modal-content {
-    /* Mantener estilos existentes y ajustar si es necesario */
-    margin: 60px auto;
-    padding: 30px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 700px; /* Ajustar si es necesario para el modal principal */
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    background-color: #fff;
+    background: #0e6d5d;
 }
 
 .modal {

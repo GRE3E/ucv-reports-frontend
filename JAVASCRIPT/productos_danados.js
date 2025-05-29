@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Datos de los productos dañados
     const productos = [
         {
-            imagen: '/ucv-reports-frontend/imagenes/problema monitor.jpg', // Imagen del monitor dañado
+            imagen: '/imagenes/problema monitor.jpg', // Imagen del monitor dañado
             tipo: 'Monitor Dañado',
             cantidad: 1
         },
         {
-            imagen: '/ucv-reports-frontend/imagenes/problema silla.jpg', // Imagen de la silla dañada
+            imagen: '/imagenes/problema silla.jpg', // Imagen de la silla dañada
             tipo: 'Silla Dañada',
             cantidad: 1
         },
@@ -35,7 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h3>Tipo: ${producto.tipo}</h3>
                 <p>Cantidad: ${producto.cantidad}</p>
             </div>
-            <button class="btn informe" data-producto-index="${index}">📄 Informe</button> <!-- Botón Informe -->
+            <button class="btn informe" data-producto-index="${index}"> 
+                <img src="/imagenes/reportIcon.png" alt="Carrito" class="icono-btn">
+                Informe
+            </button> <!-- Botón Informe -->
         `;
 
         productosGridContainer.appendChild(productoCard);

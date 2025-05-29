@@ -8,19 +8,26 @@ body {
     position: fixed;
     left: 0;
     top: 0;
+    right: 0;
     width: 230px;
-    height: 100vh;
+    height: 100%;
     background: #0c1745;
     color: #fff;
     padding-top: 20px;
 }
 
-.logo {
-    width: 100%;
-    height: 60px;
+.logo{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    user-select: none;
+}
+
+.logo img{
+    width: auto;
+    height: 70px;
     background: url('logo.png') no-repeat center center;
-    background-size: 50px 50px;
-    margin-bottom: 30px;
+    background-size: 60px 60px;
 }
 
 .sidebar ul {
@@ -41,7 +48,7 @@ body {
 .sidebar ul li.active,
 .sidebar ul li:hover {
     background: #18225a;
-    border-left: 6px solid #b30000;
+    border-left: 6px solid #c01932;
     font-weight: bold;
 }
 
@@ -69,10 +76,13 @@ body {
 }
 
 .header {
-    background: #990000;
+    background: rgb(193, 26, 51);
     color: #fff;
-    padding: 15px 0 10px 0;
+    padding: 20px 0 20px 0;
     display: flex;
+    user-select: none;
+    border-radius: 15px;
+    margin: 10px 40px 10px 40px;
     align-items: center;
     justify-content: center;
     gap: 20px;
@@ -80,8 +90,8 @@ body {
 
 .header h1 {
     margin: 0;
-    font-size: 2.5em;
-    font-weight: normal;
+    font-size: 2em;
+    font-weight: 600;
 }
 
 .header .logo {
@@ -100,7 +110,7 @@ body {
 .productos-nuevos-btn {
     background: #007bff;
     color: #fff;
-    border: none;
+    border: none;   
     border-radius: 5px;
     padding: 10px 20px;
     font-size: 1em;
@@ -114,34 +124,37 @@ body {
 }
 
 .productos-grid-container {
-    padding: 20px 40px;
+    padding: 30px 50px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 20px;
-    background: #f8f8f8;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    background: #efefef;
 }
 
 /* Estilos mejorados para las tarjetas de producto */
 .producto-card {
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     overflow: hidden;
+    user-select: none;
     display: flex;
+    cursor:pointer ;
+    align-items: center;
     flex-direction: column;
     transition: transform 0.2s ease-in-out;
 }
 
 .producto-card:hover {
-    transform: translateY(-5px);
+    transform: scale(1.03);
 }
 
 .producto-card img {
-    width: 100%;
-    height: 180px; 
-    object-fit: cover; 
-    border-bottom: 1px solid #eee;
+    width: 50%;
+    height: 200px;
+    object-fit: cover;
 }
+
 
 .producto-card-info {
     padding: 15px;
@@ -185,10 +198,12 @@ body {
 
 /* Estilo para el botón Informe */
 .producto-card .btn.informe {
-    width: 100%;
-    background: #00bcd4; /* Un tono celeste */
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    background: #00b6ca;
     color: #fff;
-    border-radius: 0 0 8px 8px;
+    border-radius: 10px;
     padding: 10px;
     text-align: center;
     font-weight: bold;
@@ -196,8 +211,16 @@ body {
     transition: background 0.2s;
     border: none;
     margin-top: auto;
-    font-size: 1em;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    text-decoration: none;
 }
+
+.producto-card .btn.informe .icono-btn {
+    width: 20px;
+    height: 20px;
+}
+
 
 .producto-card .btn.informe:hover {
     background: #0097a7; /* Un tono celeste más oscuro al pasar el ratón */
