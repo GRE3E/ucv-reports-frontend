@@ -4,21 +4,24 @@
     <meta charset="UTF-8">
     <title>Gestion Reportes</title>
     <link rel="stylesheet" href="/CSS/reportes_gestion/usuarios_gestion_M6.css">
-    <!-- Puedes usar Font Awesome o similar para íconos, aquí ejemplo con Unicode -->
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
-    <div class="sidebar">
+    <!-- ...existing code... -->
+ <div class="sidebar">
         <div class="logo"></div>
         <ul>
-            <li  class="active"><span class="icon">👤</span> Gestion de Usuarios</li>
-            <li><span class="icon">📋</span> Gestion de Reportes</li>
-            <li><span class="icon">📥</span> Existencia de Entrada</li>
-            <li><span class="icon">📤</span> Existencia de Salida</li>
-            <li><span class="icon">🛠️</span> Productos Dañados</li>
-            <li><span class="icon">📦</span> Artículos Uso Actual</li>
-            <li><span class="icon">🚪</span> Exit</li>
+            <li><a href="gestion_usuarios.html"><i class="fas fa-users"></i> Gestion de Usuarios</a></li>
+            <li><a href="reporte_gestion.html"><i class="fas fa-chart-bar"></i> Gestion de Reportes</a></li>
+            <li class="active"><a href="existencia_entrada.html"><i class="fas fa-file-import"></i> Existencia de Entrada</a></li>
+            <li><a href="existencia_salida.html"><i class="fas fa-file-export"></i> Existencia de Salida</a></li>
+            <li><a href="productos_danados.html"><i class="fas fa-exclamation-triangle"></i> Productos Dañados</a></li>
+            <li><a href="articulos_uso_actual.html"><i class="fas fa-cogs"></i> Artículos Uso Actual</a></li>
+            <li><a href="exit.html"><i class="fas fa-sign-out-alt"></i> Exit</a></li>
         </ul>
     </div>
+<!-- ...existing code... -->
     <div class="main-content">
         <div class="header">
             <div class="header-logo"></div>
