@@ -1,0 +1,283 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+body {
+  background: url('images/regosterfondo.svg') center center / cover no-repeat fixed;
+  background-color: #000;
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  width: 90%;
+  max-width: 600px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+#loading-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  z-index: 10;
+  transition: transform 1.5s ease-in-out;
+  border-radius: 20px;
+}
+.form-box p {
+  margin-bottom: 25px;
+  color: #111;           /* Negro intenso */
+  text-align: center;
+  font-weight: 700;      /* Más negrita */
+  font-size: 1.08em;     /* Opcional: un poco más grande */
+}
+#loading-screen.slide-away {
+  transform: translateX(100%);
+}
+
+.form-box {
+  padding: 40px;
+  background-color: transparent;
+  border-radius: 20px;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.form-box h1 {
+  color: #007bff;
+  font-size: 2.5em;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-box p {
+  margin-bottom: 25px;
+  color: #555;
+  text-align: center;
+}
+
+.input-group {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  flex: 1;
+  padding: 15px;
+  border: 2px solid #e1e1e1;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.input-group input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+  outline: none;
+}
+
+select {
+  width: 220px;           /* Igual que los botones, más fino */
+  padding: 8px 12px;      /* Menos alto y más cómodo */
+  margin: 0 auto 18px auto; /* Centrado y separación abajo */
+  border-radius: 8px;
+  border: 2px solid #e1e1e1;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+  outline: none;
+}
+
+button {
+  width: 220px;;
+  padding:  10px 0;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  border: none;
+  color: white;
+  margin: 0 auto; 
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  display: block;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+   font-size: 16px;        /* Un poco más pequeño */
+  border-radius: 8px;
+    position: relative;
+  overflow: hidden;
+}
+button + .registro-btn {
+  margin-top: 16px;       /* Separación entre los botones */
+}
+/* Modificamos el estado active para que sea más notorio */
+button:active {
+    background: linear-gradient(135deg, #02eaf6 0%, #0ae3d4c5 100%) !important; /* Añadimos !important */
+    transform: scale(0.95);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
+    transition: none; /* Eliminamos la transición para efecto inmediato */
+}
+
+/* Asegúrate de que hover no interfiera con active */
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+    background: linear-gradient(135deg, #0056b3 0%, #004094 100%);
+}
+.registro-btn {
+  width: 220px;
+  padding: 10px 0;
+  margin-top: 18px; /* Separación entre los botones */
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+.registro-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+  background: linear-gradient(135deg, #0056b3 0%, #004094 100%);
+}
+
+.registro-btn:active {
+  background: linear-gradient(135deg, #00c3ff 0%, #00f7ff 100%) !important;
+  transform: scale(0.95);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
+  transition: none;
+}
+button:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: skewX(-15deg);
+  animation: shine 0.5s;
+}
+
+.registro {
+  display: inline-block;
+  text-align: center;
+  margin-top: 25px;
+  color: #007bff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  width: 100%;
+}
+
+.registro:hover {
+  color: #0056b3;
+  transform: translateY(-1px);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .input-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .input-group input {
+    width: 100%;
+    margin-bottom: 0;
+  }
+  
+  .form-box {
+    padding: 30px;
+  }
+  
+  .form-box h1 {
+    font-size: 2em;
+  }
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff001e);
+  width: 50px;
+  position: relative;
+  animation: expandContract 2s ease-in-out infinite;
+}
+
+.line.left {
+  background: linear-gradient(90deg, #007bff, transparent);
+}
+
+.line.right {
+  background: linear-gradient(90deg, transparent, #ff0000);
+}
+
+@keyframes expandContract {
+  0%, 100% {
+    width: 50px;
+  }
+  50% {
+    width: 100px;
+  }
+}
+
+/* Ajusta el título para que se vea mejor con las líneas */
+.form-box h1 {
+  margin: 0;
+  white-space: nowrap;
+}
