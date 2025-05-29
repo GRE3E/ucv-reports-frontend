@@ -4,32 +4,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // Datos de ejemplo de productos (reemplazar con datos reales y rutas de imagen correctas)
     const productos = [
         {
-            imagen: '/ucv-reports-frontend/imagenes/ordenador.jpg',
+            imagen: '/imagenes/ordenador.jpg',
             tipo: 'Ordenador',
             cantidad: 16
         },
         {
-            imagen: '/ucv-reports-frontend/imagenes/proyector.jpg',
+            imagen: '/imagenes/proyector.jpg',
             tipo: 'Proyector',
             cantidad: 5
         },
         {
-            imagen: '/ucv-reports-frontend/imagenes/escritorios.jpg',
+            imagen: '/imagenes/escritorios.jpg',
             tipo: 'Escritorio',
             cantidad: 9
         },
         {
-            imagen: '/ucv-reports-frontend/imagenes/pizarra.jpg',
+            imagen: '/imagenes/pizarra.jpg',
             tipo: 'Pizarra Acrilica',
             cantidad: 1
         },
         {
-            imagen: '/ucv-reports-frontend/imagenes/ventilador.jpg',
+            imagen: '/imagenes/ventilador.jpg',
             tipo: 'Ventilador',
             cantidad: 15
         },
         {
-            imagen: '/ucv-reports-frontend/imagenes/mouse.jpg',
+            imagen: '/imagenes/mouse.jpg',
             tipo: 'Mouse',
             cantidad: 50
         },
@@ -45,7 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h3>Tipo: ${producto.tipo}</h3>
                 <p>Cantidad: ${producto.cantidad}</p>
             </div>
-            <button class="btn comprar">🛒 Comprar</button>
+            <button class="btn comprar">
+                <img src="/imagenes/cartIcon.png" alt="Carrito" class="icono-btn">
+                Comprar
+            </button>
         `;
 
         productosGridContainer.appendChild(productoCard);
