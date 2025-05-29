@@ -1,0 +1,230 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+body {
+  background: url('images/recuperar.svg') center center / cover no-repeat fixed;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.recovery-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.recovery-box {
+  background: rgba(255,255,255,0.92);
+  padding: 48px 32px 36px 32px;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 410px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 123, 255, 0.10), 0 2px 8px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 1s cubic-bezier(.39,.575,.565,1) both;
+  z-index: 1;
+}
+
+/* Borde degradado elegante */
+recovery-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 52px;
+  padding: 37px; /* Borde más grueso */
+  background: conic-gradient(
+    #007bff,
+    #00c6ff,
+    #fff,
+    #007bff 90%,
+    #007bff
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+  animation: spin-border 3s linear infinite;
+}
+
+@keyframes spin-border {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Si tu navegador no soporta mask-composite, puedes usar box-shadow extra */
+.recovery-box {
+  box-shadow:
+    0 8px 32px rgba(0, 123, 255, 0.10),
+    0 2px 8px rgba(0,0,0,0.08),
+    0 0 0 3px rgba(0,123,255,0.10); /* Borde exterior sutil */
+}
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;      /* Hace la imagen circular */
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.10);
+  background: #fff;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1 {
+  font-size: 2em;
+  color: #007bff;
+  margin-bottom: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(0,123,255,0.07);
+}
+
+.subtitle {
+  font-size: 1.08em;
+  color: #222;
+  margin-bottom: 28px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+form input {
+  width: 100%;
+  padding: 13px 14px;
+  margin-bottom: 16px;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.95);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 1px 4px rgba(0,123,255,0.04);
+}
+
+form input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 2px #007bff33;
+}
+
+.btn {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.08);
+}
+
+.btn.primary {
+  background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+  color: white;
+}
+
+.btn.primary:hover {
+  background: linear-gradient(90deg, #0056b3 0%, #00aaff 100%);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 18px rgba(0,123,255,0.15);
+}
+
+.btn.secondary {
+  background: linear-gradient(90deg, #e3e3e3 0%, #f7f7f7 100%);
+  color: #007bff;
+  border: 1.5px solid #007bff;
+}
+
+.btn.secondary:hover {
+  background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+  color: #fff;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 18px rgba(0,123,255,0.10);
+}
+
+@media (max-width: 500px) {
+  .recovery-box {
+    padding: 28px 8vw 24px 8vw;
+    max-width: 98vw;
+  }
+  .logo {
+    width: 60px;
+  }
+  h1 {
+    font-size: 1.3em;
+  }
+}
+
+.input-icon {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.95);
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  padding: 0 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(0,123,255,0.04);
+  font-size: 15px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  height: 48px;
+}
+
+.input-icon i {
+  color: #007bff;
+  font-size: 1.2em;
+  margin-right: 12px;
+  min-width: 22px;
+  text-align: center;
+}
+
+.input-icon input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1em;
+  flex: 1;
+  padding: 0;
+  margin-left: 7px; /* Aumenta el espacio entre icono y texto */
+  height: 100%;
+}
+
+.input-icon input::placeholder {
+  color: #888;
+  opacity: 1;
+}
+
+.input-icon input:focus {
+  outline: none;
+}
+
+.input-icon:focus-within {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px #007bff33;
+}

@@ -246,10 +246,18 @@ html, body {
   /* Elimina display:flex aquí */
 }
 
+.help-links a {
+  color: #ff0808;
+  text-decoration: none;
+  font-weight: 700;      /* Más negrita */
+  opacity: 1;
+  font-size: 1.18em;     /* Más grande */
+  transition: text-decoration 0.2s, color 0.2s;
+}
+
 .help-links a:hover {
   text-decoration: underline;
-  color: #0026ff; /* Amarillo llamativo al pasar mouse */
-  /* Elimina display:flex, flex-direction, gap, align-items, font-size aquí */
+  color: #007bff;
 }
 .help-links .help-divider {
   display: block;
@@ -368,4 +376,51 @@ html, body {
   display: block;
   pointer-events: none;
 }
-/* ...código existente... */
+
+
+.input-icon {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.95);
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  padding: 0 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(0,123,255,0.04);
+  font-size: 15px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  height: 48px;
+}
+
+.input-icon i {
+  color: #007bff;
+  font-size: 1.2em;
+  margin-right: 12px;
+  min-width: 22px;
+  text-align: center;
+}
+
+.input-icon input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1em;
+  flex: 1;
+  padding: 0;
+  margin-left: 2px;
+  height: 100%;
+}
+
+.input-icon input::placeholder {
+  color: #888;
+  opacity: 1;
+}
+
+.input-icon input:focus {
+  outline: none;
+}
+
+.input-icon:focus-within {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px #007bff33;
+}
