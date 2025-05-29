@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Existencia Entrada</title>
+    <link rel="stylesheet" href="../../CSS/reportes_gestion/existencia_entrada.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Puedes usar Font Awesome o similar para íconos, aquí ejemplo con Unicode -->
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo"></div>
+        <ul>
+            <li><a href="gestion_usuarios.html"><i class="fas fa-users"></i> Gestion de Usuarios</a></li>
+            <li><a href="reporte_gestion.html"><i class="fas fa-chart-bar"></i> Gestion de Reportes</a></li>
+            <li class="active"><a href="existencia_entrada.html"><i class="fas fa-file-import"></i> Existencia de Entrada</a></li>
+            <li><a href="existencia_salida.html"><i class="fas fa-file-export"></i> Existencia de Salida</a></li>
+            <li><a href="productos_danados.html"><i class="fas fa-exclamation-triangle"></i> Productos Dañados</a></li>
+            <li><a href="articulos_uso_actual.html"><i class="fas fa-cogs"></i> Artículos Uso Actual</a></li>
+            <li><a href="exit.html"><i class="fas fa-sign-out-alt"></i> Exit</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <div class="header-logo"></div>
+            <h1>Gestion Reportes</h1>
+        </div>
+        <div class="productos-nuevos-section">
+            <button class="btn productos-nuevos-btn">+ Productos Nuevos</button>
+        </div>
+        <div class="productos-grid-container">
+            <!-- Aquí irán las tarjetas de productos -->
+        </div>
+    </div>
+
+    <!-- Modal de Usuarios Deshabilitados -->
+    <div id="modalDeshabilitados" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarModalDeshabilitados()">&times;</span>
+        <h2>Usuarios Deshabilitados</h2>
+        <table class="usuarios-table">
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Apellidos</th>
+              <th>Rol</th>
+              <th>Contraseña</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>angiexs</td>
+              <td>Ximena Santillan</td>
+              <td>Alumno</td>
+              <td>**********</td>
+              <td>
+                <button class="btn reactivar"><span class="icon">✏️</span> Reactivar</button>
+              </td>
+            </tr>
+            <!-- ...más filas aquí... -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="../../JAVASCRIPT/existencia_entrada.js"></script>
+
+    <!-- Nuevo Modal para Agregar Producto -->
+    <div id="modalAgregarProducto" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarModalAgregarProducto()">&times;</span>
+        <h2>Agregar Nuevo Producto</h2>
+        <form id="formAgregarProducto">
+          <div class="form-group">
+            <label for="articulo">Artículo:</label>
+            <select id="articulo" name="articulo">
+              <option value="">Seleccione un artículo</option>
+              <option value="ordenador">Ordenador</option>
+              <option value="proyector">Proyector</option>
+              <option value="escritorio">Escritorio</option>
+              <option value="otro">Otro (Especificar)</option>
+            </select>
+          </div>
+           <div class="form-group" id="otroArticuloGroup" style="display: none;">
+            <label for="otroArticulo">Especificar Artículo:</label>
+            <input type="text" id="otroArticulo" name="otroArticulo">
+          </div>
+          <div class="form-group">
+            <label for="codigoProducto">Código del Producto:</label>
+            <input type="text" id="codigoProducto" name="codigoProducto" placeholder="Ingrese el código del producto">
+          </div>
+          <div class="form-group">
+            <label for="nombreProducto">Nombre del Producto:</label>
+            <input type="text" id="nombreProducto" name="nombreProducto" placeholder="Ingrese el nombre del producto">
+          </div>
+          <div class="form-group">
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" name="precio" placeholder="Ingrese el precio del producto">
+          </div>
+          <div class="form-group">
+            <label for="cantidad">Cantidad de Registros:</label>
+            <input type="number" id="cantidad" name="cantidad" placeholder="Ingrese la cantidad de registros a generar">
+          </div>
+          <div class="form-group">
+            <label for="urlImagen">URL de la Imagen:</label>
+            <input type="text" id="urlImagen" name="urlImagen" placeholder="Ingrese la URL de la imagen del producto">
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn guardar">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+</body>
+</html>
