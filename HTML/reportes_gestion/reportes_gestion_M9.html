@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestion Reportes</title>
-    <link rel="stylesheet" href="/CSS/reportes_gestion/usuarios_gestion_M6.css">
+    <link rel="stylesheet" href="/CSS/reportes_gestion/reportes_gestion.css">
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
@@ -13,9 +13,9 @@
       <div class="sidebar">
         <div class="logo"></div>
         <ul>
-            <li><a href="gestion_usuarios.html"><i class="fas fa-users"></i> Gestion de Usuarios</a></li>
-            <li><a href="reporte_gestion.html"><i class="fas fa-chart-bar"></i> Gestion de Reportes</a></li>
-            <li class="active"><a href="existencia_entrada.html"><i class="fas fa-file-import"></i> Existencia de Entrada</a></li>
+            <li><a href="usuarios_gestion_M6.html"><i class="fas fa-users"></i> Gestion de Usuarios</a></li>
+            <li ><a href="reportes_gestion_M9.html"><i class="fas fa-chart-bar"></i> Gestion de Reportes</a></li>
+            <li ><a href="existencia_entrada.html"><i class="fas fa-file-import"></i> Existencia de Entrada</a></li>
             <li><a href="existencia_salida.html"><i class="fas fa-file-export"></i> Existencia de Salida</a></li>
             <li><a href="productos_danados.html"><i class="fas fa-exclamation-triangle"></i> Productos Dañados</a></li>
             <li><a href="articulos_uso_actual.html"><i class="fas fa-cogs"></i> Artículos Uso Actual</a></li>
@@ -32,7 +32,7 @@
             </div>
             <div class="reportes-controls">
                 <input type="text" placeholder="Buscar...">
-                <button class="reportes-btn"><span class="icon">⚠️</span> Reportes</button>
+                <button class="reportes-btn" onclick="abrirModalReportes()"><span class="icon">⚠️</span> Reportes</button>
             </div>
         </div>
         <!-- Tabla de Gestión de Reportes -->
@@ -53,11 +53,10 @@
                             <td>Pabellon B Piso 3 Aula 312</td>
                             <td>2024-07-11 17:23:34</td>
                             <td>
-                                <span class="estado aprobado">✔ Aprobar Reporte</span>
+                                <button class="btn aprobar">✔ Aprobar Reporte</button>
                                 <button class="btn desaprobar" onclick="abrirModalDesaprobar()">
     <span class="icon">⛔</span> Desaprobar Reporte
 </button>
-                                <button class="btn visualizar"><span class="icon">👁️</span> Visualizar</button>
                             </td>
                         </tr>
                         <tr>
@@ -65,11 +64,10 @@
                             <td>Pabellon B Piso 3 Aula 319</td>
                             <td>2024-07-11 17:23:57</td>
                             <td>
-                                <span class="estado aprobado">✔ Aprobar Reporte</span>
+                                <button class="btn aprobar">✔ Aprobar Reporte</button>
                                 <button class="btn desaprobar" onclick="abrirModalDesaprobar()">
     <span class="icon">⛔</span> Desaprobar Reporte
 </button>
-                                <button class="btn visualizar"><span class="icon">👁️</span> Visualizar</button>
                             </td>
                         </tr>
                         <tr>
@@ -77,11 +75,10 @@
                             <td>Pabellon B Piso 9 Laboratorio 909</td>
                             <td>2024-07-11 17:25:14</td>
                             <td>
-                                <span class="estado aprobado">✔ Aprobar Reporte</span>
+                                <button class="btn aprobar">✔ Aprobar Reporte</button>
                                 <button class="btn desaprobar" onclick="abrirModalDesaprobar()">
     <span class="icon">⛔</span> Desaprobar Reporte
 </button>
-                                <button class="btn visualizar"><span class="icon">👁️</span> Visualizar</button>
                             </td>
                         </tr>
                         <!-- ...más filas aquí... -->
@@ -103,6 +100,96 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal de Reportes Desaprobados -->
+<div id="modalReportes" class="modal">
+  <div class="modal-content modal-reportes">
+    <span class="close" onclick="cerrarModalReportes()">&times;</span>
+    <h2>Reportes Desaprobados</h2>
+    <div class="modal-table-container">
+      <table class="modal-table">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Lugar del Problema</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>anglexs</td>
+            <td>Pabellon B Piso 3 Aula 320</td>
+            <td>2024-06-28 08:55:02</td>
+            <td>Desaprobado</td>
+            <td><button class="btn observar">👁️ Observar</button></td>
+          </tr>
+          <tr>
+            <td>anglexs</td>
+            <td>Pabellon B Piso 3 Aula 312</td>
+            <td>2024-06-28 09:04:04</td>
+            <td>Desaprobado</td>
+            <td><button class="btn observar">👁️ Observar</button></td>
+          </tr>
+          <tr>
+            <td>anglexs</td>
+            <td>Pabellon B Piso 3 Aula 313</td>
+            <td>2024-07-04 21:15:52</td>
+            <td>Resuelto</td>
+            <td><button class="btn observar">👁️ Observar</button></td>
+          </tr>
+          <tr>
+            <td>anglexs</td>
+            <td>Pabellon B Piso 3 Aula 318</td>
+            <td>2024-07-05 08:58:10</td>
+            <td>Resuelto</td>
+            <td><button class="btn observar">👁️ Observar</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Detalle de Reporte -->
+<div id="modalDetalleReporte" class="modal">
+  <div class="modal-content modal-detalle-reporte">
+    <span class="close" onclick="cerrarModalDetalleReporte()">&times;</span>
+    <h3>Detalles del Reporte</h3>
+    <div class="detalle-info">
+      <div><b>Facultad:</b> Ingeniería y Arquitectura</div>
+      <div><b>Turno:</b> Mañana</div>
+      <div><b>Fecha:</b> 2024-07-05 10:25:06</div>
+      <div><b>Estado:</b> Resuelto</div>
+      <div><b>Artículos:</b> Herramientas</div>
+      <div><b>Motivo:</b> Solucionado</div>
+      <hr>
+      <div><b>Lugar del Problema:</b> Pabellon B, Piso 3, Aula 318</div>
+      <div><b>Descripción del Problema:</b><br>
+        El ventilador cerca a la puerta no funciona correctamente, solucionarlo porfavor
+      </div>
+      <hr>
+      <div><b>Evidencia:</b></div>
+      <img id="imgEvidencia" src="/IMG/ejemplo_reporte.png" alt="Evidencia" style="max-width:100%;margin-top:10px;border-radius:8px;">
+    </div>
+  </div>
+</div>
+
+<script>
+function abrirModalReportes() {
+  document.getElementById('modalReportes').style.display = 'block';
+}
+function cerrarModalReportes() {
+  document.getElementById('modalReportes').style.display = 'none';
+}
+window.onclick = function(event) {
+  var modal = document.getElementById('modalReportes');
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
 
     <script src="/JAVASCRIPT/reporte_gestion_M6.js"></script>
 </body>
