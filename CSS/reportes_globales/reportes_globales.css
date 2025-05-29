@@ -1,0 +1,406 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #16222d;
+    min-height: 100vh;
+}
+
+.header {
+    background: linear-gradient(135deg, #DD2324 0%, #af1818 100%);
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    box-shadow: 0 4px 20px rgba(221, 35, 36, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.1;
+}
+
+.header h1 {
+    font-size: 3rem;
+    font-weight: 300;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.subtitle {
+    text-align: center;
+    margin-bottom: 50px;
+    color: #16222d;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-left: 5px solid #DD2324;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.reports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.report-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    border: 1px solid rgba(221, 35, 36, 0.1);
+}
+
+.report-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #DD2324, #af1818);
+}
+
+.report-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(221, 35, 36, 0.2);
+}
+
+.card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.report-card:hover .card-image {
+    transform: scale(1.05);
+}
+
+.card-content {
+    background: linear-gradient(135deg, #233559 0%, #18253f 100%);
+    color: white;
+    padding: 25px;
+    position: relative;
+}
+
+.card-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="white" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+}
+
+.card-date {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    gap: 8px;
+}
+
+.card-shift {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-location {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-classroom {
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.visualizar-btn {
+    background: linear-gradient(135deg, #DD2324 0%, #af1818 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 15px rgba(221, 35, 36, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.visualizar-btn:hover {
+    background: linear-gradient(135deg, #af1818 0%, #8b1314 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(221, 35, 36, 0.4);
+}
+
+.visualizar-btn:active {
+    transform: translateY(0);
+}
+
+/* Modal Styles */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background: white;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #233559 0%, #18253f 100%);
+    color: white;
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-content {
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.modal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #233559;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-value {
+    color: #16222d;
+    font-size: 1rem;
+    padding: 10px;
+    background: #f5f7fa;
+    border-radius: 8px;
+    border-left: 4px solid #DD2324;
+}
+
+.evidence-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.evidence-title {
+    font-weight: 600;
+    color: #233559;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.evidence-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.fa-icon {
+    color: #DD2324;
+}
+
+.status-approved {
+    color: #1abc9c;
+}
+
+.status-pending {
+    color: #f39c12;
+}
+
+.status-process {
+    color: #3498db;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { 
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+    }
+    to { 
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2.2rem;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .reports-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .container {
+        padding: 30px 15px;
+    }
+
+    .modal {
+        width: 95%;
+        margin: 20px;
+    }
+
+    .modal-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .evidence-image {
+        height: 200px;
+    }
+
+    .subtitle {
+        flex-direction: column;
+        text-align: center;
+    }
+}

@@ -10,6 +10,7 @@ app.get("/", (req, res) => {
   res.send("Frontend listo :D");
 });
 
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server Frontend levantado en http://localhost:${port}`);
