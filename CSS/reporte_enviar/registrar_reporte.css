@@ -124,9 +124,7 @@ input[type="file"] {
   overflow: hidden;
 }
 
-input[type="file"]::-webkit-file-upload-button {
-  /* Solo el botón, sin texto extra */
-}
+
 
 /* Mejora visual del botón de archivo (solo para navegadores modernos) */
 input[type="file"]::file-selector-button {
