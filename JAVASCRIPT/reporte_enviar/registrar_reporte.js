@@ -1,11 +1,3 @@
-// Este archivo JavaScript manejará la lógica del formulario y la comunicación con el backend.
-// Para integrar Clerk.js en un entorno de HTML/JS puro, debes cargar el SDK de Clerk.js
-// a través de una etiqueta <script> en tu HTML, por ejemplo:
-// <script async src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
-// Una vez cargado, el objeto `Clerk` estará disponible globalmente.
-
-// Reemplaza 'YOUR_CLERK_PUBLISHABLE_KEY' con tu clave publicable de Clerk.
-// Puedes encontrarla en tu panel de control de Clerk (por ejemplo, pk_live_...).
 const clerkPublishableKey =
   "pk_test_YWRqdXN0ZWQta2luZ2Zpc2gtOTcuY2xlcmsuYWNjb3VudHMuZGV2JA";
 
