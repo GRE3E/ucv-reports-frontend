@@ -5,26 +5,29 @@
     <meta charset="UTF-8">
     <title>Gestion Reportes</title>
     <link rel="stylesheet" href="/CSS/reportes_gestion/reportes_gestion.css">
-    <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="image/png" href="../../CSS/auth/images/logo_ucv_modal.png">
+
 </head>
 <!-- ...existing code... -->
 <body>
       <div class="sidebar">
-        <div class="logo"></div>
+        <div class="logo">
+          <img src="../../CSS/auth/images/logo_ucv.png" alt="logoUcv">
+        </div>
         <ul>
-            <li><a href="usuarios_gestion_M6.html"><i class="fas fa-users"></i> Gestion de Usuarios</a></li>
-            <li ><a href="reportes_gestion_M9.html"><i class="fas fa-chart-bar"></i> Gestion de Reportes</a></li>
-            <li ><a href="existencia_entrada.html"><i class="fas fa-file-import"></i> Existencia de Entrada</a></li>
+            <li><a href="gestion_usuarios.html"><i class="fas fa-users"></i> Gestion de Usuarios</a></li>
+            <li><a href="reportes_gestion_M9.html"><i class="fas fa-chart-bar"></i> Gestion de Reportes</a></li>
+            <li><a href="existencia_entrada.html"><i class="fas fa-file-import"></i> Existencia de Entrada</a></li>
             <li><a href="existencia_salida.html"><i class="fas fa-file-export"></i> Existencia de Salida</a></li>
-            <li><a href="productos_danados.html"><i class="fas fa-exclamation-triangle"></i> Productos Dañados</a></li>
+            <li class="active"><a href="productos_danados.html"><i class="fas fa-exclamation-triangle"></i> Productos Dañados</a></li>
             <li><a href="articulos_uso_actual.html"><i class="fas fa-cogs"></i> Artículos Uso Actual</a></li>
             <li><a href="exit.html"><i class="fas fa-sign-out-alt"></i> Exit</a></li>
         </ul>
     </div>
     <div class="main-content">
         <div class="header">
-            <h1>Gestion Reportes</h1>
+            <h1>Gestión de Reportes</h1>
         </div>
         <div class="reportes-bar">
             <div class="bienvenida">
@@ -32,7 +35,9 @@
             </div>
             <div class="reportes-controls">
                 <input type="text" placeholder="Buscar...">
-                <button class="reportes-btn" onclick="abrirModalReportes()"><span class="icon">⚠️</span> Reportes</button>
+                <button class="reportes-btn" onclick="abrirModalReportes()">
+                  <img src="../../CSS/auth/images/riskIcon.png" alt="riskIcon">
+                  Reportes</button>
             </div>
         </div>
         <!-- Tabla de Gestión de Reportes -->
@@ -41,10 +46,10 @@
                 <table class="reportes-table">
                     <thead>
                         <tr>
-                            <th><span class="icon">👤</span> Usuario</th>
-                            <th><span class="icon">📍</span> Lugar del Problema</th>
-                            <th><span class="icon">📅</span> Fecha</th>
-                            <th><span class="icon">⚙️</span> Acciones</th>
+                            <th>Usuario</th>
+                            <th>Lugar del Problema</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,7 +110,12 @@
 <div id="modalReportes" class="modal">
   <div class="modal-content modal-reportes">
     <span class="close" onclick="cerrarModalReportes()">&times;</span>
-    <h2>Reportes Desaprobados</h2>
+
+    <div class="icono-container-modal">
+      <img src="../../CSS/auth/images/logo_ucv_modal.png" class="icono-btn-modal" alt="report_LOGO-ucv">
+    </div>
+
+    <h2 class="text-modal">Reportes Desaprobados</h2>
     <div class="modal-table-container">
       <table class="modal-table">
         <thead>
@@ -123,28 +133,33 @@
             <td>Pabellon B Piso 3 Aula 320</td>
             <td>2024-06-28 08:55:02</td>
             <td>Desaprobado</td>
-            <td><button class="btn observar">👁️ Observar</button></td>
+            <td><button class="btn observar" onclick="abrirModalDetalleDesdeReportes()">Observar</button>
+
           </tr>
           <tr>
             <td>anglexs</td>
             <td>Pabellon B Piso 3 Aula 312</td>
             <td>2024-06-28 09:04:04</td>
             <td>Desaprobado</td>
-            <td><button class="btn observar">👁️ Observar</button></td>
+            <td><button class="btn observar" onclick="abrirModalDetalleDesdeReportes()">Observar</button>
+
           </tr>
           <tr>
             <td>anglexs</td>
             <td>Pabellon B Piso 3 Aula 313</td>
             <td>2024-07-04 21:15:52</td>
             <td>Resuelto</td>
-            <td><button class="btn observar">👁️ Observar</button></td>
+            <td><button class="btn observar" onclick="abrirModalDetalleDesdeReportes()">Observar</button>
+
+              
           </tr>
           <tr>
             <td>anglexs</td>
             <td>Pabellon B Piso 3 Aula 318</td>
             <td>2024-07-05 08:58:10</td>
             <td>Resuelto</td>
-            <td><button class="btn observar">👁️ Observar</button></td>
+            <td><button class="btn observar" onclick="abrirModalDetalleDesdeReportes()">Observar</button>
+
           </tr>
         </tbody>
       </table>
@@ -171,7 +186,7 @@
       </div>
       <hr>
       <div><b>Evidencia:</b></div>
-      <img id="imgEvidencia" src="/IMG/ejemplo_reporte.png" alt="Evidencia" style="max-width:100%;margin-top:10px;border-radius:8px;">
+      <img id="imgEvidencia" src="../../CSS/auth/images/Problema monitor.jpg" alt="Evidencia" style="max-width:100%;margin-top:10px;border-radius:8px;">
     </div>
   </div>
 </div>
@@ -189,6 +204,17 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+function abrirModalDetalleDesdeReportes() {
+  document.getElementById('modalReportes').style.display = 'none';
+  document.getElementById('modalDetalleReporte').style.display = 'block';
+}
+
+function cerrarModalDetalleReporte() {
+  document.getElementById('modalDetalleReporte').style.display = 'none';
+  document.getElementById('modalReportes').style.display = 'block';
+}
+
 </script>
 
     <script src="/JAVASCRIPT/reporte_gestion_M6.js"></script>

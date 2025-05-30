@@ -4,32 +4,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // Datos de ejemplo de productos (reemplazar con datos reales y rutas de imagen correctas)
     const productos = [
         {
-            imagen: '/imagenes/ordenador.jpg',
+            imagen: '../../CSS/auth/images/ordenador.jpg',
             tipo: 'Ordenador',
             cantidad: 16
         },
         {
-            imagen: '/imagenes/proyector.jpg',
+            imagen: '../../CSS/auth/images/proyector.jpg',
             tipo: 'Proyector',
             cantidad: 5
         },
         {
-            imagen: '/imagenes/escritorios.jpg',
+            imagen: '../../CSS/auth/images/escritorios.jpg',
             tipo: 'Escritorio',
             cantidad: 9
         },
         {
-            imagen: '/imagenes/pizarra.jpg',
+            imagen: '../../CSS/auth/images/pizarra.jpg',
             tipo: 'Pizarra Acrilica',
             cantidad: 1
         },
         {
-            imagen: '/imagenes/ventilador.jpg',
+            imagen: '../../CSS/auth/images/ventilador.jpg',
             tipo: 'Ventilador',
             cantidad: 15
         },
         {
-            imagen: '/imagenes/mouse.jpg',
+            imagen: '../../CSS/auth/images/mouse.jpg',
             tipo: 'Mouse',
             cantidad: 50
         },
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p>Cantidad: ${producto.cantidad}</p>
             </div>
             <button class="btn informe" data-producto-index="${index}">
-                <img src="/imagenes/reportIcon.png" alt="Carrito" class="icono-btn">
+                <img src="../../CSS/auth/images/reportIcon.png" alt="Carrito" class="icono-btn">
                 Informe
             </button> <!-- Botón cambiado -->
         `;

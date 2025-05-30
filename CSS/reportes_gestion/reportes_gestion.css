@@ -9,44 +9,57 @@ body {
     position: fixed;
     left: 0;
     top: 0;
+    right: 0;
     width: 230px;
-    height: 100vh;
+    height: 100%;
     background: #0c1745;
     color: #fff;
     padding-top: 20px;
-    z-index: 10;
 }
 
-.logo {
-    width: 100%;
-    height: 60px;
+.logo{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    user-select: none;
+}
+
+.logo img{
+    width: auto;
+    height: 70px;
     background: url('logo.png') no-repeat center center;
-    background-size: 50px 50px;
-    margin-bottom: 30px;
+    background-size: 60px 60px;
 }
 
 .sidebar ul {
     list-style: none;
     padding: 0;
-    margin: 0;
 }
 
 .sidebar ul li {
-    padding: 18px 30px;
-    cursor: pointer;
-    font-size: 16px;
-    border-left: 4px solid transparent;
     display: flex;
     align-items: center;
     gap: 10px;
+    padding: 14px 30px;
+    font-size: 16px;
+    border-left: 4px solid transparent;
     transition: background 0.2s, border-color 0.2s;
 }
 
 .sidebar ul li.active,
 .sidebar ul li:hover {
     background: #18225a;
-    border-left: 6px solid #b30000;
+    border-left: 6px solid #c01932;
     font-weight: bold;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
 }
 
 /* Main content */
@@ -58,10 +71,13 @@ body {
 
 /* Header */
 .header {
-    background: #990000;
+    background: rgb(193, 26, 51);
     color: #fff;
-    padding: 15px 0 10px 0;
+    padding: 20px 0 20px 0;
     display: flex;
+    user-select: none;
+    border-radius: 15px;
+    margin: 10px 40px 10px 40px;
     align-items: center;
     justify-content: center;
     gap: 20px;
@@ -69,9 +85,29 @@ body {
 
 .header h1 {
     margin: 0;
-    font-size: 2.5em;
-    font-weight: normal;
+    font-size: 2em;
+    font-weight: 600;
 }
+
+.icono-btn {
+    width: 30px;
+    height: 30px;
+}
+
+.icono-container-modal{
+    justify-content: center;
+    display: flex;
+    height: 6em;
+}
+
+.icono-btn-modal {
+    width: 5em;
+    height: 5em;
+    justify-items: center;
+    color: #110033;
+    margin-bottom: 20px;
+}
+
 
 /* Barra superior de reportes */
 .reportes-bar {
@@ -110,7 +146,7 @@ body {
     background: #ffe082;
     color: #222;
     border: none;
-    padding: 8 18px;
+    padding: 8px 25px;
     border-radius: 4px;
     font-weight: bold;
     cursor: pointer;
@@ -120,6 +156,13 @@ body {
     height: 40px;
     transition: background 0.2s;
 }
+
+.reportes-btn img {
+    width: 15px;
+    height: 15px;
+}
+
+
 .reportes-btn:hover {
     background: #ffd54f;
 }
@@ -239,6 +282,10 @@ body {
   width: 100%; height: 100%;
   overflow: auto;
   background: rgba(0,0,0,0.4);
+}
+
+.text-modal{
+  margin: 0;
 }
 
 .modal-content {
@@ -371,9 +418,10 @@ body {
 
 .modal-table {
   width: 100%;
-  border-collapse: collapse;
+  border-radius: 20px;
   background: #f9f9f9;
   font-size: 15px;
+  margin-bottom: 30px;
 }
 
 .modal-table th, .modal-table td {
