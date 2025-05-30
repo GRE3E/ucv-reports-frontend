@@ -62,7 +62,7 @@
       "dest": "/HTML/reportes_globales/reportes_globales.html"
     },
     {
-      "src": "/reportes_ver/reportes_ver",
+      "src": "/reportes_ver",
       "dest": "/HTML/reportes_ver/reportes_ver.html"
     }
   ]
