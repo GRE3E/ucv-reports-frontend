@@ -1,14 +1,9 @@
-const clerkPublishableKey =
-  "pk_test_YWRqdXN0ZWQta2luZ2Zpc2gtOTcuY2xlcmsuYWNjb3VudHMuZGV2JA";
-
 document.addEventListener("DOMContentLoaded", async () => {
   const form = document.querySelector("form");
 
   // Inicializar Clerk.js
   if (window.Clerk) {
-    await window.Clerk.load({
-      publishableKey: clerkPublishableKey,
-    });
+    await window.Clerk.load();
   } else {
     console.error(
       "Clerk.js SDK no está cargado. Asegúrate de incluir la etiqueta <script> de Clerk en tu HTML."

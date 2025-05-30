@@ -1,3 +1,69 @@
 {
-  "version": 2
+  "version": 2,
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/HTML/index.html"
+    },
+    {
+      "src": "/auth/login",
+      "dest": "/HTML/auth/login.html"
+    },
+    {
+      "src": "/auth/recuperacion",
+      "dest": "/HTML/auth/recuperacion.html"
+    },
+    {
+      "src": "/auth/recuperacion_cuenta",
+      "dest": "/HTML/auth/recuperacion_cuenta.html"
+    },
+    {
+      "src": "/auth/register",
+      "dest": "/HTML/auth/register.html"
+    },
+    {
+      "src": "/reporte_enviar/registrar_reporte",
+      "dest": "/HTML/reporte_enviar/registrar_reporte.html"
+    },
+    {
+      "src": "/reporte_enviar/reporte_enviar",
+      "dest": "/HTML/reporte_enviar/reporte_enviar.html"
+    },
+    {
+      "src": "/reportes_gestion/existencia_entrada",
+      "dest": "/HTML/reportes_gestion/existencia_entrada.html"
+    },
+    {
+      "src": "/reportes_gestion/existencia_salida",
+      "dest": "/HTML/reportes_gestion/existencia_salida.html"
+    },
+    {
+      "src": "/reportes_gestion/productos_danados",
+      "dest": "/HTML/reportes_gestion/productos_danados.html"
+    },
+    {
+      "src": "/reportes_gestion/reporte_gestion_M7",
+      "dest": "/HTML/reportes_gestion/reporte_gestion_M7.html"
+    },
+    {
+      "src": "/reportes_gestion/reporte_gestion_M8",
+      "dest": "/HTML/reportes_gestion/reporte_gestion_M8.html"
+    },
+    {
+      "src": "/reportes_gestion/reportes_gestion_M9",
+      "dest": "/HTML/reportes_gestion/reportes_gestion_M9.html"
+    },
+    {
+      "src": "/reportes_gestion/usuarios_gestion_M6",
+      "dest": "/HTML/reportes_gestion/usuarios_gestion_M6.html"
+    },
+    {
+      "src": "/reportes_globales/reportes_globales",
+      "dest": "/HTML/reportes_globales/reportes_globales.html"
+    },
+    {
+      "src": "/reportes_ver/reportes_ver",
+      "dest": "/HTML/reportes_ver/reportes_ver.html"
+    }
+  ]
 }
