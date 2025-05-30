@@ -95,6 +95,52 @@
       </div>
     </div>
 
+    <div id="modalSeleccionarUbicacion" class="modal" style="display: none;">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Lugar donde desea usar este artículo</h2>
+        <div class="ubicacion-form">
+          <div class="form-group">
+            <label for="pabellon">Pabellón:</label>
+            <select id="pabellon">
+              <option value="">Selecciona un pabellón</option>
+              <option value="A">Pabellón A</option>
+              <option value="B">Pabellón B</option>
+              <option value="C">Pabellón C</option>
+              <option value="D">Pabellón D</option>
+              <option value="E">Pabellón E</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="piso">Piso:</label>
+            <select id="piso">
+              <option value="">Selecciona un piso</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="salon">Salón:</label>
+            <input type="text" id="salon" placeholder="Escribe el salón">
+          </div>
+        </div>
+        <div class="modal-buttons">
+          <button class="btn" onclick="cerrarModalUbicacion()">Cerrar</button>
+          <button class="btn confirmar-ubicacion">Confirmar Ubicación</button>
+        </div>
+      </div>
+    </div>
+
     <script src="../../JAVASCRIPT/existencia_salida.js"></script>
 </body>
 </html> 

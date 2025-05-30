@@ -67,6 +67,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Funcionalidad para el modal Stock Actual
     const modalStockActual = document.getElementById('modalStockActual');
     const spanCerrarStockActual = modalStockActual.querySelector('.close');
+    const modalSeleccionarUbicacion = document.getElementById('modalSeleccionarUbicacion');
+    const spanCerrarUbicacion = modalSeleccionarUbicacion.querySelector('.close');
+
+    let botonUsarActivo = null; // Variable para guardar el botón 'Usar' activo
+
+    // Función para limpiar el formulario de selección de ubicación
+    function limpiarFormularioUbicacion() {
+        document.getElementById('pabellon').value = '';
+        document.getElementById('piso').value = '';
+        document.getElementById('salon').value = '';
+    }
 
     // Abrir modal Stock Actual al hacer clic en el botón Informe
     const botonesInforme = document.querySelectorAll('.producto-card .btn.informe');
@@ -101,32 +112,75 @@ document.addEventListener('DOMContentLoaded', () => {
                 stockTableBody.appendChild(row);
             });
 
-            // Re-adjuntar event listeners a los nuevos botones "Usar"
+            // Adjuntar event listeners a los botones "Usar" en la tabla de Stock Actual
             modalStockActual.querySelectorAll('.btn.usar-articulo').forEach(botonUsar => {
                 botonUsar.addEventListener('click', function() {
-                    if (this.textContent === 'Usar') {
-                        this.textContent = 'Dejar de Usar';
-                    } else {
-                        this.textContent = 'Usar';
-                    }
+                    // Guardar la referencia del botón 'Usar' que se acaba de clickear
+                    botonUsarActivo = this;
+                    // Ocultar modal de stock y mostrar modal de ubicación
+                    modalStockActual.style.display = 'none';
+                    modalSeleccionarUbicacion.style.display = 'block';
+
+                    // Limpiar el formulario de ubicación al abrir la modal
+                    limpiarFormularioUbicacion();
                 });
             });
         });
     });
 
-    // Cerrar modal Stock Actual al hacer clic en la X
-    if (spanCerrarStockActual) {
-        spanCerrarStockActual.onclick = function() {
-            modalStockActual.style.display = 'none';
+    // Funcionalidad para el modal Seleccionar Ubicación
+
+    // Event listener para el botón 'Confirmar Ubicación'
+    const botonConfirmarUbicacion = modalSeleccionarUbicacion.querySelector('.confirmar-ubicacion');
+    if (botonConfirmarUbicacion) {
+        botonConfirmarUbicacion.addEventListener('click', function() {
+            // Obtener los valores seleccionados/ingresados
+            const pabellonSeleccionado = document.getElementById('pabellon').value;
+            const pisoSeleccionado = document.getElementById('piso').value;
+            const salonIngresado = document.getElementById('salon').value;
+
+            // Guardar la ubicación seleccionada en el botón activo
+            if (botonUsarActivo) {
+                botonUsarActivo.dataset.pabellon = pabellonSeleccionado;
+                botonUsarActivo.dataset.piso = pisoSeleccionado;
+                botonUsarActivo.dataset.salon = salonIngresado;
+
+                // Cambiar el texto del botón 'Usar' a 'Dejar de Usar'
+                botonUsarActivo.textContent = 'Dejar de usar';
+                // Opcional: añadir una clase para estilizar el botón 'Dejar de usar'
+                // botonUsarActivo.classList.remove('usar-articulo');
+                // botonUsarActivo.classList.add('dejar-de-usar');
+
+                // Limpiar la referencia al botón activo después de usarla
+                botonUsarActivo = null;
+            }
+
+            // Cerrar la modal de selección de ubicación
+            cerrarModalUbicacion();
+        });
+    }
+
+    // Cerrar modal Seleccionar Ubicación al hacer clic en la X
+    if (spanCerrarUbicacion) {
+        spanCerrarUbicacion.onclick = function() {
+            cerrarModalUbicacion();
         }
     }
 
-    // Cerrar modal Stock Actual al hacer clic fuera del contenido del modal
+    // Función para cerrar la modal de selección de ubicación
+    function cerrarModalUbicacion() {
+        modalSeleccionarUbicacion.style.display = 'none';
+        // Opcional: si cierras la modal de ubicación sin confirmar, podrías limpiar el botón activo
+        // botonUsarActivo = null; // Descomentar si es necesario limpiar la referencia al cerrar sin confirmar
+    }
+
+    // Cerrar modales al hacer clic fuera de su contenido
     window.onclick = function(event) {
       if (event.target == modalStockActual) {
         modalStockActual.style.display = 'none';
       }
-      // Asegurarse de no cerrar otros modales si están abiertos y se hace clic fuera de ellos
-      // if (event.target == modalOtroModal) { modalOtroModal.style.display = 'none'; }
+      if (event.target == modalSeleccionarUbicacion) {
+        cerrarModalUbicacion();
+      }
     }
 }); 
