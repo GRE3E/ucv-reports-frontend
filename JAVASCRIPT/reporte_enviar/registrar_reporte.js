@@ -6,7 +6,8 @@
 
 // Reemplaza 'YOUR_CLERK_PUBLISHABLE_KEY' con tu clave publicable de Clerk.
 // Puedes encontrarla en tu panel de control de Clerk (por ejemplo, pk_live_...).
-const clerkPublishableKey = "YOUR_CLERK_PUBLISHABLE_KEY";
+const clerkPublishableKey =
+  "pk_test_YWRqdXN0ZWQta2luZ2Zpc2gtOTcuY2xlcmsuYWNjb3VudHMuZGV2JA";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const form = document.querySelector("form");
