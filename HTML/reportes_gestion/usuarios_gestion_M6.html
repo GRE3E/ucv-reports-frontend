@@ -139,17 +139,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>angiexs</td>
-                <td>Ximena Santillan</td>
-                <td>Alumno</td>
-                <td>**********</td>
-                <td>
-                  <button class="btn reactivar">
-                    <span class="icon">✏️</span> Reactivar
-                  </button>
-                </td>
-              </tr>
+              
             </tbody>
           </table>
         </div>
@@ -305,14 +295,24 @@
 
   // Cargar usuarios y cargos
   async function cargarUsuarios() {
-    const [usuariosRes, cargosRes] = await Promise.all([
-      fetch(API_URL),
-      fetch(CARGOS_URL)
-    ]);
-    usuarios = await usuariosRes.json();
-    cargos = await cargosRes.json();
-    usuarios = usuarios.filter(u => u.Estado === 'Habilitado');
-    renderUsuarios();
+    try {
+      const [usuariosRes, cargosRes] = await Promise.all([
+        fetch(API_URL),
+        fetch(CARGOS_URL)
+      ]);
+      if (!usuariosRes.ok) throw new Error(`HTTP error! status: ${usuariosRes.status}`);
+      if (!cargosRes.ok) throw new Error(`HTTP error! status: ${cargosRes.status}`);
+
+      usuarios = await usuariosRes.json();
+      cargos = await cargosRes.json();
+      usuarios = usuarios.filter(u => u.Estado === 'Habilitado');
+      renderUsuarios();
+    } catch (error) {
+      console.error('Error al cargar usuarios o cargos:', error);
+      usuarios = [];
+      cargos = [];
+      renderUsuarios(); // Render with empty data on error
+    }
   }
 
 
@@ -321,7 +321,7 @@
     const tbody = document.querySelector('.usuarios-table tbody');
     tbody.innerHTML = '';
     usuarios.forEach(usuario => {
-      const apellidos = [usuario.apellido_paterno, usuario.apellido_materno].filter(Boolean).join(' ');
+      const nombreCompleto = `${usuario.nombre} ${usuario.apellido_paterno} ${usuario.apellido_materno}`.trim();
       const rol = usuario.cargo && usuario.cargo.descripcion ? usuario.cargo.descripcion : 'Sin Rol';
       const estaEditando = editandoId === usuario.IDUsuario;
       const tr = document.createElement('tr');
@@ -346,7 +346,7 @@
       } else {
         tr.innerHTML = `
           <td>${usuario.usuario}</td>
-          <td>${apellidos}</td>
+          <td>${nombreCompleto}</td>
           <td>${rol}</td>
           <td>**********</td>
           <td>
@@ -384,43 +384,61 @@
     };
     if (contrasena) body.contraseña = contrasena;
 
-    await fetch(`${API_URL}/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    });
-    editandoId = null;
-    cargarUsuarios();
+    try {
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      editandoId = null;
+      cargarUsuarios();
+    } catch (error) {
+      console.error('Error al guardar edición:', error);
+      alert('Error al guardar edición. Por favor, inténtalo de nuevo.');
+    }
   }
 
   async function deshabilitarUsuario(id) {
     if (!confirm('¿Seguro que deseas deshabilitar este usuario?')) return;
-    await fetch(`${API_URL}/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ Estado: 'Deshabilitado' })
-    });
-    cargarUsuarios();
+    try {
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ Estado: 'Deshabilitado' })
+      });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      cargarUsuarios();
+    } catch (error) {
+      console.error('Error al deshabilitar usuario:', error);
+      alert('Error al deshabilitar usuario. Por favor, inténtalo de nuevo.');
+    }
   }
 
   // MODAL USUARIOS DESHABILITADOS
   async function cargarUsuariosDeshabilitados() {
-    const response = await fetch(API_URL);
-    const data = await response.json();
-    const usuariosDeshabilitados = data.filter(u => u.Estado === 'Deshabilitado');
-    renderUsuariosDeshabilitados(usuariosDeshabilitados);
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      const data = await response.json();
+      const usuariosDeshabilitados = data.filter(u => u.Estado === 'Deshabilitado');
+      renderUsuariosDeshabilitados(usuariosDeshabilitados);
+    } catch (error) {
+      console.error('Error al cargar usuarios deshabilitados:', error);
+      renderUsuariosDeshabilitados([]); // Render with empty data on error
+    }
   }
 
   function renderUsuariosDeshabilitados(usuariosDeshabilitados) {
     const tbody = document.querySelector('#modalDeshabilitados .usuarios-table tbody');
     tbody.innerHTML = '';
     usuariosDeshabilitados.forEach(usuario => {
-      const apellidos = [usuario.apellido_paterno, usuario.apellido_materno].filter(Boolean).join(' ');
+      const nombreCompleto = `${usuario.nombre} ${usuario.apellido_paterno} ${usuario.apellido_materno}`.trim();
       const rol = usuario.cargo && usuario.cargo.descripcion ? usuario.cargo.descripcion : 'Sin Rol';
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${usuario.usuario}</td>
-        <td>${apellidos}</td>
+        <td>${nombreCompleto}</td>
         <td>${rol}</td>
         <td>**********</td>
         <td>
@@ -442,13 +460,19 @@
   }
 
   async function reactivarUsuario(id) {
-    await fetch(`${API_URL}/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ Estado: 'Habilitado' })
-    });
-    cargarUsuariosDeshabilitados();
-    cargarUsuarios();
+    try {
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ Estado: 'Habilitado' })
+      });
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      cargarUsuariosDeshabilitados();
+      cargarUsuarios();
+    } catch (error) {
+      console.error('Error al reactivar usuario:', error);
+      alert('Error al reactivar usuario. Por favor, inténtalo de nuevo.');
+    }
   }
 
   document.addEventListener('DOMContentLoaded', cargarUsuarios);
