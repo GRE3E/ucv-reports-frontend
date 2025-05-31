@@ -36,9 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p>Cantidad: ${producto.cantidad}</p>
             </div>
             <button class="btn informe" data-producto-index="${index}"> 
-                <img src="../../CSS/auth/images/reportIcon.png" alt="Carrito" class="icono-btn">
-                Informe
-            </button> <!-- Botón Informe -->
+            <i class="fas fa-file-alt fa-sm"></i>
+            Informe
+            </button> 
         `;
 
         productosGridContainer.appendChild(productoCard);

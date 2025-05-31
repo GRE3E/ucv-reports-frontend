@@ -107,7 +107,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${item.estado}</td>
                     <td>${item.precio}</td>
                     <td>${item.tipoArticulo}</td>
-                    <td><button class="btn usar-articulo">${item.accion}</button></td>
+                    <td><button class="btn usar-articulo">
+                            ${item.accion}
+                            <i class="fas fa-vote-yea"></i>
+                        </button></td>
                 `;
                 stockTableBody.appendChild(row);
             });

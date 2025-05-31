@@ -203,8 +203,9 @@ body {
     width: 50%;
     background: #00b6ca;
     color: #fff;
-    border-radius: 10px;
+    width: 50%;
     padding: 10px;
+    border-radius: 10px;
     text-align: center;
     font-weight: bold;
     cursor: pointer;
@@ -360,11 +361,12 @@ body {
 
 /* Estilos para el botón Usar/Dejar de Usar */
 #modalStockActual .btn.usar-articulo {
-    background-color: #28a745; /* Un color verde para "Usar" */
+    background-color: #21983d; /* Un color verde para "Usar" */
     color: white;
     border: none;
     border-radius: 5px;
-    padding: 8px 15px;
+    padding: 8px 20px;
+    justify-content: center;
     font-size: 0.9em;
     cursor: pointer;
     transition: background-color 0.2s ease;
@@ -458,6 +460,7 @@ body {
     background-color: #fefefe;
     margin: auto; /* Centrar horizontalmente */
     padding: 20px;
+    margin-top: 30px;
     border: 1px solid #888;
     width: 80%; /* Ancho de la modal */
     max-width: 500px; /* Ancho máximo */

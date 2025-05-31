@@ -69,8 +69,7 @@
       </div>
     </div>
 
-    <!-- Modal de Usuarios Deshabilitados (mantenido por similitud) -->
-    <div id="modalDeshabilitados" class="modal">
+    <!-- <div id="modalDeshabilitados" class="modal">
       <div class="modal-content">
         <span class="close" onclick="cerrarModalDeshabilitados()">&times;</span>
         <h2>Usuarios Deshabilitados</h2>
@@ -96,12 +95,11 @@
                 </button>
               </td>
             </tr>
-            <!-- ...más filas aquí... -->
           </tbody>
         </table>
       </div>
-    </div>
-    
+    </div> -->
+
     <div id="modalStockActual" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -126,7 +124,6 @@
               <td>Tipo de Ejemplo</td>
               <td><button class="btn usar-articulo">Usar</button></td>
             </tr>
-            <!-- Aquí se añadirían más filas con los datos reales del stock -->
           </tbody>
         </table>
       </div>
@@ -173,7 +170,11 @@
         </div>
         <div class="modal-buttons">
           <button class="btn" onclick="cerrarModalUbicacion()">Cerrar</button>
-          <button class="btn confirmar-ubicacion">Confirmar Ubicación</button>
+          <button class="btn confirmar-ubicacion">
+            Confirmar Ubicación
+            <i class="fas fa-check"></i>
+
+          </button>
         </div>
       </div>
     </div>
