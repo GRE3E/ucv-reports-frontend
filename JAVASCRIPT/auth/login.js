@@ -44,7 +44,7 @@ loginForm.addEventListener("submit", async (event) => {
         window.location.href = "/usuarios_gestion"; // Assuming this path is correct
       } else {
         // Default redirection if role is not recognized or not provided
-        window.location.href = "https://ucv-reports-frontend.vercel.app/login"; // Or any other default page
+        window.location.href = "/"; // Or any other default page
       }
     } else {
       alert(data.message || "Login failed.");
