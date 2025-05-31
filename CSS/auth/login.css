@@ -385,22 +385,23 @@ body {
 
 .toggle-password {
   position: absolute;
-  right: 26px; /* Más metido en el input */
+  right: 18px; /* Ajusta si lo quieres más pegado al borde */
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
   z-index: 3;
-  width: 22px;
-  height: 22px;
+  width: 38px;      /* Más ancho para mejor área clickeable */
+  height: 38px;     /* Más alto para mejor área clickeable */
   display: flex;
   align-items: center;
+  justify-content: center; /* Centra el ícono dentro del botón */
   background: transparent;
   border: none;
   padding: 0;
 }
 .toggle-password i {
-  font-size: 1.2em;
-  color: #111; /* Cambiado a negro */
+  font-size: 1.5em; /* Ícono más grande */
+  color: #111;
   transition: color 0.2s;
 }
 
