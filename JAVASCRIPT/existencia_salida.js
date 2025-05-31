@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <button class="btn informe" data-producto-index="${index}">
                 <i class="fas fa-file-alt fa-sm"></i>
                 Informe
-            </button> <!-- Botón cambiado -->
+            </button>
         `;
 
         productosGridContainer.appendChild(productoCard);
