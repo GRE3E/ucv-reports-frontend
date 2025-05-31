@@ -144,17 +144,17 @@
                 const statusClass = `status-${report.estado.toLowerCase().replace(/ /g, '-')}`;
                 row.innerHTML = `
                     <td>${report.fecha}</td>
-                    <td>${report.lugar}</td>
+                    <td>${[report.Pabellon, report.Piso, report.Salon].filter(Boolean).join(', ')}</td>
                     <td>${report.descripcion}</td>
                     <td>
                         <span class="status ${statusClass}">${report.estado}</span>
                     </td>
                     <td>
-                        <button class="action-btn btn-visualizar" onclick="visualizarReporte('${report._id}')">
+                        <button class="action-btn btn-visualizar" onclick="visualizarReporte('${report.id_reporte}')">
                             <i class="fas fa-eye"></i>
                             Visualizar
                         </button>
-                        <button class="action-btn btn-editar" onclick="editarReporte('${report._id}')">
+                        <button class="action-btn btn-editar" onclick="editarReporte('${report.id_reporte}')">
                             <i class="fas fa-edit"></i>
                             Editar
                         </button>
@@ -176,7 +176,7 @@
                                 <i class="fas fa-map-marker-alt"></i>
                                 Lugar:
                             </div>
-                            <div class="info-value">${report.lugar}</div>
+                            <div class="info-value">${[report.Pabellon, report.Piso, report.Salon].filter(Boolean).join(', ')}</div>
                         </div>
                         <div class="info-row">
                             <div class="info-label">
@@ -187,11 +187,11 @@
                         </div>
                     </div>
                     <div class="card-actions">
-                        <button class="action-btn btn-visualizar" onclick="visualizarReporte('${report._id}')">
+                        <button class="action-btn btn-visualizar" onclick="visualizarReporte('${report.id_reporte}')">
                             <i class="fas fa-eye"></i>
                             Visualizar
                         </button>
-                        <button class="action-btn btn-editar" onclick="editarReporte('${report._id}')">
+                        <button class="action-btn btn-editar" onclick="editarReporte('${report.id_reporte}')">
                             <i class="fas fa-edit"></i>
                             Editar
                         </button>
