@@ -85,49 +85,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>danielob</td>
-                <td>Pabellon B Piso 3 Aula 312</td>
-                <td>2024-07-11 17:23:34</td>
-                <td>
-                  <button class="btn aprobar">✔ Aprobar Reporte</button>
-                  <button
-                    class="btn desaprobar"
-                    onclick="abrirModalDesaprobar()"
-                  >
-                    <span class="icon">⛔</span> Desaprobar Reporte
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>danielob</td>
-                <td>Pabellon B Piso 3 Aula 319</td>
-                <td>2024-07-11 17:23:57</td>
-                <td>
-                  <button class="btn aprobar">✔ Aprobar Reporte</button>
-                  <button
-                    class="btn desaprobar"
-                    onclick="abrirModalDesaprobar()"
-                  >
-                    <span class="icon">⛔</span> Desaprobar Reporte
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>danielob</td>
-                <td>Pabellon B Piso 9 Laboratorio 909</td>
-                <td>2024-07-11 17:25:14</td>
-                <td>
-                  <button class="btn aprobar">✔ Aprobar Reporte</button>
-                  <button
-                    class="btn desaprobar"
-                    onclick="abrirModalDesaprobar()"
-                  >
-                    <span class="icon">⛔</span> Desaprobar Reporte
-                  </button>
-                </td>
-              </tr>
-              <!-- ...más filas aquí... -->
+              <!-- Elimina las filas estáticas, quedando solo el tbody vacío para llenarse dinámicamente -->
             </tbody>
           </table>
         </div>
@@ -179,66 +137,8 @@
                 <th>Acciones</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>anglexs</td>
-                <td>Pabellon B Piso 3 Aula 320</td>
-                <td>2024-06-28 08:55:02</td>
-                <td>Desaprobado</td>
-                <td>
-                  <button
-                    class="btn observar"
-                    onclick="abrirModalDetalleDesdeReportes()"
-                  >
-                    Observar
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <td>anglexs</td>
-                <td>Pabellon B Piso 3 Aula 312</td>
-                <td>2024-06-28 09:04:04</td>
-                <td>Desaprobado</td>
-                <td>
-                  <button
-                    class="btn observar"
-                    onclick="abrirModalDetalleDesdeReportes()"
-                  >
-                    Observar
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <td>anglexs</td>
-                <td>Pabellon B Piso 3 Aula 313</td>
-                <td>2024-07-04 21:15:52</td>
-                <td>Resuelto</td>
-                <td>
-                  <button
-                    class="btn observar"
-                    onclick="abrirModalDetalleDesdeReportes()"
-                  >
-                    Observar
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <td>anglexs</td>
-                <td>Pabellon B Piso 3 Aula 318</td>
-                <td>2024-07-05 08:58:10</td>
-                <td>Resuelto</td>
-                <td>
-                  <button
-                    class="btn observar"
-                    onclick="abrirModalDetalleDesdeReportes()"
-                  >
-                    Observar
-                  </button>
-                </td>
-              </tr>
+            <tbody id="tbodyReportesDetalle">
+              <!-- Las filas se llenarán dinámicamente -->
             </tbody>
           </table>
         </div>
@@ -251,56 +151,117 @@
         <span class="close" onclick="cerrarModalDetalleReporte()">&times;</span>
         <h3>Detalles del Reporte</h3>
         <div class="detalle-info">
-          <div><b>Facultad:</b> Ingeniería y Arquitectura</div>
-          <div><b>Turno:</b> Mañana</div>
-          <div><b>Fecha:</b> 2024-07-05 10:25:06</div>
-          <div><b>Estado:</b> Resuelto</div>
-          <div><b>Artículos:</b> Herramientas</div>
-          <div><b>Motivo:</b> Solucionado</div>
-          <hr />
-          <div><b>Lugar del Problema:</b> Pabellon B, Piso 3, Aula 318</div>
-          <div>
-            <b>Descripción del Problema:</b><br />
-            El ventilador cerca a la puerta no funciona correctamente,
-            solucionarlo porfavor
-          </div>
-          <hr />
-          <div><b>Evidencia:</b></div>
-          <img
-            id="imgEvidencia"
-            src="../../CSS/auth/images/Problema monitor.jpg"
-            alt="Evidencia"
-            style="max-width: 100%; margin-top: 10px; border-radius: 8px"
-          />
+          <!-- Este contenido se llenará dinámicamente con JS -->
         </div>
       </div>
     </div>
 
     <script>
-      function abrirModalReportes() {
-        document.getElementById("modalReportes").style.display = "block";
-      }
-      function cerrarModalReportes() {
-        document.getElementById("modalReportes").style.display = "none";
-      }
-      window.onclick = function (event) {
-        var modal = document.getElementById("modalReportes");
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      };
+const API_URL = "https://ucv-reports-backend.onrender.com/reportes";
+let reportesDetalle = [];
+let reporteSeleccionado = null;
 
-      function abrirModalDetalleDesdeReportes() {
-        document.getElementById("modalReportes").style.display = "none";
-        document.getElementById("modalDetalleReporte").style.display = "block";
-      }
+// Cargar reportes aprobados y desaprobados
+async function cargarReportesDetalle() {
+  try {
+    const response = await fetch(API_URL);
+    const reportes = await response.json();
+    // Filtrar aprobados, desaprobados y resueltos
+    reportesDetalle = reportes.filter(r =>
+      r.estado === 'Aprobado' || r.estado === 'Desaprobado' || r.estado === 'Resuelto'
+    );
+    renderReportesDetalle();
+  } catch (error) {
+    console.error('Error al cargar los reportes:', error);
+  }
+}
 
-      function cerrarModalDetalleReporte() {
-        document.getElementById("modalDetalleReporte").style.display = "none";
-        document.getElementById("modalReportes").style.display = "block";
-      }
-    </script>
+function renderReportesDetalle() {
+  const tbody = document.getElementById('tbodyReportesDetalle');
+  tbody.innerHTML = '';
+  reportesDetalle.forEach((reporte, idx) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${reporte.usuario || ''}</td>
+      <td>Pabellon ${reporte.Pabellon}, Piso ${reporte.Piso} Aula ${reporte.Salon}</td>
+      <td>${reporte.fecha}</td>
+      <td>${reporte.estado}</td>
+      <td>
+        <button class="btn observar" onclick="abrirModalDetalleDesdeReportes(${idx})">Observar</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
 
-    <script src="/JAVASCRIPT/reporte_gestion_M6.js"></script>
+function abrirModalReportes() {
+  cargarReportesDetalle();
+  document.getElementById('modalReportes').style.display = 'block';
+}
+function cerrarModalReportes() {
+  document.getElementById('modalReportes').style.display = 'none';
+}
+window.onclick = function(event) {
+  var modal = document.getElementById('modalReportes');
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+function abrirModalDetalleDesdeReportes(idx) {
+  reporteSeleccionado = reportesDetalle[idx];
+  if (!reporteSeleccionado) return;
+  const detalle = document.querySelector('#modalDetalleReporte .detalle-info');
+  detalle.innerHTML = `
+    <div><b>Facultad:</b> ${reporteSeleccionado.facultad || ''}</div>
+    <div><b>Turno:</b> ${reporteSeleccionado.turno || ''}</div>
+    <div><b>Fecha:</b> ${reporteSeleccionado.fecha || ''}</div>
+    <div><b>Estado:</b> ${reporteSeleccionado.estado || ''}</div>
+    <div><b>Artículos:</b> ${reporteSeleccionado.Articulos || ''}</div>
+    <div><b>Motivo:</b> ${reporteSeleccionado.Motivo || ''}</div>
+    <hr>
+    <div><b>Lugar del Problema:</b> Pabellon ${reporteSeleccionado.Pabellon}, Piso ${reporteSeleccionado.Piso}, Aula ${reporteSeleccionado.Salon}</div>
+    <div><b>Descripción del Problema:</b><br>${reporteSeleccionado.descripcion || ''}</div>
+    <hr>
+    <div><b>Evidencia:</b></div>
+    <img id="imgEvidencia" src="${reporteSeleccionado.evidencia || '../../CSS/auth/images/Problema monitor.jpg'}" alt="Evidencia" style="max-width:100%;margin-top:10px;border-radius:8px;">
+  `;
+  document.getElementById('modalReportes').style.display = 'none';
+  document.getElementById('modalDetalleReporte').style.display = 'block';
+}
+
+function cerrarModalDetalleReporte() {
+  document.getElementById('modalDetalleReporte').style.display = 'none';
+  document.getElementById('modalReportes').style.display = 'block';
+}
+
+// Función para aprobar/desaprobar desde la tabla principal
+async function aprobarReporte(id) {
+  try {
+    await fetch(`${API_URL}/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ estado: 'Aprobado' })
+    });
+    cargarReportesDetalle();
+  } catch (error) {
+    alert('Error al aprobar el reporte');
+  }
+}
+async function desaprobarReporte(id, motivo) {
+  try {
+    await fetch(`${API_URL}/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ estado: 'Desaprobado', motivo: motivo })
+    });
+    cargarReportesDetalle();
+  } catch (error) {
+    alert('Error al desaprobar el reporte');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', cargarReportesDetalle);
+</script>
   </body>
 </html>
