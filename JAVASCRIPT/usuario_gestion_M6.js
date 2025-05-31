@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fetchUsers = async () => {
     try {
       const response = await fetch(
-        "https://ucv-reports-backend.onrender.com/usuarios"
+        "https://ucv-reports-backend.onrender.com/usuarios/habilitados"
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
