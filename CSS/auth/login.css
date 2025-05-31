@@ -79,8 +79,8 @@ body {
 }
 
 .logo-circle {
-  background-image: url("./images/logo.png");
-  background-size: 60px 60px;
+ background-image: url("./images/logo.png");
+  background-size: cover; /* Cambiado de 60px 60px a cover */
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -374,32 +374,29 @@ body {
 
 .toggle-password {
   position: absolute;
-  right: 18px;
-  top: 38px;
+  right: 6px; /* Más metido en el input */
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
-  user-select: none;
+  z-index: 3;
+  width: 22px;
+  height: 22px;
   display: flex;
   align-items: center;
-  height: 22px;
-  width: 22px;
-  z-index: 3;
-  stroke: #111 !important;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
-.toggle-password #eyeClosed {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23888' stroke-width='2' d='M3 3l18 18M10.7 10.7a2 2 0 102.6 2.6m-6.3-6.3A9.77 9.77 0 002 12s3.6 7 10 7a9.77 9.77 0 005.3-1.5m-2.1-2.1A4 4 0 0012 8a4 4 0 00-4 4c0 .7.2 1.4.5 2'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 22px;
-  height: 22px;
-  display: block;
+.toggle-password i {
+  font-size: 1.2em;
+  color: #111; /* Cambiado a negro */
+  transition: color 0.2s;
 }
 
 .toggle-password #eyeOpen {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23888' stroke-width='2' d='M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12zm11 3a3 3 0 100-6 3 3 0 000 6z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 22px;
-  height: 22px;
+  display: inline;
+}
+.toggle-password #eyeClosed {
   display: none;
 }
 
@@ -409,25 +406,27 @@ body {
 }
 
 .input-icon {
+  position: relative;
   display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.95);
   border: 2px solid #e1e1e1;
   border-radius: 8px;
-  padding: 0 16px;
   margin-bottom: 16px;
   box-shadow: 0 1px 4px rgba(0, 123, 255, 0.04);
   font-size: 15px;
-  transition: border-color 0.3s, box-shadow 0.3s;
   height: 48px;
+  padding: 0 16px;
 }
 
 .input-icon i {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
   color: #007bff;
-  font-size: 1.2em;
-  margin-right: 12px;
-  min-width: 22px;
-  text-align: center;
+  font-size: 1.3em;
+  pointer-events: none;
 }
 
 .input-icon input {
@@ -437,11 +436,10 @@ body {
   font-size: 1em;
   flex: 1;
   width: 100%;
-  padding-left: 38px;
-  padding-right: 38px;
-  box-sizing: border-box;
-  margin-left: 2px;
+  padding-left: 44px; /* Espacio para el icono */
+  padding-right: 38px; /* Espacio para el icono de ojo */
   height: 100%;
+  box-sizing: border-box;
 }
 
 .input-icon i {
@@ -449,12 +447,12 @@ body {
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  color: #007bff;
+  color: #000000;
 }
 
 .toggle-password {
   position: absolute;
-  right: 10px;
+  right: 20px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
