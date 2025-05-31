@@ -416,12 +416,12 @@ body {
   box-shadow: 0 1px 4px rgba(0, 123, 255, 0.04);
   font-size: 15px;
   height: 48px;
-  padding: 0 16px;
+  padding: 0;
 }
 
 .input-icon i {
   position: absolute;
-  left: 16px;
+  left: 14px; /* Ajusta según el tamaño del icono */
   top: 50%;
   transform: translateY(-50%);
   color: #007bff;
@@ -436,26 +436,10 @@ body {
   font-size: 1em;
   flex: 1;
   width: 100%;
-  padding-left: 44px; /* Espacio para el icono */
-  padding-right: 38px; /* Espacio para el icono de ojo */
   height: 100%;
+  padding-left: 44px; /* Espacio para el icono de candado */
+  padding-right: 38px; /* Espacio para el icono de ojo */
   box-sizing: border-box;
-}
-
-.input-icon i {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #000000;
-}
-
-.toggle-password {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
 }
 
 .input-icon input::placeholder {

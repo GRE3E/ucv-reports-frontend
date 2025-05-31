@@ -54,3 +54,22 @@ loginForm.addEventListener("submit", async (event) => {
     alert("An error occurred during login.");
   }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const passwordInput = document.getElementById("password-input");
+  const togglePassword = document.getElementById("togglePassword");
+  const eyeIcon = togglePassword.querySelector("i");
+
+  togglePassword.addEventListener("click", function () {
+    const isPassword = passwordInput.type === "password";
+    passwordInput.type = isPassword ? "text" : "password";
+    // Cambia el ícono entre abierto y cerrado
+    if (isPassword) {
+      eyeIcon.classList.remove("fa-eye-slash");
+      eyeIcon.classList.add("fa-eye");
+    } else {
+      eyeIcon.classList.remove("fa-eye");
+      eyeIcon.classList.add("fa-eye-slash");
+    }
+  });
+});
