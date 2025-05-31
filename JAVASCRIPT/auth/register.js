@@ -7,14 +7,31 @@ window.addEventListener("load", () => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  const passwordInput = document.getElementById("verificarPassword");
-  const togglePassword = document.getElementById("toggleVerificarPassword");
-  const eyeIcon = togglePassword.querySelector("i");
+  // Para el campo Contraseña
+  const passwordInput = document.getElementById("password");
+  const togglePassword = document.getElementById("togglePassword");
+  if (togglePassword) { // Verifica si el elemento existe
+    const eyeIcon = togglePassword.querySelector("i");
 
-  togglePassword.addEventListener("click", function () {
-    const isPassword = passwordInput.type === "password";
-    passwordInput.type = isPassword ? "text" : "password";
-    eyeIcon.classList.toggle("fa-eye");
-    eyeIcon.classList.toggle("fa-eye-slash");
-  });
+    togglePassword.addEventListener("click", function () {
+      const isPassword = passwordInput.type === "password";
+      passwordInput.type = isPassword ? "text" : "password";
+      eyeIcon.classList.toggle("fa-eye");
+      eyeIcon.classList.toggle("fa-eye-slash");
+    });
+  }
+
+  // Para el campo Verificar Contraseña
+  const verificarPasswordInput = document.getElementById("verificarPassword");
+  const toggleVerificarPassword = document.getElementById("toggleVerificarPassword");
+  if (toggleVerificarPassword) { // Verifica si el elemento existe
+    const eyeIconVerificar = toggleVerificarPassword.querySelector("i");
+
+    toggleVerificarPassword.addEventListener("click", function () {
+      const isPassword = verificarPasswordInput.type === "password";
+      verificarPasswordInput.type = isPassword ? "text" : "password";
+      eyeIconVerificar.classList.toggle("fa-eye");
+      eyeIconVerificar.classList.toggle("fa-eye-slash");
+    });
+  }
 });
