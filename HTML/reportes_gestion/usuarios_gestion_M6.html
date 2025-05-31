@@ -3,13 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <title>Gestion Reportes</title>
-    <link rel="stylesheet" href="../../CSS/reportes_gestion/usuarios_gestion_M6.css" />
+    <link
+      rel="stylesheet"
+      href="../../CSS/reportes_gestion/usuarios_gestion_M6.css"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
-
-    <link rel="icon" type="image/png" href="../../CSS/auth/images/logo_ucv_modal.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../../CSS/auth/images/logo_ucv_modal.png"
+    />
   </head>
   <body>
     <div class="sidebar">
@@ -66,8 +72,7 @@
           </select>
           <input type="text" placeholder="Buscar por apellidos..." />
           <button class="disabled-btn" onclick="abrirModalDeshabilitados()">
-            <i class="fas fa-ban"></i> 
-            Usuarios Deshabilitados
+            <i class="fas fa-ban"></i> Usuarios Deshabilitados
           </button>
         </div>
       </div>
@@ -76,57 +81,23 @@
           <table class="usuarios-table">
             <thead>
               <tr>
-                <th><span class="icon"> Usuario</th>
-                <th><span class="icon"> Apellidos</th>
-                <th><span class="icon"> Rol</th>
-                <th><span class="icon"> Contraseña</th>
-                <th><span class="icon"> Acciones</th>
+                <th><span class="icon"></span> Usuario</th>
+                <th><span class="icon"></span> Apellidos</th>
+                <th><span class="icon"></span> Rol</th>
+                <th><span class="icon"></span> Contraseña</th>
+                <th><span class="icon"></span> Acciones</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>alumno12</td>
-                <td>1 2</td>
-                <td>Alumno</td>
-                <td>**********</td>
-                <td>
-                  <button class="btn editar">
-                    <i class="fas fa-edit"></i>
-                    EDITAR
-                  </button>
-                  <button class="btn deshabilitar">
-                   <i class="fas fa-ban"></i>
-                    DESHABILITAR
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>danielob</td>
-                <td>Ore Berna</td>
-                <td>Alumno</td>
-                <td>**********</td>
-                <td>
-                  <button class="btn editar">
-                    <i class="fas fa-edit"></i>
-                    EDITAR
-                  </button>
-                  <button class="btn deshabilitar">
-                    <i class="fas fa-ban"></i>
-                    DESHABILITAR
-                  </button>
-                </td>
-              </tr>
-              <!-- ...más filas aquí... -->
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
       </div>
 
-
-      <!-- MODAL DE USUARIOS DESHABILITADOS -->
       <div id="modalDeshabilitados" class="modal">
         <div class="modal-content">
-          <span class="close" onclick="cerrarModalDeshabilitados()">&times;</span>
+          <span class="close" onclick="cerrarModalDeshabilitados()"
+            >&times;</span
+          >
           <h2>Usuarios Deshabilitados</h2>
           <table class="usuarios-table">
             <thead>
@@ -138,19 +109,14 @@
                 <th>Acciones</th>
               </tr>
             </thead>
-            <tbody>
-              
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
       </div>
 
-
-
-    <!-- ABRIR MODAL DE EDITAR -->
-    <div id="modalEditActual" class="modal">
-      <div class="modal-content-edit">
-        <span class="close">&times;</span>
+      <div id="modalEditActual" class="modal">
+        <div class="modal-content-edit">
+          <span class="close">&times;</span>
           <div class="icono-container-modal">
             <img
               class="icono-btn-modal"
@@ -158,326 +124,352 @@
               alt="report_LOGO-ucv"
             />
           </div>
-            <h2>Editar Usuario</h2>
-
-            <div class="form-group-edit">
-              <label for="userName">Usuario:</label>
-              <input
-                type="text"
-                id="userName"
-                name="userName"
-              />
-            </div>
-
-            <div class="form-group-edit">
-              <label for="apellidosUser">Apellidos:</label>
-              <input
-                type="text"
-                id="apellidosUser"
-                name="apellidosUser"
-              />
-            </div>
-
-            <div class="form-group-edit">
-              <label for="roleUser">Artículo:</label>
-                <select id="roleUser" name="roleUser">
-                  <option value="">Seleccione un artículo</option>
-                  <option value="Alumno">Alumno</option>
-                  <option value="Docente">Docente</option>
-                  <option value="Asistente">Asistente</option>
-                  <option value="Admistrador">Admistrador</option>
-                </select>
-            </div>
-
-            <div class="form-group-edit">
-              <label for="passwordUser">Contraseña:</label>
-              <input
-                type="text"
-                id="passwordUser"
-                name="passwordUser"
-              />
-            </div>
-
-            <div class="form-actions-editar">
-              <button type="submit" class="btn guardar-edit">
-                <i class="fas fa-save"></i>
-                Guardar Cambios
-              </button>
-            </div>    
+          <h2>Editar Usuario</h2>
+          <div class="form-group-edit">
+            <label for="userName">Usuario:</label>
+            <input type="text" id="userName" name="userName" />
+          </div>
+          <div class="form-group-edit">
+            <label for="apellidosUser">Apellidos:</label>
+            <input type="text" id="apellidosUser" name="apellidosUser" />
+          </div>
+          <div class="form-group-edit">
+            <label for="roleUser">Artículo:</label>
+            <select id="roleUser" name="roleUser">
+              <option value="">Seleccione un artículo</option>
+              <option value="Alumno">Alumno</option>
+              <option value="Docente">Docente</option>
+              <option value="Asistente">Asistente</option>
+              <option value="Administrador">Administrador</option>
+            </select>
+          </div>
+          <div class="form-group-edit">
+            <label for="passwordUser">Contraseña:</label>
+            <input type="text" id="passwordUser" name="passwordUser" />
+          </div>
+          <div class="form-actions-editar">
+            <button type="submit" class="btn guardar-edit">
+              <i class="fas fa-save"></i> Guardar Cambios
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
 
-
-    <div id="modalDeshabilitar" class="modal">
-      <div class="modal-content-deshabilitar">
-        <span class="closeBtnDeshabilitar" >&times;</span>
-
-        <div class="icono-container-modal">
+      <div id="modalDeshabilitar" class="modal">
+        <div class="modal-content-deshabilitar">
+          <span class="closeBtnDeshabilitar">&times;</span>
+          <div class="icono-container-modal">
             <img
               class="icono-btn-modal"
               src="../../CSS/auth/images/logo_ucv_modal.png"
               alt="report_LOGO-ucv"
             />
           </div>
-
-        <label
-          >¿Estás seguro de que deseas deshabilitar a este usuario? Ingrese el
-          motivo:</label
-        >
-        <textarea id="motivoDeshabilitacion" placeholder="Motivo..."></textarea>
-        <div class="modal-actions-deshabiltar">
-          <button class="btn aceptar">
-            Aceptar
-          </button>
-          <button class="btn cancelar" >
-            Cancelar
-          </button>
+          <label
+            >¿Estás seguro de que deseas deshabilitar a este usuario?</label
+          >
+          <div class="modal-actions-deshabiltar">
+            <button class="btn aceptar">Aceptar</button>
+            <button class="btn cancelar">Cancelar</button>
+          </div>
         </div>
       </div>
     </div>
 
+    <script>
+      const API_URL = "https://ucv-reports-backend.onrender.com/usuarios";
+      const CARGOS_URL = "https://ucv-reports-backend.onrender.com/cargos";
+      let usuarios = [];
+      let cargos = [];
+      let editandoId = null;
+      let idUsuarioDeshabilitar = null;
 
+      const modalEditar = document.getElementById("modalEditActual");
+      const closeBtn = modalEditar.querySelector(".close");
 
-    </body>
-  </html>
+      const modalDeshabilitar = document.getElementById("modalDeshabilitar");
+      const closeBtnDeshabilitar = modalDeshabilitar.querySelector(
+        ".closeBtnDeshabilitar"
+      );
 
-<script>
+      // MODAL EDITAR USUARIO
+      closeBtn.addEventListener("click", () => {
+        modalEditar.style.display = "none";
+      });
 
-  document.addEventListener('DOMContentLoaded', () => {
-      
-  const API_URL = "https://ucv-reports-backend.onrender.com/usuarios";
-  const CARGOS_URL = "https://ucv-reports-backend.onrender.com/cargos";
-  let usuarios = [];
-  let cargos = [];
-  let editandoId = null;
+      // MODAL DESHABILITAR USUARIO
+      closeBtnDeshabilitar.addEventListener("click", () => {
+        modalDeshabilitar.style.display = "none";
+      });
 
-  const editarBtns = document.querySelectorAll('.btn.editar');
-  const modalEditar = document.getElementById('modalEditActual');
-  const closeBtn = modalEditar.querySelector('.close');
+      window.addEventListener("click", function (event) {
+        if (event.target === modalEditar) {
+          modalEditar.style.display = "none";
+        }
 
-  const deshabilitarBtns = document.querySelectorAll('.btn.deshabilitar');
-  const modalDeshabilitar = document.getElementById('modalDeshabilitar');
-  const closeBtnDeshabilitar = modalDeshabilitar.querySelector('.closeBtnDeshabilitar');
+        if (event.target === modalDeshabilitar) {
+          modalDeshabilitar.style.display = "none";
+        }
+      });
 
- // MODAL EDITAR USUARIO
-  editarBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      modalEditar.style.display = 'block';
-    });
-  });
-  
-  closeBtn.addEventListener('click',()=>{
-      modalEditar.style.display= 'none';
-  });
+      // Cargar usuarios y cargos
+      async function cargarUsuarios() {
+        try {
+          const [usuariosRes, cargosRes] = await Promise.all([
+            fetch(`${API_URL}?_relations=cargo`),
+            fetch(CARGOS_URL),
+          ]);
+          if (!usuariosRes.ok)
+            throw new Error(`HTTP error! status: ${usuariosRes.status}`);
+          if (!cargosRes.ok)
+            throw new Error(`HTTP error! status: ${cargosRes.status}`);
 
+          usuarios = (await usuariosRes.json()).filter(
+            (u) => u.Estado === "Habilitado"
+          );
+          cargos = await cargosRes.json();
 
-  //MODAL DESHABILITAR USUARIO
-  deshabilitarBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      modalDeshabilitar.style.display = 'block';
-    });
-  });
-  
-  closeBtnDeshabilitar.addEventListener('click',()=>{
-      modalDeshabilitar.style.display= 'none';
-  });
-
-  window.addEventListener('click', function (event) {
-    if (event.target === modalEditar) {
-      modalEditar.style.display = "none";
-    }
-
-    if (event.target === modalDeshabilitar) {
-      modalDeshabilitar.style.display = "none";
-    }
-  });
-
-
-  // Cargar usuarios y cargos
-  async function cargarUsuarios() {
-    try {
-      const [usuariosRes, cargosRes] = await Promise.all([
-        fetch(API_URL),
-        fetch(CARGOS_URL)
-      ]);
-      if (!usuariosRes.ok) throw new Error(`HTTP error! status: ${usuariosRes.status}`);
-      if (!cargosRes.ok) throw new Error(`HTTP error! status: ${cargosRes.status}`);
-
-      usuarios = await usuariosRes.json();
-      cargos = await cargosRes.json();
-      usuarios = usuarios.filter(u => u.Estado === 'Habilitado');
-      renderUsuarios();
-    } catch (error) {
-      console.error('Error al cargar usuarios o cargos:', error);
-      usuarios = [];
-      cargos = [];
-      renderUsuarios(); // Render with empty data on error
-    }
-  }
-
-
-
-  function renderUsuarios() {
-    const tbody = document.querySelector('.usuarios-table tbody');
-    tbody.innerHTML = '';
-    usuarios.forEach(usuario => {
-      const nombreCompleto = `${usuario.nombre} ${usuario.apellido_paterno} ${usuario.apellido_materno}`.trim();
-      const rol = usuario.cargo && usuario.cargo.descripcion ? usuario.cargo.descripcion : 'Sin Rol';
-      const estaEditando = editandoId === usuario.IDUsuario;
-      const tr = document.createElement('tr');
-      if (estaEditando) {
-        tr.innerHTML = `
-          <td><input type="text" value="${usuario.usuario}" id="editUsuario"></td>
-          <td>
-            <input type="text" value="${usuario.apellido_paterno}" id="editApellidoPaterno" style="width:45%">
-            <input type="text" value="${usuario.apellido_materno}" id="editApellidoMaterno" style="width:45%">
-          </td>
-          <td>
-            <select id="editRol">
-              ${cargos.map(c => `<option value="${c.idcargo}" ${usuario.id_cargo === c.idcargo ? 'selected' : ''}>${c.descripcion}</option>`).join('')}
-            </select>
-          </td>
-          <td><input type="password" value="" placeholder="Nueva contraseña" id="editContrasena"></td>
-          <td>
-            <button class="btn editar" onclick="guardarEdicion(${usuario.IDUsuario})"><i class="fas fa-save"></i> GUARDAR</button>
-            <button class="btn cancelar" onclick="cancelarEdicion()"><i class="fas fa-times"></i> CANCELAR</button>
-          </td>
-        `;
-      } else {
-        tr.innerHTML = `
-          <td>${usuario.usuario}</td>
-          <td>${nombreCompleto}</td>
-          <td>${rol}</td>
-          <td>**********</td>
-          <td>
-            <button class="btn editar" onclick="editarUsuario(${usuario.IDUsuario})"><i class="fas fa-edit"></i> EDITAR</button>
-            <button class="btn deshabilitar" onclick="deshabilitarUsuario(${usuario.IDUsuario})"><i class="fas fa-ban"></i> DESHABILITAR</button>
-          </td>
-        `;
+          renderUsuarios();
+        } catch (error) {
+          console.error("Error al cargar usuarios o cargos:", error);
+          usuarios = [];
+          cargos = [];
+          renderUsuarios(); // Render with empty data on error
+        }
       }
-      tbody.appendChild(tr);
-    });
-  }
 
-  function editarUsuario(id) {
-    editandoId = id;
-    renderUsuarios();
-  }
+      function renderUsuarios() {
+        const tbody = document.querySelector(".usuarios-table tbody");
+        tbody.innerHTML = "";
+        usuarios.forEach((usuario) => {
+          const nombreCompleto =
+            `${usuario.nombre} ${usuario.apellido_paterno} ${usuario.apellido_materno}`.trim();
+          const rol =
+            usuario.cargo && usuario.cargo.descripcion
+              ? usuario.cargo.descripcion
+              : "Sin Rol";
+          const estaEditando = editandoId === usuario.IDUsuario;
+          const tr = document.createElement("tr");
+          if (estaEditando) {
+            tr.innerHTML = `
+              <td><input type="text" value="${
+                usuario.usuario
+              }" id="editUsuario"></td>
+              <td>
+                <input type="text" value="${
+                  usuario.apellido_paterno
+                }" id="editApellidoPaterno" style="width:45%">
+                <input type="text" value="${
+                  usuario.apellido_materno
+                }" id="editApellidoMaterno" style="width:45%">
+              </td>
+              <td>
+                <select id="editRol">
+                  ${cargos
+                    .map(
+                      (c) =>
+                        `<option value="${c.idcargo}" ${
+                          usuario.id_cargo === c.idcargo ? "selected" : ""
+                        }>${c.descripcion}</option>`
+                    )
+                    .join("")}
+                </select>
+              </td>
+              <td><input type="password" value="" placeholder="Nueva contraseña" id="editContrasena"></td>
+              <td>
+                <button class="btn editar" onclick="guardarEdicion(${
+                  usuario.IDUsuario
+                })"><i class="fas fa-save"></i> GUARDAR</button>
+                <button class="btn cancelar" onclick="cancelarEdicion()"><i class="fas fa-times"></i> CANCELAR</button>
+              </td>
+            `;
+          } else {
+            tr.innerHTML = `
+              <td>${usuario.usuario}</td>
+              <td>${nombreCompleto}</td>
+              <td>${rol}</td>
+              <td>**********</td>
+              <td>
+                <button class="btn editar" data-id="${usuario.IDUsuario}"><i class="fas fa-edit"></i> EDITAR</button>
+                <button class="btn deshabilitar" data-id="${usuario.IDUsuario}"><i class="fas fa-ban"></i> DESHABILITAR</button>
+              </td>
+            `;
+          }
+          tbody.appendChild(tr);
+        });
+      }
 
-  function cancelarEdicion() {
-    editandoId = null;
-    renderUsuarios();
-  }
+      function editarUsuario(id) {
+        editandoId = id;
+        renderUsuarios();
+      }
 
-  async function guardarEdicion(id) {
-    const usuario = document.getElementById('editUsuario').value.trim();
-    const apellido_paterno = document.getElementById('editApellidoPaterno').value.trim();
-    const apellido_materno = document.getElementById('editApellidoMaterno').value.trim();
-    const id_cargo = parseInt(document.getElementById('editRol').value, 10);
-    const contrasena = document.getElementById('editContrasena').value.trim();
+      function cancelarEdicion() {
+        editandoId = null;
+        renderUsuarios();
+      }
 
-    const body = {
-      usuario,
-      apellido_paterno,
-      apellido_materno,
-      id_cargo
-    };
-    if (contrasena) body.contraseña = contrasena;
+      async function guardarEdicion(id) {
+        const usuario = document.getElementById("editUsuario").value.trim();
+        const apellido_paterno = document
+          .getElementById("editApellidoPaterno")
+          .value.trim();
+        const apellido_materno = document
+          .getElementById("editApellidoMaterno")
+          .value.trim();
+        const id_cargo = parseInt(document.getElementById("editRol").value, 10);
+        const contrasena = document
+          .getElementById("editContrasena")
+          .value.trim();
 
-    try {
-      const response = await fetch(`${API_URL}/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
+        const body = {
+          usuario,
+          apellido_paterno,
+          apellido_materno,
+          id_cargo,
+        };
+        if (contrasena) body.contraseña = contrasena;
+
+        try {
+          const response = await fetch(`${API_URL}/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          if (!response.ok)
+            throw new Error(`HTTP error! status: ${response.status}`);
+          editandoId = null;
+          cargarUsuarios();
+        } catch (error) {
+          console.error("Error al guardar edición:", error);
+          alert("Error al guardar edición. Por favor, inténtalo de nuevo.");
+        }
+      }
+
+      async function deshabilitarUsuario(id) {
+        idUsuarioDeshabilitar = id;
+        modalDeshabilitar.style.display = "block";
+      }
+
+      // MODAL USUARIOS DESHABILITADOS
+      async function cargarUsuariosDeshabilitados() {
+        try {
+          const response = await fetch(API_URL);
+          if (!response.ok)
+            throw new Error(`HTTP error! status: ${response.status}`);
+          const data = await response.json();
+          const usuariosDeshabilitados = data.filter(
+            (u) => u.Estado === "Deshabilitado"
+          );
+          renderUsuariosDeshabilitados(usuariosDeshabilitados);
+        } catch (error) {
+          console.error("Error al cargar usuarios deshabilitados:", error);
+          renderUsuariosDeshabilitados([]); // Render with empty data on error
+        }
+      }
+
+      function renderUsuariosDeshabilitados(usuariosDeshabilitados) {
+        const tbody = document.querySelector(
+          "#modalDeshabilitados .usuarios-table tbody"
+        );
+        tbody.innerHTML = "";
+        usuariosDeshabilitados.forEach((usuario) => {
+          const nombreCompleto =
+            `${usuario.nombre} ${usuario.apellido_paterno} ${usuario.apellido_materno}`.trim();
+          const rol =
+            usuario.cargo && usuario.cargo.descripcion
+              ? usuario.cargo.descripcion
+              : "Sin Rol";
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${usuario.usuario}</td>
+            <td>${nombreCompleto}</td>
+            <td>${rol}</td>
+            <td>**********</td>
+            <td>
+              <button class="btn reactivar" onclick="reactivarUsuario(${usuario.IDUsuario})">
+                <span class="icon">✏️</span> Reactivar
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function abrirModalDeshabilitados() {
+        cargarUsuariosDeshabilitados();
+        document.getElementById("modalDeshabilitados").style.display = "block";
+      }
+
+      function cerrarModalDeshabilitados() {
+        document.getElementById("modalDeshabilitados").style.display = "none";
+      }
+
+      async function reactivarUsuario(id) {
+        try {
+          const response = await fetch(`${API_URL}/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ Estado: "Habilitado" }),
+          });
+          if (!response.ok)
+            throw new Error(`HTTP error! status: ${response.status}`);
+          cargarUsuariosDeshabilitados();
+          cargarUsuarios();
+        } catch (error) {
+          console.error("Error al reactivar usuario:", error);
+          alert("Error al reactivar usuario. Por favor, inténtalo de nuevo.");
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        cargarUsuarios();
+
+        document
+          .querySelector(".usuarios-table tbody")
+          .addEventListener("click", (event) => {
+            const target = event.target.closest("button");
+            if (!target) return;
+
+            const id = parseInt(target.dataset.id);
+
+            if (target.classList.contains("editar")) {
+              editarUsuario(id);
+            } else if (target.classList.contains("deshabilitar")) {
+              deshabilitarUsuario(id);
+            }
+          });
+
+        document
+          .querySelector("#modalDeshabilitar .btn.aceptar")
+          .addEventListener("click", async () => {
+            try {
+              const response = await fetch(
+                `${API_URL}/${idUsuarioDeshabilitar}`,
+                {
+                  method: "PATCH",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ Estado: "Deshabilitado" }),
+                }
+              );
+              if (!response.ok)
+                throw new Error(`HTTP error! status: ${response.status}`);
+              modalDeshabilitar.style.display = "none";
+              cargarUsuarios();
+            } catch (error) {
+              console.error("Error al deshabilitar usuario:", error);
+              alert(
+                "Error al deshabilitar usuario. Por favor, inténtalo de nuevo."
+              );
+            }
+          });
+
+        document
+          .querySelector("#modalDeshabilitar .btn.cancelar")
+          .addEventListener("click", () => {
+            modalDeshabilitar.style.display = "none";
+          });
       });
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      editandoId = null;
-      cargarUsuarios();
-    } catch (error) {
-      console.error('Error al guardar edición:', error);
-      alert('Error al guardar edición. Por favor, inténtalo de nuevo.');
-    }
-  }
-
-  async function deshabilitarUsuario(id) {
-    if (!confirm('¿Seguro que deseas deshabilitar este usuario?')) return;
-    try {
-      const response = await fetch(`${API_URL}/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ Estado: 'Deshabilitado' })
-      });
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      cargarUsuarios();
-    } catch (error) {
-      console.error('Error al deshabilitar usuario:', error);
-      alert('Error al deshabilitar usuario. Por favor, inténtalo de nuevo.');
-    }
-  }
-
-  // MODAL USUARIOS DESHABILITADOS
-  async function cargarUsuariosDeshabilitados() {
-    try {
-      const response = await fetch(API_URL);
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      const data = await response.json();
-      const usuariosDeshabilitados = data.filter(u => u.Estado === 'Deshabilitado');
-      renderUsuariosDeshabilitados(usuariosDeshabilitados);
-    } catch (error) {
-      console.error('Error al cargar usuarios deshabilitados:', error);
-      renderUsuariosDeshabilitados([]); // Render with empty data on error
-    }
-  }
-
-  function renderUsuariosDeshabilitados(usuariosDeshabilitados) {
-    const tbody = document.querySelector('#modalDeshabilitados .usuarios-table tbody');
-    tbody.innerHTML = '';
-    usuariosDeshabilitados.forEach(usuario => {
-      const nombreCompleto = `${usuario.nombre} ${usuario.apellido_paterno} ${usuario.apellido_materno}`.trim();
-      const rol = usuario.cargo && usuario.cargo.descripcion ? usuario.cargo.descripcion : 'Sin Rol';
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${usuario.usuario}</td>
-        <td>${nombreCompleto}</td>
-        <td>${rol}</td>
-        <td>**********</td>
-        <td>
-          <button class="btn reactivar" onclick="reactivarUsuario(${usuario.IDUsuario})">
-            <span class="icon">✏️</span> Reactivar
-          </button>
-        </td>
-      `;
-      tbody.appendChild(tr);
-    });
-  }
-
-  function abrirModalDeshabilitados() {
-    cargarUsuariosDeshabilitados();
-    document.getElementById('modalDeshabilitados').style.display = 'block';
-  }
-  function cerrarModalDeshabilitados() {
-    document.getElementById('modalDeshabilitados').style.display = 'none';
-  }
-
-  async function reactivarUsuario(id) {
-    try {
-      const response = await fetch(`${API_URL}/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ Estado: 'Habilitado' })
-      });
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      cargarUsuariosDeshabilitados();
-      cargarUsuarios();
-    } catch (error) {
-      console.error('Error al reactivar usuario:', error);
-      alert('Error al reactivar usuario. Por favor, inténtalo de nuevo.');
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', cargarUsuarios);
-
-  });
-
-
-</script>
+    </script>
+  </body>
+</html>
