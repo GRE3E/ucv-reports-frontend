@@ -191,6 +191,33 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Error al actualizar el usuario.");
       }
     });
+
+  const searchInput = document.querySelector('.search-controls input[type="text"]');
+  searchInput.addEventListener("keyup", async (event) => {
+    const value = event.target.value.trim();
+    if (value === "") {
+      fetchUsers(); // Muestra todos los usuarios si el campo está vacío
+      return;
+    }
+    try {
+      const response = await fetch(
+        `https://ucv-reports-backend.onrender.com/usuarios/buscar-usuario/${encodeURIComponent(value)}`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const user = await response.json();
+      if (user) {
+        populateTable([user]);
+      } else {
+        // Si no se encuentra, limpia la tabla
+        populateTable([]);
+      }
+    } catch (error) {
+      console.error("Error searching user:", error);
+      populateTable([]);
+    }
+  });
 });
 
 // Funciones para los modales (mantenerlas si ya existen o se planean usar)
