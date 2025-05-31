@@ -1,37 +1,91 @@
-const API_URL = "https://ucv-reports-backend.onrender.com/reportes/todos-con-usuario";
+const API_URL =
+  "https://ucv-reports-backend.onrender.com/reportes/todos-con-usuario";
 let reportesPendientes = [];
 let reportesDetalle = [];
 let reporteSeleccionado = null;
 
+// Función para debugging - puedes eliminarla después
+function debugResponse(data, context) {
+  console.log(`=== DEBUG ${context} ===`);
+  console.log("Datos recibidos:", data);
+  if (data && data.length > 0) {
+    console.log("Estructura del primer elemento:", Object.keys(data[0]));
+    console.log("Primer elemento completo:", data[0]);
+  }
+  console.log("========================");
+}
+
 // Cargar reportes pendientes para la tabla principal
 async function cargarReportesPendientes() {
   try {
+    console.log("Cargando reportes pendientes...");
     const response = await fetch(API_URL);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const reportes = await response.json();
+    debugResponse(reportes, "REPORTES PENDIENTES");
+
     reportesPendientes = reportes.filter((r) => r.estado === "Pendiente");
+    console.log(`Reportes pendientes filtrados: ${reportesPendientes.length}`);
+
     renderReportesPendientes();
   } catch (error) {
     console.error("Error al cargar los reportes:", error);
+    alert("Error al cargar los reportes: " + error.message);
   }
 }
 
 function renderReportesPendientes() {
   const tbody = document.querySelector(".reportes-table tbody");
+
+  if (!tbody) {
+    console.error("No se encuentra el tbody de la tabla principal");
+    return;
+  }
+
   tbody.innerHTML = "";
+
+  if (reportesPendientes.length === 0) {
+    tbody.innerHTML =
+      '<tr><td colspan="4">No hay reportes pendientes</td></tr>';
+    return;
+  }
+
   reportesPendientes.forEach((reporte) => {
     const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${reporte.usuario || ""}</td>
-      <td>${reporte.lugarDelProblema || ""}</td>
-      <td>${reporte.fecha}</td>
-      <td>
-        <button class="btn aprobar" onclick="aprobarReporte(${reporte.id_reporte})">
-          <i class="fas fa-check-circle"></i>
-          Aprobar Reporte</button>
 
-        <button class="btn desaprobado" onclick="abrirModalDesaprobar(${reporte.id_reporte})">
+    // Usar múltiples posibles nombres de campo para mayor compatibilidad
+    const usuario =
+      reporte.usuario ||
+      reporte.nombre_usuario ||
+      reporte.user ||
+      "Sin usuario";
+    const lugar =
+      reporte.lugarDelProblema ||
+      reporte.lugardelproblema ||
+      reporte.lugar_problema ||
+      reporte.lugar ||
+      "Sin lugar";
+    const fecha =
+      reporte.fecha || reporte.r_fecha || reporte.created_at || "Sin fecha";
+    const idReporte = reporte.id_reporte || reporte.r_id_reporte || reporte.id;
+
+    tr.innerHTML = `
+      <td>${usuario}</td>
+      <td>${lugar}</td>
+      <td>${fecha}</td>
+      <td>
+        <button class="btn aprobar" onclick="aprobarReporte(${idReporte})">
+          <i class="fas fa-check-circle"></i>
+          Aprobar Reporte
+        </button>
+        <button class="btn desaprobado" onclick="abrirModalDesaprobar(${idReporte})">
           <i class="fas fa-ban"></i>
-          Desaprobar Reporte</button>
+          Desaprobar Reporte
+        </button>
       </td>
     `;
     tbody.appendChild(tr);
@@ -41,27 +95,70 @@ function renderReportesPendientes() {
 // Cargar reportes aprobados y desaprobados para el modal
 async function cargarReportesDetalle() {
   try {
-    const response = await fetch("https://ucv-reports-backend.onrender.com/reportes/todos-con-usuario");
+    console.log("Cargando reportes detalle...");
+    const response = await fetch(API_URL);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const reportes = await response.json();
+    debugResponse(reportes, "REPORTES DETALLE");
+
     reportesDetalle = reportes;
     renderReportesDetalle();
   } catch (error) {
     console.error("Error al cargar los reportes:", error);
+    alert("Error al cargar los reportes detalle: " + error.message);
   }
 }
 
 function renderReportesDetalle() {
   const tbody = document.getElementById("tbodyReportesDetalle");
+
+  if (!tbody) {
+    console.error("No se encuentra el tbody del modal de reportes");
+    return;
+  }
+
   tbody.innerHTML = "";
-  reportesDetalle.forEach((reporte, idx) => {
+
+  if (reportesDetalle.length === 0) {
+    tbody.innerHTML =
+      '<tr><td colspan="5">No hay reportes disponibles</td></tr>';
+    return;
+  }
+
+  reportesDetalle.forEach((reporte) => {
     const tr = document.createElement("tr");
+
+    // Usar múltiples posibles nombres de campo
+    const usuario =
+      reporte.usuario ||
+      reporte.nombre_usuario ||
+      reporte.user ||
+      "Sin usuario";
+    const lugar =
+      reporte.lugardelproblema ||
+      reporte.lugarDelProblema ||
+      reporte.lugar_problema ||
+      reporte.lugar ||
+      "Sin lugar";
+    const fecha = reporte.r_fecha
+      ? new Date(reporte.r_fecha).toLocaleDateString()
+      : reporte.fecha
+      ? new Date(reporte.fecha).toLocaleDateString()
+      : "Sin fecha";
+    const estado = reporte.estado || reporte.acciones || "Sin estado";
+    const idReporte = reporte.r_id_reporte || reporte.id_reporte || reporte.id;
+
     tr.innerHTML = `
-      <td>${reporte.usuario || ""}</td>
-      <td>${reporte.lugardelproblema || ""}</td>
-      <td>${reporte.r_fecha ? new Date(reporte.r_fecha).toLocaleDateString() : ""}</td>
-      <td>${reporte.acciones || ""}</td>
+      <td>${usuario}</td>
+      <td>${lugar}</td>
+      <td>${fecha}</td>
+      <td>${estado}</td>
       <td>
-        <button class="btn observar" onclick="abrirModalDetalleDesdeReportes(${reporte.r_id_reporte})">Observar</button>
+        <button class="btn observar" onclick="abrirModalDetalleDesdeReportes(${idReporte})">Observar</button>
       </td>
     `;
     tbody.appendChild(tr);
@@ -69,40 +166,77 @@ function renderReportesDetalle() {
 }
 
 async function aprobarReporte(id) {
+  if (!id) {
+    alert("ID de reporte no válido");
+    return;
+  }
+
   try {
-    await fetch(
+    console.log(`Aprobando reporte ID: ${id}`);
+    const response = await fetch(
       `https://ucv-reports-backend.onrender.com/reportes/${id}/aprobar`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
       }
     );
-    cargarReportesPendientes();
-    cargarReportesDetalle();
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    alert("Reporte aprobado exitosamente");
+    await cargarReportesPendientes();
+    await cargarReportesDetalle();
   } catch (error) {
-    alert("Error al aprobar el reporte");
+    console.error("Error al aprobar el reporte:", error);
+    alert("Error al aprobar el reporte: " + error.message);
   }
 }
 
 let idDesaprobar = null;
+
 function abrirModalDesaprobar(id) {
+  if (!id) {
+    alert("ID de reporte no válido");
+    return;
+  }
+
   idDesaprobar = id;
-  document.getElementById("modalDesaprobar").style.display = "block";
-  document.getElementById("motivoDesaprobacion").value = "";
+  const modal = document.getElementById("modalDesaprobar");
+  const input = document.getElementById("motivoDesaprobacion");
+
+  if (modal && input) {
+    modal.style.display = "block";
+    input.value = "";
+  } else {
+    console.error("No se encuentra el modal de desaprobación o el input");
+  }
 }
 
 function cerrarModalDesaprobar() {
-  document.getElementById("modalDesaprobar").style.display = "none";
+  const modal = document.getElementById("modalDesaprobar");
+  if (modal) {
+    modal.style.display = "none";
+  }
 }
 
 async function aceptarDesaprobacion() {
-  const motivo = document.getElementById("motivoDesaprobacion").value.trim();
+  const motivo = document.getElementById("motivoDesaprobacion")?.value?.trim();
+
   if (!motivo) {
     alert("Por favor, ingrese el motivo.");
     return;
   }
+
+  if (!idDesaprobar) {
+    alert("ID de reporte no válido");
+    return;
+  }
+
   try {
-    await fetch(
+    console.log(`Desaprobando reporte ID: ${idDesaprobar}`);
+    const response = await fetch(
       `https://ucv-reports-backend.onrender.com/reportes/${idDesaprobar}/desaprobar`,
       {
         method: "PATCH",
@@ -110,67 +244,163 @@ async function aceptarDesaprobacion() {
         body: JSON.stringify({ motivo: motivo }),
       }
     );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    alert("Reporte desaprobado exitosamente");
     cerrarModalDesaprobar();
-    cargarReportesPendientes();
-    cargarReportesDetalle();
+    await cargarReportesPendientes();
+    await cargarReportesDetalle();
   } catch (error) {
-    alert("Error al desaprobar el reporte");
+    console.error("Error al desaprobar el reporte:", error);
+    alert("Error al desaprobar el reporte: " + error.message);
   }
 }
 
 function abrirModalReportes() {
   cargarReportesDetalle();
-  document.getElementById("modalReportes").style.display = "block";
+  const modal = document.getElementById("modalReportes");
+  if (modal) {
+    modal.style.display = "block";
+  } else {
+    console.error("No se encuentra el modal de reportes");
+  }
 }
 
 function cerrarModalReportes() {
-  document.getElementById("modalReportes").style.display = "none";
+  const modal = document.getElementById("modalReportes");
+  if (modal) {
+    modal.style.display = "none";
+  }
 }
 
+// Mejorar el manejo de clics fuera del modal
 window.onclick = function (event) {
-  var modal = document.getElementById("modalReportes");
-  if (event.target == modal) {
-    modal.style.display = "none";
+  const modalReportes = document.getElementById("modalReportes");
+  const modalDesaprobar = document.getElementById("modalDesaprobar");
+  const modalDetalle = document.getElementById("modalDetalleReporte");
+
+  if (event.target == modalReportes) {
+    modalReportes.style.display = "none";
+  }
+  if (event.target == modalDesaprobar) {
+    modalDesaprobar.style.display = "none";
+  }
+  if (event.target == modalDetalle) {
+    modalDetalle.style.display = "none";
   }
 };
 
 async function abrirModalDetalleDesdeReportes(id_reporte) {
+  if (!id_reporte) {
+    alert("ID de reporte no válido");
+    return;
+  }
+
   try {
-    const response = await fetch(`https://ucv-reports-backend.onrender.com/reportes/detalle/${id_reporte}`);
+    console.log(`Cargando detalle del reporte ID: ${id_reporte}`);
+    const response = await fetch(
+      `https://ucv-reports-backend.onrender.com/reportes/detalle/${id_reporte}`
+    );
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const detalleReporte = await response.json();
 
-    const detalle = document.querySelector("#modalDetalleReporte .detalle-info");
+    const detalleReporte = await response.json();
+    console.log("Detalle del reporte:", detalleReporte);
+
+    const detalle = document.querySelector(
+      "#modalDetalleReporte .detalle-info"
+    );
+    if (!detalle) {
+      console.error("No se encuentra el contenedor de detalle");
+      return;
+    }
+
     detalle.innerHTML = `
-      <div><b>Facultad:</b> ${detalleReporte.facultad || ""}</div>
-      <div><b>Turno:</b> ${detalleReporte.turno || ""}</div>
-      <div><b>Fecha:</b> ${detalleReporte.fecha || ""}</div>
-      <div><b>Estado:</b> ${detalleReporte.estado || ""}</div>
-      <div><b>Artículos:</b> ${detalleReporte.Articulos || ""}</div>
-      <div><b>Motivo:</b> ${detalleReporte.Motivo || ""}</div>
+      <div><b>Facultad:</b> ${
+        detalleReporte.facultad || "No especificada"
+      }</div>
+      <div><b>Turno:</b> ${detalleReporte.turno || "No especificado"}</div>
+      <div><b>Fecha:</b> ${detalleReporte.fecha || "No especificada"}</div>
+      <div><b>Estado:</b> ${detalleReporte.estado || "No especificado"}</div>
+      <div><b>Artículos:</b> ${
+        detalleReporte.Articulos ||
+        detalleReporte.articulos ||
+        "No especificados"
+      }</div>
+      <div><b>Motivo:</b> ${
+        detalleReporte.Motivo || detalleReporte.motivo || "No especificado"
+      }</div>
       <hr>
-      <div><b>Lugar del Problema:</b> ${detalleReporte.Pabellon || ""}, ${detalleReporte.Piso || ""}, ${detalleReporte.Salon || ""}</div>
-      <div><b>Descripción del Problema:</b><br>${detalleReporte.descripcion || ""}</div>
+      <div><b>Lugar del Problema:</b> ${
+        detalleReporte.Pabellon || detalleReporte.pabellon || "No especificado"
+      }, ${detalleReporte.Piso || detalleReporte.piso || "No especificado"}, ${
+      detalleReporte.Salon || detalleReporte.salon || "No especificado"
+    }</div>
+      <div><b>Descripción del Problema:</b><br>${
+        detalleReporte.descripcion || "No especificada"
+      }</div>
       <hr>
       <div><b>Evidencia:</b></div>
-      <img id="imgEvidencia" src="${detalleReporte.evidencia || "../../CSS/auth/images/Problema monitor.jpg"}" alt="Evidencia" style="max-width:100%;margin-top:10px;border-radius:8px;">
+      <img id="imgEvidencia" src="${
+        detalleReporte.evidencia || "../../CSS/auth/images/Problema monitor.jpg"
+      }" alt="Evidencia" style="max-width:100%;margin-top:10px;border-radius:8px;" onerror="this.src='../../CSS/auth/images/Problema monitor.jpg'">
     `;
-    document.getElementById("modalReportes").style.display = "none";
-    document.getElementById("modalDetalleReporte").style.display = "block";
+
+    // Cerrar modal de reportes y abrir modal de detalle
+    const modalReportes = document.getElementById("modalReportes");
+    const modalDetalle = document.getElementById("modalDetalleReporte");
+
+    if (modalReportes) modalReportes.style.display = "none";
+    if (modalDetalle) modalDetalle.style.display = "block";
   } catch (error) {
     console.error("Error al cargar el detalle del reporte:", error);
-    alert("Error al cargar el detalle del reporte.");
+    alert("Error al cargar el detalle del reporte: " + error.message);
   }
 }
 
 function cerrarModalDetalleReporte() {
-  document.getElementById("modalDetalleReporte").style.display = "none";
-  document.getElementById("modalReportes").style.display = "block";
+  const modalDetalle = document.getElementById("modalDetalleReporte");
+  const modalReportes = document.getElementById("modalReportes");
+
+  if (modalDetalle) modalDetalle.style.display = "none";
+  if (modalReportes) modalReportes.style.display = "block";
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  cargarReportesPendientes();
-  cargarReportesDetalle();
+// Inicialización mejorada
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("DOM cargado, inicializando aplicación...");
+
+  // Verificar que los elementos necesarios existen
+  const elementos = [
+    ".reportes-table tbody",
+    "#tbodyReportesDetalle",
+    "#modalDesaprobar",
+    "#modalReportes",
+    "#modalDetalleReporte",
+  ];
+
+  let elementosFaltantes = [];
+  elementos.forEach((selector) => {
+    if (!document.querySelector(selector)) {
+      elementosFaltantes.push(selector);
+    }
+  });
+
+  if (elementosFaltantes.length > 0) {
+    console.error("Elementos HTML faltantes:", elementosFaltantes);
+  }
+
+  // Cargar datos iniciales
+  try {
+    await cargarReportesPendientes();
+    await cargarReportesDetalle();
+    console.log("Aplicación inicializada correctamente");
+  } catch (error) {
+    console.error("Error en la inicialización:", error);
+  }
 });
