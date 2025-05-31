@@ -125,7 +125,7 @@
           />
         </div>
 
-        <h2 class="text-modal">Reportes Desaprobados</h2>
+        <h2 class="text-modal">Detalles de reportes</h2>
         <div class="modal-table-container">
           <table class="modal-table">
             <thead>
@@ -158,18 +158,46 @@
 
     <script>
 const API_URL = "https://ucv-reports-backend.onrender.com/reportes";
+let reportesPendientes = [];
 let reportesDetalle = [];
 let reporteSeleccionado = null;
 
-// Cargar reportes aprobados y desaprobados
+// Cargar reportes pendientes para la tabla principal
+async function cargarReportesPendientes() {
+  try {
+    const response = await fetch(API_URL);
+    const reportes = await response.json();
+    reportesPendientes = reportes.filter(r => r.estado === 'Pendiente');
+    renderReportesPendientes();
+  } catch (error) {
+    console.error('Error al cargar los reportes:', error);
+  }
+}
+
+function renderReportesPendientes() {
+  const tbody = document.querySelector('.reportes-table tbody');
+  tbody.innerHTML = '';
+  reportesPendientes.forEach(reporte => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${reporte.usuario || ''}</td>
+      <td>Pabellon ${reporte.Pabellon} Piso ${reporte.Piso} Aula ${reporte.Salon}</td>
+      <td>${reporte.fecha}</td>
+      <td>
+        <button class="btn aprobar" onclick="aprobarReporte(${reporte.id_reporte})">✔ Aprobar Reporte</button>
+        <button class="btn desaprobar" onclick="abrirModalDesaprobar(${reporte.id_reporte})"><span class="icon">⛔</span> Desaprobar Reporte</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Cargar reportes aprobados y desaprobados para el modal
 async function cargarReportesDetalle() {
   try {
     const response = await fetch(API_URL);
     const reportes = await response.json();
-    // Filtrar aprobados, desaprobados y resueltos
-    reportesDetalle = reportes.filter(r =>
-      r.estado === 'Aprobado' || r.estado === 'Desaprobado' || r.estado === 'Resuelto'
-    );
+    reportesDetalle = reportes.filter(r => r.estado === 'Aprobado' || r.estado === 'Desaprobado');
     renderReportesDetalle();
   } catch (error) {
     console.error('Error al cargar los reportes:', error);
@@ -183,7 +211,7 @@ function renderReportesDetalle() {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${reporte.usuario || ''}</td>
-      <td>Pabellon ${reporte.Pabellon}, Piso ${reporte.Piso} Aula ${reporte.Salon}</td>
+      <td>Pabellon ${reporte.Pabellon} Piso ${reporte.Piso} Aula ${reporte.Salon}</td>
       <td>${reporte.fecha}</td>
       <td>${reporte.estado}</td>
       <td>
@@ -194,6 +222,49 @@ function renderReportesDetalle() {
   });
 }
 
+async function aprobarReporte(id) {
+  try {
+    await fetch(`${API_URL}/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ estado: 'Aprobado' })
+    });
+    cargarReportesPendientes();
+    cargarReportesDetalle();
+  } catch (error) {
+    alert('Error al aprobar el reporte');
+  }
+}
+
+let idDesaprobar = null;
+function abrirModalDesaprobar(id) {
+  idDesaprobar = id;
+  document.getElementById('modalDesaprobar').style.display = 'block';
+  document.getElementById('motivoDesaprobacion').value = '';
+}
+function cerrarModalDesaprobar() {
+  document.getElementById('modalDesaprobar').style.display = 'none';
+}
+async function aceptarDesaprobacion() {
+  const motivo = document.getElementById('motivoDesaprobacion').value.trim();
+  if (!motivo) {
+    alert('Por favor, ingrese el motivo.');
+    return;
+  }
+  try {
+    await fetch(`${API_URL}/${idDesaprobar}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ estado: 'Desaprobado', motivo: motivo })
+    });
+    cerrarModalDesaprobar();
+    cargarReportesPendientes();
+    cargarReportesDetalle();
+  } catch (error) {
+    alert('Error al desaprobar el reporte');
+  }
+}
+
 function abrirModalReportes() {
   cargarReportesDetalle();
   document.getElementById('modalReportes').style.display = 'block';
@@ -201,7 +272,7 @@ function abrirModalReportes() {
 function cerrarModalReportes() {
   document.getElementById('modalReportes').style.display = 'none';
 }
-window.onclick = function(event) {
+window.onclick = function (event) {
   var modal = document.getElementById('modalReportes');
   if (event.target == modal) {
     modal.style.display = "none";
@@ -220,7 +291,7 @@ function abrirModalDetalleDesdeReportes(idx) {
     <div><b>Artículos:</b> ${reporteSeleccionado.Articulos || ''}</div>
     <div><b>Motivo:</b> ${reporteSeleccionado.Motivo || ''}</div>
     <hr>
-    <div><b>Lugar del Problema:</b> Pabellon ${reporteSeleccionado.Pabellon}, Piso ${reporteSeleccionado.Piso}, Aula ${reporteSeleccionado.Salon}</div>
+    <div><b>Lugar del Problema:</b> ${reporteSeleccionado.Pabellon}, ${reporteSeleccionado.Piso}, ${reporteSeleccionado.Salon}</div>
     <div><b>Descripción del Problema:</b><br>${reporteSeleccionado.descripcion || ''}</div>
     <hr>
     <div><b>Evidencia:</b></div>
@@ -235,33 +306,10 @@ function cerrarModalDetalleReporte() {
   document.getElementById('modalReportes').style.display = 'block';
 }
 
-// Función para aprobar/desaprobar desde la tabla principal
-async function aprobarReporte(id) {
-  try {
-    await fetch(`${API_URL}/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ estado: 'Aprobado' })
-    });
-    cargarReportesDetalle();
-  } catch (error) {
-    alert('Error al aprobar el reporte');
-  }
-}
-async function desaprobarReporte(id, motivo) {
-  try {
-    await fetch(`${API_URL}/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ estado: 'Desaprobado', motivo: motivo })
-    });
-    cargarReportesDetalle();
-  } catch (error) {
-    alert('Error al desaprobar el reporte');
-  }
-}
-
-document.addEventListener('DOMContentLoaded', cargarReportesDetalle);
-</script>
+document.addEventListener('DOMContentLoaded', () => {
+  cargarReportesPendientes();
+  cargarReportesDetalle();
+});
+    </script>
   </body>
 </html>

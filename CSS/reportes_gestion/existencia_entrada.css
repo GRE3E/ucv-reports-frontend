@@ -360,7 +360,7 @@ tr:nth-child(even) {
     background: #f9f9f9;
     color: #101010;
     border: none;
-    gap: 1.2em;
+    gap: 0.7em;
     border-radius: 15px;
     padding: 20px 40px 20px 20px;
     font-size: 1em;
@@ -628,8 +628,8 @@ tr:nth-child(even) {
     border: none;
     user-select: none;
     border-radius: 5px;
-    padding: 10px 30px;
-    font-size: 1.3em;
+    padding: 10px 20px;
+    font-size: 1.2em;
     font-weight: bold;
     cursor: pointer;
     transition: background 0.2s;

@@ -210,6 +210,7 @@ body {
     cursor: pointer;
     transition: background 0.2s;
     border: none;
+    gap: 2em;
     margin-top: auto;
     margin-bottom: 20px;
     font-size: 1.3em;

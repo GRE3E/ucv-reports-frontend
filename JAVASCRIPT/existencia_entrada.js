@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p>Cantidad: ${producto.cantidad}</p>
             </div>
             <button class="btn comprar">
-                <img src="../../CSS/auth/images/cartIcon.png" alt="Carrito" class="icono-btn">
+                <i class="fas fa-shopping-cart"></i>
                 Comprar
             </button>
         `;
