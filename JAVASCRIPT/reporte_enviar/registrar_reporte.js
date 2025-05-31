@@ -9,19 +9,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   const descripcionInput = document.getElementById("descripcion");
   const archivoInput = document.getElementById("archivo");
 
-  // Inicializar Clerk.js
-  if (window.Clerk) {
-    await window.Clerk.load();
-  } else {
-    console.error(
-      "Clerk.js SDK no está cargado. Asegúrate de incluir la etiqueta <script> de Clerk en tu HTML."
-    );
-    alert("Error: El sistema de autenticación no está disponible.");
-    return;
-  }
-
   // Funciones para cargar datos de los selects
-  const fetchDataAndPopulateSelect = async (url, selectElement, idField, nameField, defaultOptionText) => {
+  const fetchDataAndPopulateSelect = async (
+    url,
+    selectElement,
+    idField,
+    nameField,
+    defaultOptionText
+  ) => {
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -29,24 +24,63 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       const data = await response.json();
       selectElement.innerHTML = `<option value="">${defaultOptionText}</option>`;
-      data.forEach(item => {
+      data.forEach((item) => {
         const option = document.createElement("option");
         option.value = item[idField];
         option.textContent = item[nameField];
         selectElement.appendChild(option);
       });
     } catch (error) {
-      console.error(`Error al cargar ${defaultOptionText.toLowerCase()}:`, error);
+      console.error(
+        `Error al cargar ${defaultOptionText.toLowerCase()}:`,
+        error
+      );
     }
   };
 
   // Cargar todos los selects al iniciar
-  await fetchDataAndPopulateSelect("https://ucv-reports-backend.onrender.com/facultades", facultadSelect, "id_facultad", "nombre_facultad", "Seleccione una facultad");
-  await fetchDataAndPopulateSelect("https://ucv-reports-backend.onrender.com/turnos", turnoSelect, "id_turno", "nombre_turno", "Seleccione un turno");
-  await fetchDataAndPopulateSelect("https://ucv-reports-backend.onrender.com/pabellones", pabellonSelect, "id_pabellon", "nombre_pabellon", "Seleccione un pabellón");
-  await fetchDataAndPopulateSelect("https://ucv-reports-backend.onrender.com/pisos", pisoSelect, "id_piso", "numero_piso", "Seleccione un piso");
-  await fetchDataAndPopulateSelect("https://ucv-reports-backend.onrender.com/aulas", aulaSelect, "id_aula", "numero_aula", "Seleccione un aula");
-  await fetchDataAndPopulateSelect("https://ucv-reports-backend.onrender.com/articulos", articuloSelect, "id_articulo", "nombre_articulo", "Seleccione un artículo");
+  await fetchDataAndPopulateSelect(
+    "https://ucv-reports-backend.onrender.com/facultades",
+    facultadSelect,
+    "id_facultad",
+    "nombre_facultad",
+    "Seleccione una facultad"
+  );
+  await fetchDataAndPopulateSelect(
+    "https://ucv-reports-backend.onrender.com/turnos",
+    turnoSelect,
+    "id_turno",
+    "nombre_turno",
+    "Seleccione un turno"
+  );
+  await fetchDataAndPopulateSelect(
+    "https://ucv-reports-backend.onrender.com/pabellones",
+    pabellonSelect,
+    "id_pabellon",
+    "nombre_pabellon",
+    "Seleccione un pabellón"
+  );
+  await fetchDataAndPopulateSelect(
+    "https://ucv-reports-backend.onrender.com/pisos",
+    pisoSelect,
+    "id_piso",
+    "numero_piso",
+    "Seleccione un piso"
+  );
+  await fetchDataAndPopulateSelect(
+    "https://ucv-reports-backend.onrender.com/aulas",
+    aulaSelect,
+    "id_aula",
+    "numero_aula",
+    "Seleccione un aula"
+  );
+  await fetchDataAndPopulateSelect(
+    "https://ucv-reports-backend.onrender.com/articulos",
+    articuloSelect,
+    "id_articulo",
+    "nombre_articulo",
+    "Seleccione un artículo"
+  );
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -54,24 +88,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     let token = null;
     let userId = null;
 
-    if (window.Clerk.user) {
-      try {
-        token = await window.Clerk.user.getToken();
-        userId = window.Clerk.user.id; // Obtener el ID del usuario de Clerk
-      } catch (error) {
-        console.error("Error al obtener el token o ID de Clerk:", error);
-        alert(
-          "No se pudo obtener el token de autenticación o el ID de usuario. Por favor, inicia sesión de nuevo."
-        );
-        return;
-      }
-    } else {
-      alert("No hay usuario autenticado. Por favor, inicia sesión.");
-      return;
-    }
-
     if (!token || !userId) {
-      alert("Token de autenticación o ID de usuario no disponible. Por favor, inicia sesión.");
+      alert(
+        "Token de autenticación o ID de usuario no disponible. Por favor, inicia sesión."
+      );
       return;
     }
 
@@ -83,15 +103,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       id_aula: aulaSelect.value,
       id_articulo: articuloSelect.value,
       descripcion: descripcionInput.value,
-      id_usuario: userId, // Asignar el ID del usuario de Clerk
+      id_usuario: userId,
       estado_reporte: "Pendiente", // Estado inicial del reporte
     };
 
     // Manejo del archivo (si existe)
     const formData = new FormData();
-    formData.append('data', JSON.stringify(data));
+    formData.append("data", JSON.stringify(data));
     if (archivoInput.files[0]) {
-      formData.append('archivo', archivoInput.files[0]);
+      formData.append("archivo", archivoInput.files[0]);
     }
 
     try {
