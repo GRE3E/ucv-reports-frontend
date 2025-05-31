@@ -502,3 +502,32 @@ tr:nth-child(even) {
         font-size: 0.95em;
     }
 }
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px; /* Espacio entre icono y texto */
+    font-size: 0.95em;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 20px; /* Forma redondeada */
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-edit {
+    background-color: #2ecc71; /* Color verde */
+    color: #fff; /* Color de texto blanco */
+}
+
+.btn-edit:hover {
+    background-color: #27ae60; /* Color verde más oscuro al pasar el mouse */
+}
+
+.btn-disable {
+    background-color: #e74c3c; /* Color rojo */
+    color: #fff; /* Color de texto blanco */
+}
+
+.btn-disable:hover {
+    background-color: #c0392b; /* Color rojo más oscuro al pasar el mouse */
+}

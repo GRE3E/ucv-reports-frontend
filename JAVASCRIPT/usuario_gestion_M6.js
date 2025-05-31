@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
       row.insertCell().textContent = "********"; // Password masked
             const actionsCell = row.insertCell();
             actionsCell.innerHTML = `
-                <button class="btn-action btn-edit" data-id="${user.IDUsuario}"><i class="fas fa-edit"></i></button>
-                <button class="btn-action btn-disable" data-id="${user.IDUsuario}"><i class="fas fa-user-slash"></i></button>
+                <button class="btn-action btn-edit" data-id="${user.IDUsuario}"><i class="fas fa-edit"></i>Editar</button>
+                <button class="btn-action btn-disable" data-id="${user.IDUsuario}"><i class="fas fa-user-slash"></i>Deshabilitar</button>
             `;
 
             // Add event listener for edit button
