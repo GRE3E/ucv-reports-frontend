@@ -41,11 +41,9 @@ function renderReportesPendientes() {
 // Cargar reportes aprobados y desaprobados para el modal
 async function cargarReportesDetalle() {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch("https://ucv-reports-backend.onrender.com/reportes/todos-con-usuario");
     const reportes = await response.json();
-    reportesDetalle = reportes.filter(
-      (r) => r.estado === "Aprobado" || r.estado === "Desaprobado"
-    );
+    reportesDetalle = reportes;
     renderReportesDetalle();
   } catch (error) {
     console.error("Error al cargar los reportes:", error);
@@ -59,11 +57,11 @@ function renderReportesDetalle() {
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${reporte.usuario || ""}</td>
-      <td>${reporte.lugarDelProblema || ""}</td>
-      <td>${reporte.fecha}</td>
-      <td>${reporte.acciones}</td>
+      <td>${reporte.lugardelproblema || ""}</td>
+      <td>${reporte.r_fecha ? new Date(reporte.r_fecha).toLocaleDateString() : ""}</td>
+      <td>${reporte.acciones || ""}</td>
       <td>
-        <button class="btn observar" onclick="abrirModalDetalleDesdeReportes(${idx})">Observar</button>
+        <button class="btn observar" onclick="abrirModalDetalleDesdeReportes(${reporte.r_id_reporte})">Observar</button>
       </td>
     `;
     tbody.appendChild(tr);
@@ -136,26 +134,35 @@ window.onclick = function (event) {
   }
 };
 
-function abrirModalDetalleDesdeReportes(idx) {
-  reporteSeleccionado = reportesDetalle[idx];
-  if (!reporteSeleccionado) return;
-  const detalle = document.querySelector("#modalDetalleReporte .detalle-info");
-  detalle.innerHTML = `
-    <div><b>Facultad:</b> ${reporteSeleccionado.facultad || ""}</div>
-    <div><b>Turno:</b> ${reporteSeleccionado.turno || ""}</div>
-    <div><b>Fecha:</b> ${reporteSeleccionado.fecha || ""}</div>
-    <div><b>Estado:</b> ${reporteSeleccionado.acciones || ""}</div>
-    <div><b>Artículos:</b> ${reporteSeleccionado.Articulos || ""}</div>
-    <div><b>Motivo:</b> ${reporteSeleccionado.Motivo || ""}</div>
-    <hr>
-    <div><b>Lugar del Problema:</b> ${reporteSeleccionado.lugarDelProblema || ""}</div>
-    <div><b>Descripción del Problema:</b><br>${reporteSeleccionado.descripcion || ""}</div>
-    <hr>
-    <div><b>Evidencia:</b></div>
-    <img id="imgEvidencia" src="${reporteSeleccionado.evidencia || "../../CSS/auth/images/Problema monitor.jpg"}" alt="Evidencia" style="max-width:100%;margin-top:10px;border-radius:8px;">
-  `;
-  document.getElementById("modalReportes").style.display = "none";
-  document.getElementById("modalDetalleReporte").style.display = "block";
+async function abrirModalDetalleDesdeReportes(id_reporte) {
+  try {
+    const response = await fetch(`https://ucv-reports-backend.onrender.com/reportes/detalle/${id_reporte}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const detalleReporte = await response.json();
+
+    const detalle = document.querySelector("#modalDetalleReporte .detalle-info");
+    detalle.innerHTML = `
+      <div><b>Facultad:</b> ${detalleReporte.facultad || ""}</div>
+      <div><b>Turno:</b> ${detalleReporte.turno || ""}</div>
+      <div><b>Fecha:</b> ${detalleReporte.fecha || ""}</div>
+      <div><b>Estado:</b> ${detalleReporte.estado || ""}</div>
+      <div><b>Artículos:</b> ${detalleReporte.Articulos || ""}</div>
+      <div><b>Motivo:</b> ${detalleReporte.Motivo || ""}</div>
+      <hr>
+      <div><b>Lugar del Problema:</b> ${detalleReporte.Pabellon || ""}, ${detalleReporte.Piso || ""}, ${detalleReporte.Salon || ""}</div>
+      <div><b>Descripción del Problema:</b><br>${detalleReporte.descripcion || ""}</div>
+      <hr>
+      <div><b>Evidencia:</b></div>
+      <img id="imgEvidencia" src="${detalleReporte.evidencia || "../../CSS/auth/images/Problema monitor.jpg"}" alt="Evidencia" style="max-width:100%;margin-top:10px;border-radius:8px;">
+    `;
+    document.getElementById("modalReportes").style.display = "none";
+    document.getElementById("modalDetalleReporte").style.display = "block";
+  } catch (error) {
+    console.error("Error al cargar el detalle del reporte:", error);
+    alert("Error al cargar el detalle del reporte.");
+  }
 }
 
 function cerrarModalDetalleReporte() {
@@ -166,4 +173,4 @@ function cerrarModalDetalleReporte() {
 document.addEventListener("DOMContentLoaded", () => {
   cargarReportesPendientes();
   cargarReportesDetalle();
-}); 
+});
