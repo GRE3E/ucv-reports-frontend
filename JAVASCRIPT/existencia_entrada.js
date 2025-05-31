@@ -110,26 +110,26 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       try {
+        const hardwareData = {
+          idarticulostipo: selectArticulo.value === "otro" ? document.getElementById("otroArticulo").value : selectArticulo.value,
+          Codigo: document.getElementById("codigoProducto").value,
+          nombre: document.getElementById("nombreProducto").value,
+          Precio: parseFloat(document.getElementById("precio").value),
+          idpabellon: parseInt(document.getElementById("idpabellon").value),
+          idpiso: parseInt(document.getElementById("idpiso").value),
+          idsalon: parseInt(document.getElementById("idsalon").value),
+          imagen: "../../CSS/auth/images/placeholder.jpg",
+          Estado: "Pendiente",
+        };
         // Asumiendo que el backend tiene un endpoint para guardar productos
         const response = await fetch(
-          "https://ucv-reports-backend.onrender.com/hardware",
+            "https://ucv-reports-backend.onrender.com/hardware",
           {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-              id_articulo: selectArticulo.value === "otro" ? document.getElementById("otroArticulo").value : selectArticulo.value,
-              codigo_inicial: document.getElementById("codigoProducto").value,
-              nombre_producto: document.getElementById("nombreProducto").value,
-              precio_producto: parseFloat(document.getElementById("precio").value),
-              cantidad_registros: parseInt(document.getElementById("cantidad").value),
-              imagen_producto: "../../CSS/auth/images/placeholder.jpg", // Placeholder
-              estado_producto: "Pendiente", // Asumiendo un estado inicial
-              idpabellon: 1, // Valor por defecto o se puede añadir un campo en el formulario
-              idpiso: 1,     // Valor por defecto
-              idsalon: 1     // Valor por defecto
-            }),
+            body: JSON.stringify(hardwareData),
           }
         );
 
@@ -177,3 +177,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+  
