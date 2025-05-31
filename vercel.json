@@ -6,7 +6,7 @@
       "dest": "/HTML/index.html"
     },
     {
-      "src": "/auth/login",
+      "src": "/login",
       "dest": "/HTML/auth/login.html"
     },
     {
