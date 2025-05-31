@@ -35,6 +35,11 @@ document.addEventListener("DOMContentLoaded", () => {
       actionsCell
         .querySelector(".btn-edit")
         .addEventListener("click", () => openEditModal(user));
+
+      // Add event listener for disable button
+      actionsCell
+        .querySelector(".btn-disable")
+        .addEventListener("click", () => openDisableModal(user));
     });
   };
 
@@ -79,6 +84,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Store user ID in a data attribute on the save button for later use
     document.querySelector(".btn.guardar-edit").dataset.userId = user.IDUsuario;
+  };
+
+  // Function to open disable modal and handle disable action
+  const openDisableModal = (user) => {
+    const modal = document.getElementById("modalDeshabilitar");
+    modal.style.display = "block";
+
+    // Store user ID in a data attribute on the accept button for later use
+    document.querySelector(
+      ".modal-actions-deshabiltar .aceptar"
+    ).dataset.userId = user.IDUsuario;
+
+    // Add event listener for the accept button inside the disable modal
+    document.querySelector(".modal-actions-deshabiltar .aceptar").onclick =
+      async () => {
+        const userId = user.IDUsuario;
+        try {
+          const response = await fetch(
+            `https://ucv-reports-backend.onrender.com/usuarios/${userId}/disable`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          alert("Usuario deshabilitado exitosamente!");
+          document.getElementById("modalDeshabilitar").style.display = "none";
+          fetchUsers(); // Refresh the table
+        } catch (error) {
+          console.error("Error disabling user:", error);
+          alert("Error al deshabilitar el usuario.");
+        }
+      };
+
+    // Add event listener for the cancel button inside the disable modal
+    document.querySelector(".modal-actions-deshabiltar .cancelar").onclick =
+      () => {
+        document.getElementById("modalDeshabilitar").style.display = "none";
+      };
   };
 
   // Handle save changes button click
