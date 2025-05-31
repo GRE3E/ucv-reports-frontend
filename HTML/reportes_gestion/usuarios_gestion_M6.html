@@ -1,116 +1,154 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Gestion Reportes</title>
-    <link rel="stylesheet" href="../../CSS/reportes_gestion/usuarios_gestion_M6.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="icon" type="image/png" href="../../CSS/auth/images/logo_ucv_modal.png">
+    <link rel="stylesheet" href="../../CSS/reportes_gestion/usuarios_gestion_M6.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
 
-</head>
-<body>
-    <!-- ...existing code... -->
- <div class="sidebar">
-        <div class="logo">
-          <img src="../../CSS/auth/images/logo_ucv.png" alt="logoUcv">
-        </div>
-        <ul>
-            <li class="active"><a href="usuarios_gestion_M6.html"><i class="fas fa-users"></i> Gestion de Usuarios</a></li>
-            <li><a href="reportes_gestion_M9.html"><i class="fas fa-chart-bar"></i> Gestion de Reportes</a></li>
-            <li><a href="existencia_entrada.html"><i class="fas fa-file-import"></i> Existencia de Entrada</a></li>
-            <li><a href="existencia_salida.html"><i class="fas fa-file-export"></i> Existencia de Salida</a></li>
-            <li><a href="productos_danados.html"><i class="fas fa-exclamation-triangle"></i> Productos Dañados</a></li>
-            <li><a href="articulos_uso_actual.html"><i class="fas fa-cogs"></i> Artículos Uso Actual</a></li>
-            <li><a href="exit.html"><i class="fas fa-sign-out-alt"></i> Exit</a></li>
-        </ul>
-    </div>
-<!-- ...existing code... -->
-    <div class="main-content">
-        <div class="header">
-            <div class="header-logo"></div>
-            <h1>Gestión de Usuarios</h1>
-        </div>
-        <div class="search-bar">
-            <label>Buscar Usuario:</label>
-            <div class="search-controls">
-                <select>
-                    <option>Ordenar por Rol</option>
-                </select>
-                <input type="text" placeholder="Buscar por apellidos.......">
-                <button class="disabled-btn" onclick="abrirModalDeshabilitados()">
-                    <span class="icon">🚫</span> Usuarios Deshabilitados
-                </button>
-            </div>
-        </div>
-        <div class="table-container">
-            <div class="usuarios-box">
-                <table class="usuarios-table">
-                    <thead>
-                        <tr>
-                            <th><span class="icon"> Usuario</th>
-                            <th><span class="icon"> Apellidos</th>
-                            <th><span class="icon"> Rol</th>
-                            <th><span class="icon"> Contraseña</th>
-                            <th><span class="icon"> Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>alumno12</td>
-                            <td>1 2</td>
-                            <td>Alumno</td>
-                            <td>**********</td>
-                            <td>
-                                <button class="btn editar"><span class="icon">✏️</span> EDITAR</button>
-                                <button class="btn deshabilitar"><span class="icon">🚫</span> DESHABILITAR</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>danielob</td>
-                            <td>Ore Berna</td>
-                            <td>Alumno</td>
-                            <td>**********</td>
-                            <td>
-                                <button class="btn editar"><span class="icon">✏️</span> EDITAR</button>
-                                <button class="btn deshabilitar"><span class="icon">🚫</span> DESHABILITAR</button>
-                            </td>
-                        </tr>
-                        <!-- ...más filas aquí... -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    <!-- Modal de Usuarios Deshabilitados -->
-    <div id="modalDeshabilitados" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="cerrarModalDeshabilitados()">&times;</span>
-        <h2>Usuarios Deshabilitados</h2>
-        <table class="usuarios-table">
-          <thead>
-            <tr>
-              <th>Usuario</th>
-              <th>Apellidos</th>
-              <th>Rol</th>
-              <th>Contraseña</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>angiexs</td>
-              <td>Ximena Santillan</td>
-              <td>Alumno</td>
-              <td>**********</td>
-              <td>
-                <button class="btn reactivar"><span class="icon">✏️</span> Reactivar</button>
-              </td>
-            </tr>
-            <!-- ...más filas aquí... -->
-          </tbody>
-        </table>
+    <link rel="icon" type="image/png" href="../../CSS/auth/images/logo_ucv_modal.png" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo">
+        <img src="../../CSS/auth/images/logo_ucv.png" alt="logoUcv" />
       </div>
+      <ul>
+        <li class="active">
+          <a href="/usuarios_gestion"
+            ><i class="fas fa-users"></i> Gestion de Usuarios</a
+          >
+        </li>
+        <li>
+          <a href="/reportes_gestion"
+            ><i class="fas fa-chart-bar"></i> Gestion de Reportes</a
+          >
+        </li>
+        <li>
+          <a href="/existencia_entrada"
+            ><i class="fas fa-file-import"></i> Existencia de Entrada</a
+          >
+        </li>
+        <li>
+          <a href="/existencia_salida"
+            ><i class="fas fa-file-export"></i> Existencia de Salida</a
+          >
+        </li>
+        <li>
+          <a href="/productos_dañados"
+            ><i class="fas fa-exclamation-triangle"></i> Productos Dañados</a
+          >
+        </li>
+        <li>
+          <a href="articulos_uso_actual.html"
+            ><i class="fas fa-cogs"></i> Artículos Uso Actual</a
+          >
+        </li>
+        <li>
+          <a href="/"><i class="fas fa-sign-out-alt"></i> Exit</a>
+        </li>
+      </ul>
     </div>
-    <script src="/JAVASCRIPT/usurio_gestion_M6.js"></script>
-</body>
+
+    <div class="main-content">
+      <div class="header">
+        <div class="header-logo"></div>
+        <h1>Gestión de Usuarios</h1>
+      </div>
+      <div class="search-bar">
+        <label>Buscar Usuario:</label>
+        <div class="search-controls">
+          <select>
+            <option>Ordenar por Rol</option>
+          </select>
+          <input type="text" placeholder="Buscar por apellidos......." />
+          <button class="disabled-btn" onclick="abrirModalDeshabilitados()">
+            <span class="icon">🚫</span> Usuarios Deshabilitados
+          </button>
+        </div>
+      </div>
+      <div class="table-container">
+        <div class="usuarios-box">
+          <table class="usuarios-table">
+            <thead>
+              <tr>
+                <th><span class="icon"> Usuario</th>
+                <th><span class="icon"> Apellidos</th>
+                <th><span class="icon"> Rol</th>
+                <th><span class="icon"> Contraseña</th>
+                <th><span class="icon"> Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>alumno12</td>
+                <td>1 2</td>
+                <td>Alumno</td>
+                <td>**********</td>
+                <td>
+                  <button class="btn editar">
+                    <span class="icon">✏️</span> EDITAR
+                  </button>
+                  <button class="btn deshabilitar">
+                    <span class="icon">🚫</span> DESHABILITAR
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>danielob</td>
+                <td>Ore Berna</td>
+                <td>Alumno</td>
+                <td>**********</td>
+                <td>
+                  <button class="btn editar">
+                    <span class="icon">✏️</span> EDITAR
+                  </button>
+                  <button class="btn deshabilitar">
+                    <span class="icon">🚫</span> DESHABILITAR
+                  </button>
+                </td>
+              </tr>
+              <!-- ...más filas aquí... -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal de Usuarios Deshabilitados -->
+      <div id="modalDeshabilitados" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="cerrarModalDeshabilitados()">&times;</span>
+          <h2>Usuarios Deshabilitados</h2>
+          <table class="usuarios-table">
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Apellidos</th>
+                <th>Rol</th>
+                <th>Contraseña</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>angiexs</td>
+                <td>Ximena Santillan</td>
+                <td>Alumno</td>
+                <td>**********</td>
+                <td>
+                  <button class="btn reactivar">
+                    <span class="icon">✏️</span> Reactivar
+                  </button>
+                </td>
+              </tr>
+              <!-- ...más filas aquí... -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <script src="/JAVASCRIPT/usurio_gestion_M6.js"></script>
+    </body>
 </html>

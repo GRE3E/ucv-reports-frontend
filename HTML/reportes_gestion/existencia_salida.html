@@ -1,38 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Existencia Salida</title>
-    <link rel="stylesheet" href="../../CSS/reportes_gestion/existencia_salida.css"> <!-- Ahora enlaza el CSS correcto -->
-    <!-- Añadir Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="icon" type="image/png" href="../../CSS/auth/images/logo_ucv_modal.png">
-
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="../../CSS/reportes_gestion/existencia_salida.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../../CSS/auth/images/logo_ucv_modal.png"
+    />
+  </head>
+  <body>
     <div class="sidebar">
-        <div class="logo">
-          <img src="../../CSS/auth/images/logo_ucv.png" alt="logoUcv">
-        </div>
-        <ul>
-            <li><a href="usuarios_gestion_M6.html"><i class="fas fa-users"></i> Gestion de Usuarios</a></li>
-            <li><a href="reportes_gestion_M9.html"><i class="fas fa-chart-bar"></i> Gestion de Reportes</a></li>
-            <li><a href="existencia_entrada.html"><i class="fas fa-file-import"></i> Existencia de Entrada</a></li>
-            <li class="active"><a href="existencia_salida.html"><i class="fas fa-file-export"></i> Existencia de Salida</a></li>
-            <li><a href="productos_danados.html"><i class="fas fa-exclamation-triangle"></i> Productos Dañados</a></li>
-            <li><a href="articulos_uso_actual.html"><i class="fas fa-cogs"></i> Artículos Uso Actual</a></li>
-            <li><a href="exit.html"><i class="fas fa-sign-out-alt"></i> Exit</a></li>
-        </ul>
+      <div class="logo">
+        <img src="../../CSS/auth/images/logo_ucv.png" alt="logoUcv" />
+      </div>
+      <ul>
+        <li>
+          <a href="/usuarios_gestion"
+            ><i class="fas fa-users"></i> Gestion de Usuarios</a
+          >
+        </li>
+        <li>
+          <a href="/reportes_gestion"
+            ><i class="fas fa-chart-bar"></i> Gestion de Reportes</a
+          >
+        </li>
+        <li>
+          <a href="/existencia_entrada"
+            ><i class="fas fa-file-import"></i> Existencia de Entrada</a
+          >
+        </li>
+        <li class="active">
+          <a href="/existencia_salida"
+            ><i class="fas fa-file-export"></i> Existencia de Salida</a
+          >
+        </li>
+        <li>
+          <a href="/productos_dañados"
+            ><i class="fas fa-exclamation-triangle"></i> Productos Dañados</a
+          >
+        </li>
+        <li>
+          <a href="articulos_uso_actual.html"
+            ><i class="fas fa-cogs"></i> Artículos Uso Actual</a
+          >
+        </li>
+        <li>
+          <a href="exit.html"><i class="fas fa-sign-out-alt"></i> Exit</a>
+        </li>
+      </ul>
     </div>
     <div class="main-content">
-        <div class="header">
-            <div class="header-logo"></div>
-            <h1>Gestión de Reportes</h1>
-        </div>
-        <!-- Eliminado: Sección de Productos Nuevos -->
-        <div class="productos-grid-container">
-            <!-- Aquí irán las tarjetas de productos -->
-        </div>
+      <div class="header">
+        <div class="header-logo"></div>
+        <h1>Gestión de Reportes</h1>
+      </div>
+      <!-- Eliminado: Sección de Productos Nuevos -->
+      <div class="productos-grid-container">
+        <!-- Aquí irán las tarjetas de productos -->
+      </div>
     </div>
 
     <!-- Modal de Usuarios Deshabilitados (mantenido por similitud) -->
@@ -57,7 +91,9 @@
               <td>Alumno</td>
               <td>**********</td>
               <td>
-                <button class="btn reactivar"><span class="icon">✏️</span> Reactivar</button>
+                <button class="btn reactivar">
+                  <span class="icon">✏️</span> Reactivar
+                </button>
               </td>
             </tr>
             <!-- ...más filas aquí... -->
@@ -95,7 +131,7 @@
       </div>
     </div>
 
-    <div id="modalSeleccionarUbicacion" class="modal" style="display: none;">
+    <div id="modalSeleccionarUbicacion" class="modal" style="display: none">
       <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Lugar donde desea usar este artículo</h2>
@@ -131,7 +167,7 @@
           </div>
           <div class="form-group">
             <label for="salon">Salón:</label>
-            <input type="text" id="salon" placeholder="Escribe el salón">
+            <input type="text" id="salon" placeholder="Escribe el salón" />
           </div>
         </div>
         <div class="modal-buttons">
@@ -142,5 +178,5 @@
     </div>
 
     <script src="../../JAVASCRIPT/existencia_salida.js"></script>
-</body>
-</html> 
+  </body>
+</html>

@@ -1,43 +1,79 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Existencia Entrada</title>
-    <link rel="stylesheet" href="../../CSS/reportes_gestion/existencia_entrada.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="icon" type="image/png" href="/imagenes/logo_ucv_modal.png">
+    <link
+      rel="stylesheet"
+      href="../../CSS/reportes_gestion/existencia_entrada.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="icon" type="image/png" href="/imagenes/logo_ucv_modal.png" />
 
     <!-- Puedes usar Font Awesome o similar para íconos, aquí ejemplo con Unicode -->
-</head>
-<body>
+  </head>
+  <body>
     <div class="sidebar">
-        <div class="logo">
-          <img src="../../CSS/auth/images/logo_ucv.png" alt="logoUcv">
-        </div>
-        <ul>
-            <li><a href="usuarios_gestion_M6.html"><i class="fas fa-users"></i> Gestion de Usuarios</a></li>
-            <li><a href="reportes_gestion_M9.html"><i class="fas fa-chart-bar"></i> Gestion de Reportes</a></li>
-            <li class="active"><a href="existencia_entrada.html"><i class="fas fa-file-import"></i> Existencia de Entrada</a></li>
-            <li><a href="existencia_salida.html"><i class="fas fa-file-export"></i> Existencia de Salida</a></li>
-            <li><a href="productos_danados.html"><i class="fas fa-exclamation-triangle"></i> Productos Dañados</a></li>
-            <li><a href="articulos_uso_actual.html"><i class="fas fa-cogs"></i> Artículos Uso Actual</a></li>
-            <li><a href="exit.html"><i class="fas fa-sign-out-alt"></i> Exit</a></li>
-        </ul>
+      <div class="logo">
+        <img src="../../CSS/auth/images/logo_ucv.png" alt="logoUcv" />
+      </div>
+      <ul>
+        <li>
+          <a href="/reportes_gestion"
+            ><i class="fas fa-users"></i> Gestion de Usuarios</a
+          >
+        </li>
+        <li>
+          <a href="/usuarios_gestion"
+            ><i class="fas fa-chart-bar"></i> Gestion de Reportes</a
+          >
+        </li>
+        <li class="active">
+          <a href="/existencia_entrada"
+            ><i class="fas fa-file-import"></i> Existencia de Entrada</a
+          >
+        </li>
+        <li>
+          <a href="/existencia_salida"
+            ><i class="fas fa-file-export"></i> Existencia de Salida</a
+          >
+        </li>
+        <li>
+          <a href="/productos_dañados"
+            ><i class="fas fa-exclamation-triangle"></i> Productos Dañados</a
+          >
+        </li>
+        <li>
+          <a href="articulos_uso_actual.html"
+            ><i class="fas fa-cogs"></i> Artículos Uso Actual</a
+          >
+        </li>
+        <li>
+          <a href="exit.html"><i class="fas fa-sign-out-alt"></i> Exit</a>
+        </li>
+      </ul>
     </div>
     <div class="main-content">
-        <div class="header">
-            <div class="header-logo"></div>
-            <h1>Gestión de Reportes</h1>
-        </div>
-        <div class="productos-nuevos-section">
-          <button class="btn productos-nuevos-btn">
-          <img src="../../CSS/auth/images/addIcon.png" alt="icono nuevo" class="icono-btn">
+      <div class="header">
+        <div class="header-logo"></div>
+        <h1>Gestión de Reportes</h1>
+      </div>
+      <div class="productos-nuevos-section">
+        <button class="btn productos-nuevos-btn">
+          <img
+            src="../../CSS/auth/images/addIcon.png"
+            alt="icono nuevo"
+            class="icono-btn"
+          />
           Productos Nuevos
-          </button>
-        </div>
-        <div class="productos-grid-container">
-            <!-- Aquí irán las tarjetas de productos -->
-        </div>
+        </button>
+      </div>
+      <div class="productos-grid-container">
+        <!-- Aquí irán las tarjetas de productos -->
+      </div>
     </div>
 
     <!-- Modal de Usuarios Deshabilitados -->
@@ -62,7 +98,9 @@
               <td>Alumno</td>
               <td>**********</td>
               <td>
-                <button class="btn reactivar"><span class="icon">✏️</span> Reactivar</button>
+                <button class="btn reactivar">
+                  <span class="icon">✏️</span> Reactivar
+                </button>
               </td>
             </tr>
             <!-- ...más filas aquí... -->
@@ -75,11 +113,17 @@
     <!-- Nuevo Modal para Agregar Producto -->
     <div id="modalAgregarProducto" class="modal">
       <div class="modal-content">
-        <span class="close" onclick="cerrarModalAgregarProducto()">&times;</span>
+        <span class="close" onclick="cerrarModalAgregarProducto()"
+          >&times;</span
+        >
         <div class="icono-container-modal">
-          <img src="../../CSS/auth/images/logo_ucv_modal.png" class="icono-btn-modal" alt="report_LOGO-ucv">
+          <img
+            src="../../CSS/auth/images/logo_ucv_modal.png"
+            class="icono-btn-modal"
+            alt="report_LOGO-ucv"
+          />
         </div>
-    
+
         <h2>Agregar Nuevo Producto</h2>
         <form id="formAgregarProducto">
           <div class="form-group">
@@ -92,38 +136,67 @@
               <option value="otro">Otro (Especificar)</option>
             </select>
           </div>
-           <div class="form-group" id="otroArticuloGroup" style="display: none;">
+          <div class="form-group" id="otroArticuloGroup" style="display: none">
             <label for="otroArticulo">Especificar Artículo:</label>
-            <input type="text" id="otroArticulo" name="otroArticulo">
+            <input type="text" id="otroArticulo" name="otroArticulo" />
           </div>
           <div class="form-group">
             <label for="codigoProducto">Código del Producto:</label>
-            <input type="text" id="codigoProducto" name="codigoProducto" placeholder="Ingrese el código del producto">
+            <input
+              type="text"
+              id="codigoProducto"
+              name="codigoProducto"
+              placeholder="Ingrese el código del producto"
+            />
           </div>
           <div class="form-group">
             <label for="nombreProducto">Nombre del Producto:</label>
-            <input type="text" id="nombreProducto" name="nombreProducto" placeholder="Ingrese el nombre del producto">
+            <input
+              type="text"
+              id="nombreProducto"
+              name="nombreProducto"
+              placeholder="Ingrese el nombre del producto"
+            />
           </div>
           <div class="form-group">
             <label for="precio">Precio:</label>
-            <input type="number" id="precio" name="precio" placeholder="Ingrese el precio del producto">
+            <input
+              type="number"
+              id="precio"
+              name="precio"
+              placeholder="Ingrese el precio del producto"
+            />
           </div>
           <div class="form-group">
             <label for="cantidad">Cantidad de Registros:</label>
-            <input type="number" id="cantidad" name="cantidad" placeholder="Ingrese la cantidad de registros a generar">
+            <input
+              type="number"
+              id="cantidad"
+              name="cantidad"
+              placeholder="Ingrese la cantidad de registros a generar"
+            />
           </div>
           <div class="form-group">
             <label for="urlImagen">URL de la Imagen:</label>
-            <input type="file" id="urlImagen" name="urlImagen" placeholder="Ingrese la URL de la imagen del producto">
+            <input
+              type="file"
+              id="urlImagen"
+              name="urlImagen"
+              placeholder="Ingrese la URL de la imagen del producto"
+            />
           </div>
           <div class="form-actions">
             <button type="submit" class="btn guardar">
-              <img src="../../CSS/auth/images/saveIcon.png" alt="save_Icon" class="icono-btn">
+              <img
+                src="../../CSS/auth/images/saveIcon.png"
+                alt="save_Icon"
+                class="icono-btn"
+              />
               Guardar
             </button>
           </div>
         </form>
       </div>
     </div>
-</body>
+  </body>
 </html>

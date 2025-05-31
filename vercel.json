@@ -30,31 +30,23 @@
       "dest": "/HTML/reporte_enviar/reporte_enviar.html"
     },
     {
-      "src": "/reportes_gestion/existencia_entrada",
+      "src": "/existencia_entrada",
       "dest": "/HTML/reportes_gestion/existencia_entrada.html"
     },
     {
-      "src": "/reportes_gestion/existencia_salida",
+      "src": "/existencia_salida",
       "dest": "/HTML/reportes_gestion/existencia_salida.html"
     },
     {
-      "src": "/reportes_gestion/productos_danados",
+      "src": "/productos_dañados",
       "dest": "/HTML/reportes_gestion/productos_danados.html"
     },
     {
-      "src": "/reportes_gestion/reporte_gestion_M7",
-      "dest": "/HTML/reportes_gestion/reporte_gestion_M7.html"
-    },
-    {
-      "src": "/reportes_gestion/reporte_gestion_M8",
-      "dest": "/HTML/reportes_gestion/reporte_gestion_M8.html"
-    },
-    {
-      "src": "/reportes_gestion/reportes_gestion_M9",
+      "src": "/reportes_gestion",
       "dest": "/HTML/reportes_gestion/reportes_gestion_M9.html"
     },
     {
-      "src": "/reportes_gestion/usuarios_gestion_M6",
+      "src": "/usuarios_gestion",
       "dest": "/HTML/reportes_gestion/usuarios_gestion_M6.html"
     },
     {
