@@ -57,6 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
           } else {
             window.location.href = "/";
           }
+        } else if (response.status === 401) {
+          alert("Invalid credentials. Please try again.");
         } else {
           alert(data.message || "Login failed.");
         }
