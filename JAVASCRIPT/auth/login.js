@@ -31,6 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const usuario = usernameInput.value;
       const contraseña = passwordInput.value;
 
+      console.log("Attempting login with username:", usuario);
+
       try {
         const response = await fetch(
           "https://ucv-reports-backend.onrender.com/auth/login",
@@ -44,26 +46,33 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
         const data = await response.json();
+        console.log("Login API response:", data);
 
         if (response.ok) {
           localStorage.setItem("access_token", data.access_token);
+          console.log("Token stored:", data.access_token);
           alert("Login successful!");
 
           // Conditional redirection based on user role
           if (data.role === "Alumno") {
+            console.log("Redirecting to /registrar_reporte");
             window.location.href = "/registrar_reporte";
           } else if (data.role === "Administrador") {
+            console.log("Redirecting to /usuarios_gestion");
             window.location.href = "/usuarios_gestion";
           } else {
+            console.log("Redirecting to /");
             window.location.href = "/";
           }
         } else if (response.status === 401) {
+          console.error("Login failed: Invalid credentials.");
           alert("Invalid credentials. Please try again.");
         } else {
+          console.error("Login failed:", data.message || "Unknown error.");
           alert(data.message || "Login failed.");
         }
       } catch (error) {
-        console.error("Error:", error);
+        console.error("Error during login API call:", error);
         alert("An error occurred during login.");
       }
     });
