@@ -143,12 +143,12 @@ body {
 }
 
 .reportes-btn {
-    background: #ffe082;
+    background: #f6c942;
     color: #222;
     border: none;
     font-size: 1.1em;
     padding: 8px 25px;
-    border-radius: 4px;
+    border-radius: 7px;
     font-weight: bold;
     cursor: pointer;
     display: flex;
@@ -242,9 +242,12 @@ body {
 
 /* Botones de acción */
 .btn {
+    margin-top: 10px;
     border: none;
     border-radius: 8px;
-    padding: 7px 16px;
+    justify-content: center;
+    width: 47%;
+    padding: 15px 15px;
     margin-right: 6px;
     font-size: 0.97em;
     font-weight: 600;
@@ -252,8 +255,16 @@ body {
     transition: background 0.2s, box-shadow 0.2s;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     box-shadow: 0 2px 8px rgba(26,39,77,0.07);
+}
+
+@media (max-width: 768px) {
+  .btn {
+    width: 80%;
+    display: block;
+    margin: 10px auto; /* centrar horizontalmente */
+  }
 }
 
 .btn.desaprobar {
@@ -262,7 +273,7 @@ body {
     border: none;
 }
 .btn.desaprobar:hover {
-    background: #c0392b;
+    background: #a43124;
 }
 
 .btn.aprobar {
@@ -271,7 +282,7 @@ body {
     border: none;
 }
 .btn.aprobar:hover {
-    background: #2ba11b;
+    background: #248a17;
 }
 
 /* Modal estilos */

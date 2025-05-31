@@ -184,8 +184,13 @@ function renderReportesPendientes() {
       <td>Pabellon ${reporte.Pabellon} Piso ${reporte.Piso} Aula ${reporte.Salon}</td>
       <td>${reporte.fecha}</td>
       <td>
-        <button class="btn aprobar" onclick="aprobarReporte(${reporte.id_reporte})">✔ Aprobar Reporte</button>
-        <button class="btn desaprobar" onclick="abrirModalDesaprobar(${reporte.id_reporte})"><span class="icon">⛔</span> Desaprobar Reporte</button>
+        <button class="btn aprobar" onclick="aprobarReporte(${reporte.id_reporte})">
+          <i class="fas fa-check-circle"></i>
+          Aprobar Reporte</button>
+
+        <button class="btn desaprobar" onclick="abrirModalDesaprobar(${reporte.id_reporte})">
+          <i class="fas fa-ban"></i>
+          Desaprobar Reporte</button>
       </td>
     `;
     tbody.appendChild(tr);
