@@ -118,8 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
               headers: {
                 'Content-Type': 'application/json'
               },
-              body: JSON.stringify([{
-                idarticulostipo: selectArticulo.value === "otro" ? document.getElementById("otroArticulo").value : selectArticulo.value,
+              body: JSON.stringify({
+                id_articulo: selectArticulo.value === "otro" ? document.getElementById("otroArticulo").value : selectArticulo.value,
                 codigo_inicial: document.getElementById("codigoProducto").value,
                 nombre_producto: document.getElementById("nombreProducto").value,
                 precio_producto: parseFloat(document.getElementById("precio").value),
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 idpabellon: 1, // Valor por defecto o se puede añadir un campo en el formulario
                 idpiso: 1,     // Valor por defecto
                 idsalon: 1     // Valor por defecto
-              }]),
+              }),
             }
           );
   
