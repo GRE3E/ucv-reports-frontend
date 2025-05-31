@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Restablecer Contraseña</title>
     <link rel="stylesheet" href="../../CSS/auth/recuperacion.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
 
   <body>
@@ -12,8 +13,21 @@
       <div class="reset-box">
         <h1>Restablecer Contraseña</h1>
         <form>
-          <input type="password" placeholder="Nueva Contraseña" required />
-          <input type="password" placeholder="Confirmar Contraseña" required />
+          <div class="input-container">
+            <i class="fas fa-envelope"></i>
+            <input type="email" placeholder="Correo electrónico" required />
+          </div>
+
+          <div class="input-container">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Nueva Contraseña" required />
+          </div>
+
+          <div class="input-container">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Confirmar Contraseña" required />
+          </div>
+
           <button type="submit" class="btn">Confirmar</button>
         </form>
       </div>
