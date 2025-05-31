@@ -1,11 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
   const usersTableBody = document.querySelector(".usuarios-table tbody");
 
-  const fetchUsers = async () => {
+  const fetchUsers = async (roleId = null) => {
     try {
-      const response = await fetch(
-        "https://ucv-reports-backend.onrender.com/usuarios/habilitados"
-      );
+      let url = "https://ucv-reports-backend.onrender.com/usuarios/habilitados";
+      if (roleId) {
+        url = `https://ucv-reports-backend.onrender.com/usuarios/role/${roleId}`;
+      }
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -13,6 +15,27 @@ document.addEventListener("DOMContentLoaded", () => {
       populateTable(users);
     } catch (error) {
       console.error("Error fetching users:", error);
+    }
+  };
+
+  const fetchRoles = async () => {
+    try {
+      const response = await fetch(
+        "https://ucv-reports-backend.onrender.com/cargos"
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const roles = await response.json();
+      const roleFilterSelect = document.getElementById("roleFilter");
+      roles.forEach((role) => {
+        const option = document.createElement("option");
+        option.value = role.ID_cargo;
+        option.textContent = role.descripcion;
+        roleFilterSelect.appendChild(option);
+      });
+    } catch (error) {
+      console.error("Error fetching roles:", error);
     }
   };
 
@@ -59,6 +82,17 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   fetchUsers();
+  fetchRoles();
+
+  const roleFilterSelect = document.getElementById("roleFilter");
+  roleFilterSelect.addEventListener("change", (event) => {
+    const selectedRoleId = event.target.value;
+    if (selectedRoleId) {
+      fetchUsers(selectedRoleId);
+    } else {
+      fetchUsers(); // Fetch all enabled users if "Ordenar por Rol" is selected
+    }
+  });
 
   // Function to open edit modal and populate with user data
   const openEditModal = (user) => {
@@ -117,7 +151,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
           alert("Usuario deshabilitado exitosamente!");
           document.getElementById("modalDeshabilitar").style.display = "none";
-          fetchUsers(); // Refresh the table
+          fetchUsers();
+          // REMOVE DUPLICATE CALLS
         } catch (error) {
           console.error("Error disabling user:", error);
           alert("Error al deshabilitar el usuario.");
@@ -185,23 +220,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
         alert("Usuario actualizado exitosamente!");
         document.getElementById("modalEditActual").style.display = "none";
-        fetchUsers(); // Refresh the table
+        fetchUsers();
+        // REMOVE DUPLICATE CALLS
       } catch (error) {
         console.error("Error updating user:", error);
         alert("Error al actualizar el usuario.");
       }
     });
 
-  const searchInput = document.querySelector('.search-controls input[type="text"]');
+  const searchInput = document.querySelector(
+    '.search-controls input[type="text"]'
+  );
   searchInput.addEventListener("keyup", async (event) => {
     const value = event.target.value.trim();
     if (value === "") {
-      fetchUsers(); // Muestra todos los usuarios si el campo está vacío
+      fetchUsers();
+      // REMOVE DUPLICATE CALLS
+
       return;
     }
     try {
       const response = await fetch(
-        `https://ucv-reports-backend.onrender.com/usuarios/buscar-usuario/${encodeURIComponent(value)}`
+        `https://ucv-reports-backend.onrender.com/usuarios/buscar-usuario/${encodeURIComponent(
+          value
+        )}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
