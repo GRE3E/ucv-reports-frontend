@@ -37,13 +37,7 @@ body {
   transition: transform 1.5s ease-in-out;
   border-radius: 20px;
 }
-.form-box p {
-  margin-bottom: 25px;
-  color: #111;           /* Negro intenso */
-  text-align: center;
-  font-weight: 700;      /* Más negrita */
-  font-size: 1.08em;     /* Opcional: un poco más grande */
-}
+
 #loading-screen.slide-away {
   transform: translateX(100%);
 }
@@ -64,12 +58,16 @@ body {
   text-align: center;
   font-weight: 600;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  white-space: nowrap;
 }
 
 .form-box p {
   margin-bottom: 25px;
   color: #555;
   text-align: center;
+  font-weight: 700;
+  font-size: 1.08em;
 }
 
 .input-group {
@@ -95,9 +93,9 @@ body {
 }
 
 select {
-  width: 220px;           /* Igual que los botones, más fino */
-  padding: 8px 12px;      /* Menos alto y más cómodo */
-  margin: 0 auto 18px auto; /* Centrado y separación abajo */
+  width: 220px;
+  padding: 8px 12px;
+  margin: 0 auto 18px auto;
   border-radius: 8px;
   border: 2px solid #e1e1e1;
   font-size: 16px;
@@ -113,51 +111,13 @@ select:focus {
   outline: none;
 }
 
-button {
-  width: 220px;;
-  padding:  10px 0;
-  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-  border: none;
-  color: white;
-  margin: 0 auto; 
-  font-size: 18px;
-  font-weight: 600;
-  border-radius: 10px;
-  cursor: pointer;
-  display: block;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-   font-size: 16px;        /* Un poco más pequeño */
-  border-radius: 8px;
-    position: relative;
-  overflow: hidden;
-}
-button + .registro-btn {
-  margin-top: 16px;       /* Separación entre los botones */
-}
-/* Modificamos el estado active para que sea más notorio */
-button:active {
-    background: linear-gradient(135deg, #02eaf6 0%, #0ae3d4c5 100%) !important; /* Añadimos !important */
-    transform: scale(0.95);
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
-    transition: none; /* Eliminamos la transición para efecto inmediato */
-}
-
-/* Asegúrate de que hover no interfiera con active */
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
-    background: linear-gradient(135deg, #0056b3 0%, #004094 100%);
-}
 .registro-btn {
-  width: 220px;
+  flex: 1;
   padding: 10px 0;
-  margin-top: 18px; /* Separación entre los botones */
   background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
   border: none;
   color: white;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   border-radius: 10px;
   cursor: pointer;
@@ -166,7 +126,8 @@ button:hover {
   letter-spacing: 1px;
   position: relative;
   overflow: hidden;
-  display: block;
+  min-width: 120px;
+  text-align: center;
 }
 
 .registro-btn:hover {
@@ -181,7 +142,8 @@ button:hover {
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
   transition: none;
 }
-button:hover::before {
+
+.registro-btn:hover::before {
   content: '';
   position: absolute;
   top: 0;
@@ -222,27 +184,6 @@ button:hover::before {
   }
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .input-group {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .input-group input {
-    width: 100%;
-    margin-bottom: 0;
-  }
-  
-  .form-box {
-    padding: 30px;
-  }
-  
-  .form-box h1 {
-    font-size: 2em;
-  }
-}
-
 .title-container {
   display: flex;
   align-items: center;
@@ -276,8 +217,125 @@ button:hover::before {
   }
 }
 
-/* Ajusta el título para que se vea mejor con las líneas */
-.form-box h1 {
-  margin: 0;
-  white-space: nowrap;
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.button-group button {
+  flex: 1;
+  min-width: 120px;
+}
+
+.password-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-group input {
+  flex: 1;
+  padding-right: 40px;
+}
+
+.input-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  box-shadow: 0 1px 4px rgba(0, 123, 255, 0.04);
+  font-size: 16px;
+  height: 48px;
+  padding: 0 0 0 0;
+  transition: border-color 0.2s;
+}
+
+.input-icon i {
+  margin-left: 16px;
+  margin-right: 10px;
+  font-size: 1.4em;
+  background: linear-gradient(135deg, #f8fafc 60%, #e1e1e1 100%);
+  border-radius: 50%;
+  padding: 7px;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.07);
+  transition: background 0.3s, color 0.3s;
+}
+
+.input-icon i.fa-check-circle {
+  color: #28a745; /* Verde */
+  background: linear-gradient(135deg, #d4edda 60%, #c3e6cb 100%);
+}
+
+.input-icon input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1em;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  padding: 0 16px 0 0;
+}
+
+.input-icon:focus-within {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px #007bff33;
+}
+
+.input-icon input::placeholder {
+  color: #888;
+  opacity: 1;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 3;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.toggle-password i {
+  font-size: 1.5em;
+  color: #111111;
+  transition: color 0.2s;
+}
+
+@media (max-width: 600px) {
+  .input-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .input-group input {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .form-box {
+    padding: 30px;
+  }
+
+  .form-box h1 {
+    font-size: 2em;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
 }

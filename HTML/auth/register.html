@@ -9,6 +9,10 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
   </head>
 
   <body>
@@ -26,33 +30,53 @@
           cuenta:
         </p>
         <form>
-          <div class="input-group">
-            <input type="text" placeholder="Nombre / Usuario" required />
+          <div class="input-icon">
+            <i class="fa fa-user-circle" style="color:#007bff;"></i>
+            <input type="text" placeholder="Nombres Completos" required />
+          </div>
+          <div class="input-icon">
+            <i class="fa fa-user-tag" style="color:#e30513;"></i>
             <input type="text" placeholder="Apellido Paterno" required />
           </div>
-          <div class="input-group">
+          <div class="input-icon">
+            <i class="fa fa-user-friends" style="color:#ffb347;"></i>
             <input type="text" placeholder="Apellido Materno" required />
-            <input type="text" placeholder="Usuario" required />
           </div>
-          <div class="input-group">
-            <input type="password" placeholder="Contraseña" required />
+          <div class="input-icon">
+            <i class="fa fa-lock"></i>
+            <input
+              type="password"
+              placeholder="Contraseña"
+              id="password"
+              required
+            />
+            <button type="button" class="toggle-password" id="togglePassword">
+              <i class="fa fa-eye"></i>
+            </button>
           </div>
-          <div class="input-group">
+          <div class="input-icon">
+            <i class="fa fa-check-circle" style="color:#28a745;"></i>
             <input
               type="password"
               placeholder="Verificar Contraseña"
+              id="verificarPassword"
               required
             />
+            <button type="button" class="toggle-password" id="toggleVerificarPassword">
+              <i class="fa fa-eye"></i>
+            </button>
           </div>
-          <select required>
-            <option value="alumno">Alumno</option>
-            <option value="profesor">Profesor</option>
-          </select>
-          <button type="submit">CREAR</button>
+          <div class="button-group">
+            <button
+              class="registro-btn"
+              type="button"
+              onclick="window.location.href='/login'"
+            >
+              regresar
+            </button>
+            <button class="registro-btn" type="submit">CREAR</button>
+          </div>
         </form>
-        <button class="registro-btn" onclick="window.location.href='/login'">
-          regresar
-        </button>
       </div>
     </div>
 
