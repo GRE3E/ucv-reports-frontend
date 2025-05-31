@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Set the correct role in the select dropdown
     const roleSelect = document.getElementById("roleUser");
     Array.from(roleSelect.options).forEach((option) => {
-      if (parseInt(option.value) === user.id_cargo) {
+      if (option.value === getRoleName(user.id_cargo)) {
         option.selected = true;
       } else {
         option.selected = false;
