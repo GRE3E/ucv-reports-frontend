@@ -3,48 +3,25 @@ document.addEventListener("DOMContentLoaded", () => {
     ".productos-grid-container"
   );
 
-  // Datos de ejemplo de productos (reemplazar con datos reales y rutas de imagen correctas)
-  const productos = [
-    {
-      imagen: "../../CSS/auth/images/ordenador.jpg",
-      tipo: "Ordenador",
-      cantidad: 16,
-    },
-    {
-      imagen: "../../CSS/auth/images/proyector.jpg",
-      tipo: "Proyector",
-      cantidad: 5,
-    },
-    {
-      imagen: "../../CSS/auth/images/escritorios.jpg",
-      tipo: "Escritorio",
-      cantidad: 9,
-    },
-    {
-      imagen: "../../CSS/auth/images/pizarra.jpg",
-      tipo: "Pizarra Acrilica",
-      cantidad: 1,
-    },
-    {
-      imagen: "../../CSS/auth/images/ventilador.jpg",
-      tipo: "Ventilador",
-      cantidad: 15,
-    },
-    {
-      imagen: "../../CSS/auth/images/mouse.jpg",
-      tipo: "Mouse",
-      cantidad: 50,
-    },
-  ];
+  // Función para cargar y mostrar productos
+  async function cargarProductos() {
+    try {
+      const response = await fetch("https://ucv-reports-backend.onrender.com/api/articulos"); // Ajusta esta URL a tu endpoint de artículos
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const productos = await response.json();
 
-  productos.forEach((producto) => {
-    const productoCard = document.createElement("div");
-    productoCard.classList.add("producto-card");
+      productosGridContainer.innerHTML = ''; // Limpiar productos estáticos existentes
 
-    productoCard.innerHTML = `
-            <img src="${producto.imagen}" alt="${producto.tipo}">
+      productos.forEach((producto) => {
+        const productoCard = document.createElement("div");
+        productoCard.classList.add("producto-card");
+
+        productoCard.innerHTML = `
+            <img src="${producto.urlImagen || '../../CSS/auth/images/placeholder.jpg'}" alt="${producto.nombreProducto}">
             <div class="producto-card-info">
-                <h3>Tipo: ${producto.tipo}</h3>
+                <h3>Tipo: ${producto.nombreProducto}</h3>
                 <p>Cantidad: ${producto.cantidad}</p>
             </div>
             <button class="btn comprar">
@@ -53,8 +30,16 @@ document.addEventListener("DOMContentLoaded", () => {
             </button>
         `;
 
-    productosGridContainer.appendChild(productoCard);
-  });
+        productosGridContainer.appendChild(productoCard);
+      });
+    } catch (error) {
+      console.error("Error al cargar los productos:", error);
+      alert("No se pudieron cargar los productos.");
+    }
+  }
+
+  // Llamar a la función para cargar productos al iniciar
+  cargarProductos();
 
   // Funcionalidad para el modal Agregar Producto
   const modalAgregarProducto = document.getElementById("modalAgregarProducto");
@@ -162,6 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           formAgregarProducto.reset();
           modalAgregarProducto.style.display = "none";
+          cargarProductos(); // Recargar productos después de agregar uno nuevo
         } else {
           const errorData = await response.json();
           alert(
