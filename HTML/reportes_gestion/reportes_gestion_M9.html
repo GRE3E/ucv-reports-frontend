@@ -179,66 +179,8 @@
                 <th>Acciones</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>anglexs</td>
-                <td>Pabellon B Piso 3 Aula 320</td>
-                <td>2024-06-28 08:55:02</td>
-                <td>Desaprobado</td>
-                <td>
-                  <button
-                    class="btn observar"
-                    onclick="abrirModalDetalleDesdeReportes()"
-                  >
-                    Observar
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <td>anglexs</td>
-                <td>Pabellon B Piso 3 Aula 312</td>
-                <td>2024-06-28 09:04:04</td>
-                <td>Desaprobado</td>
-                <td>
-                  <button
-                    class="btn observar"
-                    onclick="abrirModalDetalleDesdeReportes()"
-                  >
-                    Observar
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <td>anglexs</td>
-                <td>Pabellon B Piso 3 Aula 313</td>
-                <td>2024-07-04 21:15:52</td>
-                <td>Resuelto</td>
-                <td>
-                  <button
-                    class="btn observar"
-                    onclick="abrirModalDetalleDesdeReportes()"
-                  >
-                    Observar
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <td>anglexs</td>
-                <td>Pabellon B Piso 3 Aula 318</td>
-                <td>2024-07-05 08:58:10</td>
-                <td>Resuelto</td>
-                <td>
-                  <button
-                    class="btn observar"
-                    onclick="abrirModalDetalleDesdeReportes()"
-                  >
-                    Observar
-                  </button>
-                </td>
-              </tr>
+            <tbody id="tbodyReportesDetalle">
+              <!-- Las filas se llenarán dinámicamente -->
             </tbody>
           </table>
         </div>
@@ -277,28 +219,159 @@
     </div>
 
     <script>
-      function abrirModalReportes() {
-        document.getElementById("modalReportes").style.display = "block";
-      }
-      function cerrarModalReportes() {
-        document.getElementById("modalReportes").style.display = "none";
-      }
-      window.onclick = function (event) {
-        var modal = document.getElementById("modalReportes");
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      };
+const API_URL = "https://ucv-reports-backend.onrender.com/reportes";
+let reportesPendientes = [];
+let reportesDetalle = [];
+let reporteSeleccionado = null;
 
-      function abrirModalDetalleDesdeReportes() {
-        document.getElementById("modalReportes").style.display = "none";
-        document.getElementById("modalDetalleReporte").style.display = "block";
-      }
+// Cargar reportes pendientes para la tabla principal
+async function cargarReportesPendientes() {
+  try {
+    const response = await fetch(API_URL);
+    const reportes = await response.json();
+    reportesPendientes = reportes.filter(r => r.estado === 'Pendiente');
+    renderReportesPendientes();
+  } catch (error) {
+    console.error('Error al cargar los reportes:', error);
+  }
+}
 
-      function cerrarModalDetalleReporte() {
-        document.getElementById("modalDetalleReporte").style.display = "none";
-        document.getElementById("modalReportes").style.display = "block";
-      }
-  </script>
+function renderReportesPendientes() {
+  const tbody = document.querySelector('.reportes-table tbody');
+  tbody.innerHTML = '';
+  reportesPendientes.forEach(reporte => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${reporte.usuario || ''}</td>
+      <td>Pabellon ${reporte.Pabellon} Piso ${reporte.Piso} Aula ${reporte.Salon}</td>
+      <td>${reporte.fecha}</td>
+      <td>
+        <button class="btn aprobar" onclick="aprobarReporte(${reporte.id_reporte})">✔ Aprobar Reporte</button>
+        <button class="btn desaprobar" onclick="abrirModalDesaprobar(${reporte.id_reporte})"><span class="icon">⛔</span> Desaprobar Reporte</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Cargar reportes aprobados y desaprobados para el modal
+async function cargarReportesDetalle() {
+  try {
+    const response = await fetch(API_URL);
+    const reportes = await response.json();
+    reportesDetalle = reportes.filter(r => r.estado === 'Aprobado' || r.estado === 'Desaprobado');
+    renderReportesDetalle();
+  } catch (error) {
+    console.error('Error al cargar los reportes:', error);
+  }
+}
+
+function renderReportesDetalle() {
+  const tbody = document.getElementById('tbodyReportesDetalle');
+  tbody.innerHTML = '';
+  reportesDetalle.forEach((reporte, idx) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${reporte.usuario || ''}</td>
+      <td>Pabellon ${reporte.Pabellon} Piso ${reporte.Piso} Aula ${reporte.Salon}</td>
+      <td>${reporte.fecha}</td>
+      <td>${reporte.estado}</td>
+      <td>
+        <button class="btn observar" onclick="abrirModalDetalleDesdeReportes(${idx})">Observar</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+async function aprobarReporte(id) {
+  try {
+    await fetch(`${API_URL}/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ estado: 'Aprobado' })
+    });
+    cargarReportesPendientes();
+    cargarReportesDetalle();
+  } catch (error) {
+    alert('Error al aprobar el reporte');
+  }
+}
+
+let idDesaprobar = null;
+function abrirModalDesaprobar(id) {
+  idDesaprobar = id;
+  document.getElementById('modalDesaprobar').style.display = 'block';
+  document.getElementById('motivoDesaprobacion').value = '';
+}
+function cerrarModalDesaprobar() {
+  document.getElementById('modalDesaprobar').style.display = 'none';
+}
+async function aceptarDesaprobacion() {
+  const motivo = document.getElementById('motivoDesaprobacion').value.trim();
+  if (!motivo) {
+    alert('Por favor, ingrese el motivo.');
+    return;
+  }
+  try {
+    await fetch(`${API_URL}/${idDesaprobar}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ estado: 'Desaprobado', motivo: motivo })
+    });
+    cerrarModalDesaprobar();
+    cargarReportesPendientes();
+    cargarReportesDetalle();
+  } catch (error) {
+    alert('Error al desaprobar el reporte');
+  }
+}
+
+function abrirModalReportes() {
+  cargarReportesDetalle();
+  document.getElementById('modalReportes').style.display = 'block';
+}
+function cerrarModalReportes() {
+  document.getElementById('modalReportes').style.display = 'none';
+}
+window.onclick = function (event) {
+  var modal = document.getElementById('modalReportes');
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+function abrirModalDetalleDesdeReportes(idx) {
+  reporteSeleccionado = reportesDetalle[idx];
+  if (!reporteSeleccionado) return;
+  const detalle = document.querySelector('#modalDetalleReporte .detalle-info');
+  detalle.innerHTML = `
+    <div><b>Facultad:</b> ${reporteSeleccionado.facultad || ''}</div>
+    <div><b>Turno:</b> ${reporteSeleccionado.turno || ''}</div>
+    <div><b>Fecha:</b> ${reporteSeleccionado.fecha || ''}</div>
+    <div><b>Estado:</b> ${reporteSeleccionado.estado || ''}</div>
+    <div><b>Artículos:</b> ${reporteSeleccionado.Articulos || ''}</div>
+    <div><b>Motivo:</b> ${reporteSeleccionado.Motivo || ''}</div>
+    <hr>
+    <div><b>Lugar del Problema:</b> Pabellon ${reporteSeleccionado.Pabellon}, Piso ${reporteSeleccionado.Piso}, Aula ${reporteSeleccionado.Salon}</div>
+    <div><b>Descripción del Problema:</b><br>${reporteSeleccionado.descripcion || ''}</div>
+    <hr>
+    <div><b>Evidencia:</b></div>
+    <img id="imgEvidencia" src="${reporteSeleccionado.evidencia || '../../CSS/auth/images/Problema monitor.jpg'}" alt="Evidencia" style="max-width:100%;margin-top:10px;border-radius:8px;">
+  `;
+  document.getElementById('modalReportes').style.display = 'none';
+  document.getElementById('modalDetalleReporte').style.display = 'block';
+}
+
+function cerrarModalDetalleReporte() {
+  document.getElementById('modalDetalleReporte').style.display = 'none';
+  document.getElementById('modalReportes').style.display = 'block';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  cargarReportesPendientes();
+  cargarReportesDetalle();
+});
+    </script>
   </body>
 </html>
