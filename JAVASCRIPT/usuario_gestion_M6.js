@@ -39,6 +39,7 @@ function abrirModalDeshabilitados() {
     try {
       const token = localStorage.getItem("token");
       const headers = { Authorization: `Bearer ${token}` };
+      console.log("Token enviado en cargarUsuarios:", token); // Added console.log
 
       const [usuariosRes, cargosRes] = await Promise.all([
         fetch(`${API_URL}?_relations=cargo`, { headers }),
@@ -159,6 +160,7 @@ function abrirModalDeshabilitados() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       };
+      console.log("Token enviado en guardarEdicion:", token); // Added console.log
 
       const response = await fetch(`${API_URL}/${id}`, {
         method: "PATCH",
@@ -185,6 +187,7 @@ function abrirModalDeshabilitados() {
     try {
       const token = localStorage.getItem("token");
       const headers = { Authorization: `Bearer ${token}` };
+      console.log("Token enviado en cargarUsuariosDeshabilitados:", token); // Added console.log
 
       const response = await fetch(API_URL, { headers });
       if (!response.ok)
@@ -244,6 +247,7 @@ function abrirModalDeshabilitados() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       };
+      console.log("Token enviado en reactivarUsuario:", token); // Added console.log
 
       const response = await fetch(`${API_URL}/${id}`, {
         method: "PATCH",
@@ -287,6 +291,7 @@ function abrirModalDeshabilitados() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           };
+          console.log("Token enviado en deshabilitarUsuario (aceptar):", token); // Added console.log
 
           const response = await fetch(`${API_URL}/${idUsuarioDeshabilitar}`, {
             method: "PATCH",
