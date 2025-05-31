@@ -38,7 +38,7 @@
       "dest": "/HTML/reportes_gestion/existencia_salida.html"
     },
     {
-      "src": "/productos_dañados",
+      "src": "/productos_danados",
       "dest": "/HTML/reportes_gestion/productos_danados.html"
     },
     {
