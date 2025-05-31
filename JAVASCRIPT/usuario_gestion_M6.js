@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
     usersTableBody.innerHTML = ""; // Clear existing rows
     users.forEach((user) => {
       const row = usersTableBody.insertRow();
-      row.insertCell().textContent = user.nombre;
       row.insertCell().textContent = user.usuario;
+      row.insertCell().textContent = user.nombre;
       row.insertCell().textContent = `${user.apellido_paterno} ${user.apellido_materno}`;
       row.insertCell().textContent = getRoleName(user.id_cargo);
       row.insertCell().textContent = "********"; // Password masked
@@ -61,8 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.style.display = "block";
 
     // Populate form fields
-    document.getElementById("nombreUser").value = user.nombre;
     document.getElementById("userName").value = user.usuario;
+    document.getElementById("nombreUser").value = user.nombre;
     document.getElementById(
       "apellidosUser"
     ).value = `${user.apellido_paterno} ${user.apellido_materno}`;
@@ -86,8 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .querySelector(".btn.guardar-edit")
     .addEventListener("click", async (event) => {
       const userId = event.target.dataset.userId;
-      const nombreUser = document.getElementById("nombreUser").value;
       const userName = document.getElementById("userName").value;
+      const nombreUser = document.getElementById("nombreUser").value;
       const apellidosUser = document.getElementById("apellidosUser").value;
       const roleUser = document.getElementById("roleUser").value;
       const passwordUser = document.getElementById("passwordUser").value;
