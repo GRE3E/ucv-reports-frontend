@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Función para cargar y mostrar productos
     async function cargarProductos() {
       try {
-        const response = await fetch("https://ucv-reports-backend.onrender.com/api/articulos"); // Ajusta esta URL a tu endpoint de artículos
+        const response = await fetch("https://ucv-reports-backend.onrender.com/hardware"); // Ajusta esta URL a tu endpoint 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -112,10 +112,24 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
           // Asumiendo que el backend tiene un endpoint para guardar productos
           const response = await fetch(
-            "https://ucv-reports-backend.onrender.com/api/productos",
+            "https://ucv-reports-backend.onrender.com/hardware",
             {
               method: "POST",
-              body: formData,
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify([{
+                idarticulostipo: selectArticulo.value === "otro" ? document.getElementById("otroArticulo").value : selectArticulo.value,
+                codigo_inicial: document.getElementById("codigoProducto").value,
+                nombre_producto: document.getElementById("nombreProducto").value,
+                precio_producto: parseFloat(document.getElementById("precio").value),
+                cantidad_registros: parseInt(document.getElementById("cantidad").value),
+                imagen_producto: "../../CSS/auth/images/placeholder.jpg", // Placeholder
+                estado_producto: "Pendiente", // Asumiendo un estado inicial
+                idpabellon: 1, // Valor por defecto o se puede añadir un campo en el formulario
+                idpiso: 1,     // Valor por defecto
+                idsalon: 1     // Valor por defecto
+              }]),
             }
           );
   
@@ -132,16 +146,16 @@ document.addEventListener("DOMContentLoaded", () => {
               newProduct.urlImagen || "../../CSS/auth/images/placeholder.jpg"; // Ajusta esto según tu backend
   
             productoCard.innerHTML = `
-                          <img src="${imageUrl}" alt="${newProduct.nombreProducto}">
-                          <div class="producto-card-info">
-                              <h3>Tipo: ${newProduct.articulo}</h3>
-                              <p>Cantidad: ${newProduct.cantidad}</p>
-                          </div>
-                          <button class="btn comprar">
-                              <i class="fas fa-shopping-cart"></i>
-                              Comprar
-                          </button>
-                      `;
+                        <img src="${imageUrl}" alt="${newProduct.nombreProducto}">
+                        <div class="producto-card-info">
+                            <h3>Tipo: ${newProduct.articulo}</h3>
+                            <p>Cantidad: ${newProduct.cantidad}</p>
+                        </div>
+                        <button class="btn comprar">
+                            <i class="fas fa-shopping-cart"></i>
+                            Comprar
+                        </button>
+                    `;
   
             productosGridContainer.appendChild(productoCard);
   
