@@ -1,4 +1,6 @@
-/* styles.css */
+:root {
+  --font-segoe-ui: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 
 * {
   box-sizing: border-box;
@@ -11,13 +13,11 @@ body {
   height: 100%;
   min-height: 100vh;
   width: 100vw;
-  font-family: Arial, sans-serif;
-  /* Asegura que el fondo cubra todo y sea responsive */
+  font-family: var(--font-segoe-ui);
   background: url("./images/fondo.svg") center center / cover no-repeat fixed;
-  /* Elimina cualquier fondo blanco por defecto */
-  background-color: #000; /* O el color que prefieras de fallback */
+  background-color: #000;
   overflow-x: hidden;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-segoe-ui);
 }
 
 .login-container {
@@ -33,7 +33,6 @@ body {
   background: rgba(0, 0, 0, 0.8);
 }
 
-/* Panel izquierdo */
 .login-panel-left {
   flex: 1;
   background-color: #0b2341;
@@ -109,7 +108,7 @@ body {
   opacity: 0.85;
   margin-bottom: 8px;
   margin-top: 110px;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-segoe-ui);
   font-weight: 500;
   letter-spacing: 0.5px;
 }
@@ -119,7 +118,7 @@ body {
   line-height: 1.2;
   margin-bottom: 20px;
   position: relative;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-segoe-ui);
   font-weight: 700;
   color: #fff;
   letter-spacing: 1px;
@@ -166,7 +165,6 @@ body {
   transform: scale(1.07) rotate(-2deg);
 }
 
-/* Panel derecho */
 .login-panel-right {
   flex: 1;
   background: #fff;
@@ -191,7 +189,7 @@ body {
   font-weight: bold;
   display: flex;
   align-items: center;
-  justify-content: center; /* Hace la fuente más gruesa */
+  justify-content: center;
 }
 .subtitle::before,
 .subtitle::after {
@@ -264,20 +262,18 @@ body {
 }
 
 .help-links a {
-  color: #e30513; /* Rojo llamativo */
+  color: #e30513;
   text-decoration: none;
   font-weight: 600;
   opacity: 1;
   transition: text-decoration 0.2s, color 0.2s;
-  /* Elimina display:flex aquí */
 }
 
 .help-links a {
   color: #ff0808;
   text-decoration: none;
-  font-weight: 700; /* Más negrita */
-  opacity: 1;
-  font-size: 1.18em; /* Más grande */
+  font-weight: 700;
+  font-size: 1.18em;
   transition: text-decoration 0.2s, color 0.2s;
 }
 
@@ -287,13 +283,12 @@ body {
 }
 .help-links .help-divider {
   display: block;
-  color: #e30513; /* Rojo institucional */
+  color: #e30513;
   font-weight: bold;
   margin: 2px 0;
   font-size: 1.1em;
   letter-spacing: 2px;
 }
-/* Responsive */
 @media (max-width: 768px) {
   .login-container {
     flex-direction: column;
@@ -305,9 +300,6 @@ body {
   }
 }
 
-/* ...código existente... */
-
-/* Panel izquierdo ocupa todo el ancho al inicio */
 .login-panel-left {
   flex: 1 1 100%;
   width: 100%;
@@ -318,7 +310,6 @@ body {
   z-index: 2;
 }
 
-/* Panel derecho oculto al inicio */
 .login-panel-right {
   opacity: 0;
   pointer-events: none;
@@ -337,7 +328,6 @@ body {
   justify-content: center;
 }
 
-/* El contenedor debe ser relativo para el posicionamiento absoluto */
 .login-container {
   position: relative;
   display: flex;
@@ -352,7 +342,6 @@ body {
   background: rgba(255, 255, 255, 0.8);
 }
 
-/* Al pasar el mouse sobre el panel izquierdo, muestra el derecho y reduce el ancho del izquierdo */
 .login-panel-left:hover ~ .login-panel-right,
 .login-container:hover .login-panel-right {
   opacity: 1;
@@ -367,7 +356,6 @@ body {
   transform: translateX(-0%);
 }
 
-/* Responsive para móviles */
 @media (max-width: 768px) {
   .login-container {
     flex-direction: column;
@@ -384,7 +372,6 @@ body {
   }
 }
 
-/* ...código existente... */
 .toggle-password {
   position: absolute;
   right: 18px;
@@ -396,7 +383,7 @@ body {
   height: 22px;
   width: 22px;
   z-index: 3;
-  stroke: #111 !important; /* Ojo negro */
+  stroke: #111 !important;
 }
 .toggle-password #eyeClosed {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%23888' stroke-width='2' d='M3 3l18 18M10.7 10.7a2 2 0 102.6 2.6m-6.3-6.3A9.77 9.77 0 002 12s3.6 7 10 7a9.77 9.77 0 005.3-1.5m-2.1-2.1A4 4 0 0012 8a4 4 0 00-4 4c0 .7.2 1.4.5 2'/%3E%3C/svg%3E");
