@@ -48,35 +48,35 @@
                             <i class="fas fa-university"></i>
                             Facultad:
                         </span>
-                        <span class="info-value" id="modalFacultad">Ingeniería y Arquitectura</span>
+                        <span class="info-value" id="modalFacultad"></span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">
                             <i class="fas fa-clock"></i>
                             Turno:
                         </span>
-                        <span class="info-value" id="modalTurno">Mañana</span>
+                        <span class="info-value" id="modalTurno"></span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">
                             <i class="fas fa-calendar-check"></i>
                             Fecha:
                         </span>
-                        <span class="info-value" id="modalFecha">2024-07-03 11:25:17</span>
+                        <span class="info-value" id="modalFecha"></span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">
                             <i class="fas fa-check-circle"></i>
                             Estado:
                         </span>
-                        <span class="info-value" id="modalEstado">Aprobado</span>
+                        <span class="info-value" id="modalEstado"></span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">
                             <i class="fas fa-exclamation-triangle"></i>
                             Lugar del Problema:
                         </span>
-                        <span class="info-value" id="modalLugar">Pabellón B, Piso 3, Aula 314</span>
+                        <span class="info-value" id="modalLugar"></span>
                     </div>
                 </div>
                 <div class="evidence-section">
@@ -84,7 +84,7 @@
                         <i class="fas fa-camera"></i>
                         Evidencia:
                     </h3>
-                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop" alt="Evidencia del problema" class="evidence-image" id="modalEvidencia">
+                    <img src="" alt="Evidencia del problema" class="evidence-image" id="modalEvidencia">
                 </div>
             </div>
         </div>
@@ -106,7 +106,7 @@ function renderReportes(reportes) {
             turno: reporte.turno,
             fecha: reporte.fecha,
             estado: reporte.estado,
-            lugar: `Pabellón ${reporte.Pabellon}, Piso ${reporte.Piso}, Aula ${reporte.Salon}`,
+            lugar: `${reporte.Pabellon}, ${reporte.Piso}, ${reporte.Salon}`,
             evidencia: reporte.evidencia
         };
 
@@ -125,7 +125,7 @@ function renderReportes(reportes) {
                 </div>
                 <div class="card-location">
                     <i class="fas fa-map-marker-alt"></i>
-                    Lugar del Reporte: Pabellón ${reporte.Pabellon}, Piso ${reporte.Piso}
+                    Lugar del Reporte:${reporte.Pabellon}, ${reporte.Piso}
                 </div>
                 <div class="card-classroom">
                     <i class="fas fa-door-open"></i>
