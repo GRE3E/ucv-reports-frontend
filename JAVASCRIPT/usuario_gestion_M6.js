@@ -1,4 +1,4 @@
-function abrirModalDeshabilitados() {
+document.addEventListener("DOMContentLoaded", function() {
   const API_URL = "https://ucv-reports-backend.onrender.com/usuarios";
   const CARGOS_URL = "https://ucv-reports-backend.onrender.com/cargos";
   let usuarios = [];
@@ -38,10 +38,7 @@ function abrirModalDeshabilitados() {
   async function cargarUsuarios() {
     try {
       const token = localStorage.getItem("access_token"); // Changed from 'token' to 'access_token'
-      console.log(
-        "Token retrieved from localStorage in cargarUsuarios:",
-        token
-      );
+      console.log("Token retrieved from localStorage in cargarUsuarios:", token);
       const headers = { Authorization: `Bearer ${token}` };
       console.log("Headers sent in cargarUsuarios:", headers);
 
@@ -54,15 +51,11 @@ function abrirModalDeshabilitados() {
 
       if (!usuariosRes.ok) {
         const errorText = await usuariosRes.text();
-        throw new Error(
-          `HTTP error! status: ${usuariosRes.status}, message: ${errorText}`
-        );
+        throw new Error(`HTTP error! status: ${usuariosRes.status}, message: ${errorText}`);
       }
       if (!cargosRes.ok) {
         const errorText = await cargosRes.text();
-        throw new Error(
-          `HTTP error! status: ${cargosRes.status}, message: ${errorText}`
-        );
+        throw new Error(`HTTP error! status: ${cargosRes.status}, message: ${errorText}`);
       }
 
       usuarios = (await usuariosRes.json()).filter(
@@ -108,19 +101,21 @@ function abrirModalDeshabilitados() {
               </td>
               <td>
                 <select id="editRol">
-                  ${cargos
-                    .map(
-                      (c) =>
-                        `<option value="${c.idcargo}" ${
-                          usuario.id_cargo === c.idcargo ? "selected" : ""
-                        }>${c.descripcion}</option>`
-                    )
-                    .join("")}
+                  ${
+                    cargos
+                      .map(
+                        (c) =>
+                          `<option value="${c.idcargo}" ${
+                            usuario.id_cargo === c.idcargo ? "selected" : ""
+                          }>${c.descripcion}</option>`
+                      )
+                      .join("")
+                  }
                 </select>
               </td>
               <td><input type="password" value="" placeholder="Nueva contraseña" id="editContrasena"></td>
               <td>
-                <button class="btn editar" onclick="guardarEdicion(${
+                <button class="btn editar" onclick="guardarEdicion(${ 
                   usuario.IDUsuario
                 })"><i class="fas fa-save"></i> GUARDAR</button>
                 <button class="btn cancelar" onclick="cancelarEdicion()"><i class="fas fa-times"></i> CANCELAR</button>
@@ -173,10 +168,7 @@ function abrirModalDeshabilitados() {
 
     try {
       const token = localStorage.getItem("access_token"); // Changed from 'token' to 'access_token'
-      console.log(
-        "Token retrieved from localStorage in guardarEdicion:",
-        token
-      );
+      console.log("Token retrieved from localStorage in guardarEdicion:", token);
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -191,9 +183,7 @@ function abrirModalDeshabilitados() {
       console.log("Response from update API:", response);
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(
-          `HTTP error! status: ${response.status}, message: ${errorText}`
-        );
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
       }
       editandoId = null;
       cargarUsuarios();
@@ -212,10 +202,7 @@ function abrirModalDeshabilitados() {
   async function cargarUsuariosDeshabilitados() {
     try {
       const token = localStorage.getItem("access_token"); // Changed from 'token' to 'access_token'
-      console.log(
-        "Token retrieved from localStorage in cargarUsuariosDeshabilitados:",
-        token
-      );
+      console.log("Token retrieved from localStorage in cargarUsuariosDeshabilitados:", token);
       const headers = { Authorization: `Bearer ${token}` };
       console.log("Headers sent in cargarUsuariosDeshabilitados:", headers);
 
@@ -223,9 +210,7 @@ function abrirModalDeshabilitados() {
       console.log("Response from disabled users API:", response);
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(
-          `HTTP error! status: ${response.status}, message: ${errorText}`
-        );
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
       }
       const data = await response.json();
       console.log("Disabled users data:", data);
@@ -279,10 +264,7 @@ function abrirModalDeshabilitados() {
   async function reactivarUsuario(id) {
     try {
       const token = localStorage.getItem("access_token"); // Changed from 'token' to 'access_token'
-      console.log(
-        "Token retrieved from localStorage in reactivarUsuario:",
-        token
-      );
+      console.log("Token retrieved from localStorage in reactivarUsuario:", token);
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -297,9 +279,7 @@ function abrirModalDeshabilitados() {
       console.log("Response from reactivate API:", response);
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(
-          `HTTP error! status: ${response.status}, message: ${errorText}`
-        );
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
       }
       cargarUsuariosDeshabilitados();
       cargarUsuarios();
@@ -332,18 +312,12 @@ function abrirModalDeshabilitados() {
       .addEventListener("click", async () => {
         try {
           const token = localStorage.getItem("access_token"); // Changed from 'token' to 'access_token'
-          console.log(
-            "Token retrieved from localStorage in deshabilitarUsuario (aceptar):",
-            token
-          );
+          console.log("Token retrieved from localStorage in deshabilitarUsuario (aceptar):", token);
           const headers = {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           };
-          console.log(
-            "Headers sent in deshabilitarUsuario (aceptar):",
-            headers
-          );
+          console.log("Headers sent in deshabilitarUsuario (aceptar):", headers);
 
           const response = await fetch(`${API_URL}/${idUsuarioDeshabilitar}`, {
             method: "PATCH",
@@ -353,9 +327,7 @@ function abrirModalDeshabilitados() {
           console.log("Response from disable API:", response);
           if (!response.ok) {
             const errorText = await response.text();
-            throw new Error(
-              `HTTP error! status: ${response.status}, message: ${errorText}`
-            );
+            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
           }
           modalDeshabilitar.style.display = "none";
           cargarUsuarios();
@@ -373,4 +345,4 @@ function abrirModalDeshabilitados() {
         modalDeshabilitar.style.display = "none";
       });
   });
-}
+});
