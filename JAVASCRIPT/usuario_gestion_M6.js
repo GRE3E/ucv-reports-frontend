@@ -1,348 +1,95 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const API_URL = "https://ucv-reports-backend.onrender.com/usuarios";
-  const CARGOS_URL = "https://ucv-reports-backend.onrender.com/cargos";
-  let usuarios = [];
-  let cargos = [];
-  let editandoId = null;
-  let idUsuarioDeshabilitar = null;
+document.addEventListener("DOMContentLoaded", () => {
+  const usersTableBody = document.querySelector(".usuarios-table tbody");
 
-  const modalEditar = document.getElementById("modalEditActual");
-  const closeBtn = modalEditar.querySelector(".close");
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch(
+        "https://ucv-reports-backend.onrender.com/usuarios"
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const users = await response.json();
+      populateTable(users);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
 
+  const populateTable = (users) => {
+    usersTableBody.innerHTML = ""; // Clear existing rows
+    users.forEach((user) => {
+      const row = usersTableBody.insertRow();
+      row.insertCell().textContent = user.usuario;
+      row.insertCell().textContent = `${user.apellido_paterno} ${user.apellido_materno}`;
+      row.insertCell().textContent = getRoleName(user.id_cargo);
+      row.insertCell().textContent = "********"; // Password masked
+      const actionsCell = row.insertCell();
+      actionsCell.innerHTML = `
+                <button class="btn-action btn-edit"><i class="fas fa-edit"></i></button>
+                <button class="btn-action btn-disable"><i class="fas fa-user-slash"></i></button>
+            `;
+    });
+  };
+
+  const getRoleName = (id_cargo) => {
+    switch (id_cargo) {
+      case 1:
+        return "Alumno";
+      case 2:
+        return "Docente";
+      case 3:
+        return "PersonalUCV";
+      case 4:
+        return "Administrador";
+      default:
+        return "Desconocido";
+    }
+  };
+
+  fetchUsers();
+});
+
+// Funciones para los modales (mantenerlas si ya existen o se planean usar)
+function abrirModalDeshabilitados() {
+  const modal = document.getElementById("modalDeshabilitados");
+  modal.style.display = "block";
+}
+
+function cerrarModalDeshabilitados() {
+  const modal = document.getElementById("modalDeshabilitados");
+  modal.style.display = "none";
+}
+
+// Cerrar modales al hacer clic fuera de ellos
+window.onclick = function (event) {
+  const modalDeshabilitados = document.getElementById("modalDeshabilitados");
+  const modalEditActual = document.getElementById("modalEditActual");
   const modalDeshabilitar = document.getElementById("modalDeshabilitar");
-  const closeBtnDeshabilitar = modalDeshabilitar.querySelector(
-    ".closeBtnDeshabilitar"
-  );
 
-  // MODAL EDITAR USUARIO
-  closeBtn.addEventListener("click", () => {
-    modalEditar.style.display = "none";
-  });
-
-  // MODAL DESHABILITAR USUARIO
-  closeBtnDeshabilitar.addEventListener("click", () => {
+  if (event.target == modalDeshabilitados) {
+    modalDeshabilitados.style.display = "none";
+  }
+  if (event.target == modalEditActual) {
+    modalEditActual.style.display = "none";
+  }
+  if (event.target == modalDeshabilitar) {
     modalDeshabilitar.style.display = "none";
-  });
-
-  window.addEventListener("click", function (event) {
-    if (event.target === modalEditar) {
-      modalEditar.style.display = "none";
-    }
-
-    if (event.target === modalDeshabilitar) {
-      modalDeshabilitar.style.display = "none";
-    }
-  });
-
-  // Cargar usuarios y cargos
-  async function cargarUsuarios() {
-    try {
-      const token = localStorage.getItem("access_token"); // Changed from 'token' to 'access_token'
-      console.log("Token retrieved from localStorage in cargarUsuarios:", token);
-      const headers = { Authorization: `Bearer ${token}` };
-      console.log("Headers sent in cargarUsuarios:", headers);
-
-      const [usuariosRes, cargosRes] = await Promise.all([
-        fetch(`${API_URL}?_relations=cargo`, { headers }),
-        fetch(CARGOS_URL, { headers }),
-      ]);
-      console.log("Response from usuarios API:", usuariosRes);
-      console.log("Response from cargos API:", cargosRes);
-
-      if (!usuariosRes.ok) {
-        const errorText = await usuariosRes.text();
-        throw new Error(`HTTP error! status: ${usuariosRes.status}, message: ${errorText}`);
-      }
-      if (!cargosRes.ok) {
-        const errorText = await cargosRes.text();
-        throw new Error(`HTTP error! status: ${cargosRes.status}, message: ${errorText}`);
-      }
-
-      usuarios = (await usuariosRes.json()).filter(
-        (u) => u.Estado === "Habilitado"
-      );
-      cargos = await cargosRes.json();
-      console.log("Usuarios loaded:", usuarios);
-      console.log("Cargos loaded:", cargos);
-
-      renderUsuarios();
-    } catch (error) {
-      console.error("Error al cargar usuarios o cargos:", error);
-      usuarios = [];
-      cargos = [];
-      renderUsuarios(); // Render with empty data on error
-    }
   }
+};
 
-  function renderUsuarios() {
-    const tbody = document.querySelector(".usuarios-table tbody");
-    tbody.innerHTML = "";
-    usuarios.forEach((usuario) => {
-      const nombreCompleto =
-        `${usuario.nombre} ${usuario.apellido_paterno} ${usuario.apellido_materno}`.trim();
-      const rol =
-        usuario.cargo && usuario.cargo.descripcion
-          ? usuario.cargo.descripcion
-          : "Sin Rol";
-      const estaEditando = editandoId === usuario.IDUsuario;
-      const tr = document.createElement("tr");
-      if (estaEditando) {
-        tr.innerHTML = `
-              <td><input type="text" value="${
-                usuario.usuario
-              }" id="editUsuario"></td>
-              <td>
-                <input type="text" value="${
-                  usuario.apellido_paterno
-                }" id="editApellidoPaterno" style="width:45%">
-                <input type="text" value="${
-                  usuario.apellido_materno
-                }" id="editApellidoMaterno" style="width:45%">
-              </td>
-              <td>
-                <select id="editRol">
-                  ${
-                    cargos
-                      .map(
-                        (c) =>
-                          `<option value="${c.idcargo}" ${
-                            usuario.id_cargo === c.idcargo ? "selected" : ""
-                          }>${c.descripcion}</option>`
-                      )
-                      .join("")
-                  }
-                </select>
-              </td>
-              <td><input type="password" value="" placeholder="Nueva contraseña" id="editContrasena"></td>
-              <td>
-                <button class="btn editar" onclick="guardarEdicion(${ 
-                  usuario.IDUsuario
-                })"><i class="fas fa-save"></i> GUARDAR</button>
-                <button class="btn cancelar" onclick="cancelarEdicion()"><i class="fas fa-times"></i> CANCELAR</button>
-              </td>
-            `;
-      } else {
-        tr.innerHTML = `
-              <td>${usuario.usuario}</td>
-              <td>${nombreCompleto}</td>
-              <td>${rol}</td>
-              <td>**********</td>
-              <td>
-                <button class="btn editar" data-id="${usuario.IDUsuario}"><i class="fas fa-edit"></i> EDITAR</button>
-                <button class="btn deshabilitar" data-id="${usuario.IDUsuario}"><i class="fas fa-ban"></i> DESHABILITAR</button>
-              </td>
-            `;
-      }
-      tbody.appendChild(tr);
-    });
-  }
-
-  function editarUsuario(id) {
-    editandoId = id;
-    renderUsuarios();
-  }
-
-  function cancelarEdicion() {
-    editandoId = null;
-    renderUsuarios();
-  }
-
-  async function guardarEdicion(id) {
-    const usuario = document.getElementById("editUsuario").value.trim();
-    const apellido_paterno = document
-      .getElementById("editApellidoPaterno")
-      .value.trim();
-    const apellido_materno = document
-      .getElementById("editApellidoMaterno")
-      .value.trim();
-    const id_cargo = parseInt(document.getElementById("editRol").value, 10);
-    const contrasena = document.getElementById("editContrasena").value.trim();
-
-    const body = {
-      usuario,
-      apellido_paterno,
-      apellido_materno,
-      id_cargo,
-    };
-    if (contrasena) body.contraseña = contrasena;
-
-    try {
-      const token = localStorage.getItem("access_token"); // Changed from 'token' to 'access_token'
-      console.log("Token retrieved from localStorage in guardarEdicion:", token);
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      };
-      console.log("Headers sent in guardarEdicion:", headers);
-
-      const response = await fetch(`${API_URL}/${id}`, {
-        method: "PATCH",
-        headers: headers,
-        body: JSON.stringify(body),
-      });
-      console.log("Response from update API:", response);
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-      }
-      editandoId = null;
-      cargarUsuarios();
-    } catch (error) {
-      console.error("Error al guardar edición:", error);
-      alert("Error al guardar edición. Por favor, inténtalo de nuevo.");
-    }
-  }
-
-  async function deshabilitarUsuario(id) {
-    idUsuarioDeshabilitar = id;
-    modalDeshabilitar.style.display = "block";
-  }
-
-  // MODAL USUARIOS DESHABILITADOS
-  async function cargarUsuariosDeshabilitados() {
-    try {
-      const token = localStorage.getItem("access_token"); // Changed from 'token' to 'access_token'
-      console.log("Token retrieved from localStorage in cargarUsuariosDeshabilitados:", token);
-      const headers = { Authorization: `Bearer ${token}` };
-      console.log("Headers sent in cargarUsuariosDeshabilitados:", headers);
-
-      const response = await fetch(API_URL, { headers });
-      console.log("Response from disabled users API:", response);
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-      }
-      const data = await response.json();
-      console.log("Disabled users data:", data);
-      const usuariosDeshabilitados = data.filter(
-        (u) => u.Estado === "Deshabilitado"
-      );
-      renderUsuariosDeshabilitados(usuariosDeshabilitados);
-    } catch (error) {
-      console.error("Error al cargar usuarios deshabilitados:", error);
-      renderUsuariosDeshabilitados([]); // Render with empty data on error
-    }
-  }
-
-  function renderUsuariosDeshabilitados(usuariosDeshabilitados) {
-    const tbody = document.querySelector(
-      "#modalDeshabilitados .usuarios-table tbody"
-    );
-    tbody.innerHTML = "";
-    usuariosDeshabilitados.forEach((usuario) => {
-      const nombreCompleto =
-        `${usuario.nombre} ${usuario.apellido_paterno} ${usuario.apellido_materno}`.trim();
-      const rol =
-        usuario.cargo && usuario.cargo.descripcion
-          ? usuario.cargo.descripcion
-          : "Sin Rol";
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-            <td>${usuario.usuario}</td>
-            <td>${nombreCompleto}</td>
-            <td>${rol}</td>
-            <td>**********</td>
-            <td>
-              <button class="btn reactivar" onclick="reactivarUsuario(${usuario.IDUsuario})">
-                <span class="icon">✏️</span> Reactivar
-              </button>
-            </td>
-          `;
-      tbody.appendChild(tr);
-    });
-  }
-
-  function abrirModalDeshabilitados() {
-    cargarUsuariosDeshabilitados();
-    document.getElementById("modalDeshabilitados").style.display = "block";
-  }
-
-  function cerrarModalDeshabilitados() {
-    document.getElementById("modalDeshabilitados").style.display = "none";
-  }
-
-  async function reactivarUsuario(id) {
-    try {
-      const token = localStorage.getItem("access_token"); // Changed from 'token' to 'access_token'
-      console.log("Token retrieved from localStorage in reactivarUsuario:", token);
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      };
-      console.log("Headers sent in reactivarUsuario:", headers);
-
-      const response = await fetch(`${API_URL}/${id}`, {
-        method: "PATCH",
-        headers: headers,
-        body: JSON.stringify({ Estado: "Habilitado" }),
-      });
-      console.log("Response from reactivate API:", response);
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-      }
-      cargarUsuariosDeshabilitados();
-      cargarUsuarios();
-    } catch (error) {
-      console.error("Error al reactivar usuario:", error);
-      alert("Error al reactivar usuario. Por favor, inténtalo de nuevo.");
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    cargarUsuarios();
-
-    document
-      .querySelector(".usuarios-table tbody")
-      .addEventListener("click", (event) => {
-        const target = event.target.closest("button");
-        if (!target) return;
-
-        const id = parseInt(target.dataset.id);
-
-        if (target.classList.contains("editar")) {
-          editarUsuario(id);
-        } else if (target.classList.contains("deshabilitar")) {
-          deshabilitarUsuario(id);
-        }
-      });
-
-    document
-      .querySelector("#modalDeshabilitar .btn.aceptar")
-      .addEventListener("click", async () => {
-        try {
-          const token = localStorage.getItem("access_token"); // Changed from 'token' to 'access_token'
-          console.log("Token retrieved from localStorage in deshabilitarUsuario (aceptar):", token);
-          const headers = {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          };
-          console.log("Headers sent in deshabilitarUsuario (aceptar):", headers);
-
-          const response = await fetch(`${API_URL}/${idUsuarioDeshabilitar}`, {
-            method: "PATCH",
-            headers: headers,
-            body: JSON.stringify({ Estado: "Deshabilitado" }),
-          });
-          console.log("Response from disable API:", response);
-          if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-          }
-          modalDeshabilitar.style.display = "none";
-          cargarUsuarios();
-        } catch (error) {
-          console.error("Error al deshabilitar usuario:", error);
-          alert(
-            "Error al deshabilitar usuario. Por favor, inténtalo de nuevo."
-          );
-        }
-      });
-
-    document
-      .querySelector("#modalDeshabilitar .btn.cancelar")
-      .addEventListener("click", () => {
-        modalDeshabilitar.style.display = "none";
-      });
+// Cerrar modal de edición con el botón de cerrar
+document.querySelectorAll(".modal-content-edit .close").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.getElementById("modalEditActual").style.display = "none";
   });
 });
+
+// Cerrar modal de deshabilitar con el botón de cerrar
+document
+  .querySelectorAll(".modal-content-deshabilitar .closeBtnDeshabilitar")
+  .forEach((button) => {
+    button.addEventListener("click", () => {
+      document.getElementById("modalDeshabilitar").style.display = "none";
+    });
+  });
