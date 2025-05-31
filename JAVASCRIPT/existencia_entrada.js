@@ -19,9 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
         productoCard.classList.add("producto-card");
 
         productoCard.innerHTML = `
-            <img src="${producto.urlImagen || '../../CSS/auth/images/placeholder.jpg'}" alt="${producto.nombreProducto}">
+            <img src="${producto.urlImagen || '../../CSS/auth/images/placeholder.jpg'}" alt="${producto.nombre}">
             <div class="producto-card-info">
-                <h3>Tipo: ${producto.nombreProducto}</h3>
+                <h3>Tipo: ${producto.nombre}</h3>
                 <p>Cantidad: ${producto.cantidad}</p>
             </div>
             <button class="btn comprar">
@@ -111,15 +111,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         const hardwareData = {
-          idarticulostipo: selectArticulo.value === "otro" ? document.getElementById("otroArticulo").value : selectArticulo.value,
-          Codigo: document.getElementById("codigoProducto").value,
-          nombre: document.getElementById("nombreProducto").value,
+          idarticulostipo: parseInt(selectArticulo.value === "otro" ? document.getElementById("otroArticulo").value : selectArticulo.value),
+          Codigo: parseInt(document.getElementById("codigoProducto").value),
+          nombre: String(document.getElementById("nombreProducto").value),
           Precio: parseFloat(document.getElementById("precio").value),
           idpabellon: parseInt(document.getElementById("idpabellon").value),
           idpiso: parseInt(document.getElementById("idpiso").value),
           idsalon: parseInt(document.getElementById("idsalon").value),
           imagen: "../../CSS/auth/images/placeholder.jpg",
-          Estado: "Pendiente",
+          Estado: String("Pendiente"),
         };
         // Asumiendo que el backend tiene un endpoint para guardar productos
         const response = await fetch(
