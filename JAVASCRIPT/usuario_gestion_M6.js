@@ -28,11 +28,18 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       const roles = await response.json();
       const roleFilterSelect = document.getElementById("roleFilter");
+      const roleUserSelect = document.getElementById("roleUser"); // Get the roleUser select
+
       roles.forEach((role) => {
-        const option = document.createElement("option");
-        option.value = role.idcargo;
-        option.textContent = role.descripcion;
-        roleFilterSelect.appendChild(option);
+        const optionFilter = document.createElement("option");
+        optionFilter.value = role.idcargo;
+        optionFilter.textContent = role.descripcion;
+        roleFilterSelect.appendChild(optionFilter);
+
+        const optionUser = document.createElement("option");
+        optionUser.value = role.idcargo;
+        optionUser.textContent = role.descripcion;
+        roleUserSelect.appendChild(optionUser);
       });
     } catch (error) {
       console.error("Error fetching roles:", error);
@@ -130,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Set the correct role in the select dropdown
     const roleSelect = document.getElementById("roleUser");
     Array.from(roleSelect.options).forEach((option) => {
-      if (option.value === getRoleName(user.idcargo)) {
+      if (parseInt(option.value) === user.id_cargo) {
         option.selected = true;
       } else {
         option.selected = false;
