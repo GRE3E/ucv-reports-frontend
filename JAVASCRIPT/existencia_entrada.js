@@ -84,6 +84,15 @@ document.addEventListener("DOMContentLoaded", () => {
     formAgregarProducto.addEventListener("submit", async function (event) {
       event.preventDefault(); // Prevenir el envío por defecto del formulario
 
+      console.log("Valor de articulo:", selectArticulo.value);
+      console.log("Valor de otroArticulo:", document.getElementById("otroArticulo").value);
+      console.log("Valor de codigoProducto:", document.getElementById("codigoProducto").value);
+      console.log("Valor de nombreProducto:", document.getElementById("nombreProducto").value);
+      console.log("Valor de precio:", document.getElementById("precio").value);
+      console.log("Valor de pabellon:", document.getElementById("pabellon").value);
+      console.log("Valor de piso:", document.getElementById("piso").value);
+      console.log("Valor de salon:", document.getElementById("salon").value);
+
       const formData = new FormData();
       formData.append("articulo", selectArticulo.value);
       if (selectArticulo.value === "otro") {
@@ -126,12 +135,24 @@ document.addEventListener("DOMContentLoaded", () => {
           nombre: String(document.getElementById("nombreProducto").value),
           Precio: parseFloat(document.getElementById("precio").value || '0'),
 
-          idpabellon: parseInt(document.getElementById("pabellon").value || '0'),
-          idpiso: parseInt(document.getElementById("piso").value || '0'),
-          idsalon: parseInt(document.getElementById("salon").value || '0'),
+          idpabellon: (() => {
+            const pabellonMap = {
+                "A": 1,
+                "B": 2,
+                "C": 3,
+                "D": 4, //nmo se sabe
+                "E": 5
+            };
+            return pabellonMap[document.getElementById("pabellon").value] || 1;
+          })(),
+          idpiso: parseInt(document.getElementById("piso").value) || 0,
+          idsalon: parseInt(document.getElementById("salon").value) || 0,
           imagen: "../../CSS/auth/images/placeholder.jpg",
           Estado: String("Pendiente"),
         };
+
+        console.log("Datos enviados al backend:", hardwareData);
+
         // Asumiendo que el backend tiene un endpoint para guardar productos
         const response = await fetch(
             "https://ucv-reports-backend.onrender.com/hardware",
