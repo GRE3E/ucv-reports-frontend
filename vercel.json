@@ -22,7 +22,7 @@
       "dest": "/HTML/auth/register.html"
     },
     {
-      "src": "/reporte_enviar/registrar_reporte",
+      "src": "/reporte_enviar",
       "dest": "/HTML/reporte_enviar/registrar_reporte.html"
     },
     {

@@ -54,9 +54,12 @@ document.addEventListener("DOMContentLoaded", function () {
           alert("Login successful!");
 
           // Conditional redirection based on user role
-          if (data.role === "Alumno") {
-            console.log("Redirecting to /registrar_reporte");
-            window.location.href = "/registrar_reporte";
+          if (
+            data.role === "Alumno" ||
+            data.role === "Profesor" ||
+            data.role === "PersonalUCV"
+          ) {
+            window.location.href = "/reporte_enviar";
           } else if (data.role === "Administrador") {
             console.log("Redirecting to /usuarios_gestion");
             window.location.href = "/usuarios_gestion";
