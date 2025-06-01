@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function obtenerYMostrarReportesAprobados() {
     try {
       const response = await fetch(
-        "https://ucv-reports-backend.onrender.com//reportes/aprobados"
+        "https://ucv-reports-backend.onrender.com/reportes/aprobados"
       ); // Asegúrate de que esta URL sea correcta para tu backend
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
