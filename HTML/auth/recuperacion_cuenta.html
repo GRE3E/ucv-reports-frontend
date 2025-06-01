@@ -486,6 +486,7 @@
               alert("Los datos ingresados no coinciden con ningún usuario.");
             }
           } catch (error) {
+            console.error("Error al verificar los datos:", error);
             // Para demostración, simulamos verificación exitosa
             usuarioVerificado = usuario;
             mostrarPasoPassword();
@@ -529,6 +530,7 @@
             console.log("Response from change-password:", data);
 
             if (data.success) {
+              console.log("Contraseña cambiada exitosamente.");
               alert(
                 "Contraseña cambiada exitosamente. Serás redirigido al login."
               );
@@ -537,6 +539,7 @@
               alert("Error al cambiar la contraseña. Intenta nuevamente.");
             }
           } catch (error) {
+            console.error("Error al cambiar la contraseña:", error);
             // Para demostración
             alert(
               "Contraseña cambiada exitosamente. Serás redirigido al login."
