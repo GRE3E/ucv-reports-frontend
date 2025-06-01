@@ -2,38 +2,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const productosGridContainer = document.querySelector('.productos-grid-container');
 
     // Datos de ejemplo de productos (reemplazar con datos reales y rutas de imagen correctas)
-    const productos = [
-        {
-            imagen: '../../CSS/auth/images/ordenador.jpg',
-            tipo: 'Ordenador',
-            cantidad: 16
-        },
-        {
-            imagen: '../../CSS/auth/images/proyector.jpg',
-            tipo: 'Proyector',
-            cantidad: 5
-        },
-        {
-            imagen: '../../CSS/auth/images/escritorios.jpg',
-            tipo: 'Escritorio',
-            cantidad: 9
-        },
-        {
-            imagen: '../../CSS/auth/images/pizarra.jpg',
-            tipo: 'Pizarra Acrilica',
-            cantidad: 1
-        },
-        {
-            imagen: '../../CSS/auth/images/ventilador.jpg',
-            tipo: 'Ventilador',
-            cantidad: 15
-        },
-        {
-            imagen: '../../CSS/auth/images/mouse.jpg',
-            tipo: 'Mouse',
-            cantidad: 50
-        },
-    ];
+    // const productos = [
+    //     {
+    //         imagen: '../../CSS/auth/images/ordenador.jpg',
+    //         tipo: 'Ordenador',
+    //         cantidad: 16
+    //     },
+    //     {
+    //         imagen: '../../CSS/auth/images/proyector.jpg',
+    //         tipo: 'Proyector',
+    //         cantidad: 5
+    //     },
+    //     {
+    //         imagen: '../../CSS/auth/images/escritorios.jpg',
+    //         tipo: 'Escritorio',
+    //         cantidad: 9
+    //     },
+    //     {
+    //         imagen: '../../CSS/auth/images/pizarra.jpg',
+    //         tipo: 'Pizarra Acrilica',
+    //         cantidad: 1
+    //     },
+    //     {
+    //         imagen: '../../CSS/auth/images/ventilador.jpg',
+    //         tipo: 'Ventilador',
+    //         cantidad: 15
+    //     },
+    //     {
+    //         imagen: '../../CSS/auth/images/mouse.jpg',
+    //         tipo: 'Mouse',
+    //         cantidad: 50
+    //     },
+    // ];
 
     // Función para generar un código aleatorio (ejemplo simple)
     function generarCodigoAleatorio() {
@@ -45,24 +45,91 @@ document.addEventListener('DOMContentLoaded', () => {
         return (Math.random() * (500 - 10) + 10).toFixed(2);
     }
 
-    productos.forEach((producto, index) => {
-        const productoCard = document.createElement('div');
-        productoCard.classList.add('producto-card');
+    // Función para cargar productos desde la API
+    async function cargarProductos() {
+        try {
+            const response = await fetch('/hardware'); // Asume que existe un endpoint /hardware
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const productos = await response.json();
 
-        productoCard.innerHTML = `
-            <img src="${producto.imagen}" alt="${producto.tipo}">
-            <div class="producto-card-info">
-                <h3>Tipo: ${producto.tipo}</h3>
-                <p>Cantidad: ${producto.cantidad}</p>
-            </div>
-            <button class="btn informe" data-producto-index="${index}">
-                <i class="fas fa-file-alt fa-sm"></i>
-                Informe
-            </button>
-        `;
+            productos.forEach((producto, index) => {
+                const productoCard = document.createElement('div');
+                productoCard.classList.add('producto-card');
 
-        productosGridContainer.appendChild(productoCard);
-    });
+                // Ajusta las propiedades según la estructura de tu tabla 'hardware'
+                // Asumiendo que 'hardware' tiene campos como 'nombre', 'cantidad', 'imagen_url'
+                productoCard.innerHTML = `
+                    <img src="${producto.imagen_url || '../../CSS/auth/images/default.jpg'}" alt="${producto.nombre}">
+                    <div class="producto-card-info">
+                        <h3>Tipo: ${producto.nombre}</h3>
+                        <p>Cantidad: ${producto.cantidad}</p>
+                    </div>
+                    <button class="btn informe" data-producto-id="${producto.id}" data-producto-nombre="${producto.nombre}">
+                        <i class="fas fa-file-alt fa-sm"></i>
+                        Informe
+                    </button>
+                `;
+
+                productosGridContainer.appendChild(productoCard);
+            });
+
+            // Adjuntar event listeners a los botones "Informe" después de que los productos se hayan cargado
+            const botonesInforme = document.querySelectorAll('.producto-card .btn.informe');
+            botonesInforme.forEach(boton => {
+                boton.addEventListener('click', async function() {
+                    modalStockActual.style.display = 'block';
+
+                    const productoId = this.dataset.productoId;
+                    const productoNombre = this.dataset.productoNombre;
+
+                    const stockTableBody = modalStockActual.querySelector('.stock-table tbody');
+                    stockTableBody.innerHTML = ''; // Limpiar contenido previo
+
+                    // Aquí puedes hacer otra llamada a la API si necesitas detalles específicos del stock
+                    // para un producto en particular, o usar los datos ya cargados si son suficientes.
+                    // Por ahora, usaremos datos de ejemplo con el nombre del producto.
+                    const stockData = [
+                        { codigo: generarCodigoAleatorio(), nombre: productoNombre, estado: 'Bueno', precio: generarPrecioAleatorio(), tipoArticulo: productoNombre, accion: 'Usar' }
+                    ];
+
+                    stockData.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${item.codigo}</td>
+                            <td>${item.nombre}</td>
+                            <td>${item.estado}</td>
+                            <td>${item.precio}</td>
+                            <td>${item.tipoArticulo}</td>
+                            <td><button class="btn usar-articulo">
+                                    ${item.accion}
+                                    <i class="fas fa-vote-yea"></i>
+                                </button></td>
+                        `;
+                        stockTableBody.appendChild(row);
+                    });
+
+                    // Adjuntar event listeners a los botones "Usar" en la tabla de Stock Actual
+                    modalStockActual.querySelectorAll('.btn.usar-articulo').forEach(botonUsar => {
+                        botonUsar.addEventListener('click', function() {
+                            botonUsarActivo = this;
+                            modalStockActual.style.display = 'none';
+                            modalSeleccionarUbicacion.style.display = 'block';
+                            limpiarFormularioUbicacion();
+                        });
+                    });
+                });
+            });
+
+        } catch (error) {
+            console.error('Error al cargar los productos:', error);
+            productosGridContainer.innerHTML = '<p>Error al cargar los productos. Inténtalo de nuevo más tarde.</p>';
+        }
+    }
+
+    // Llamar a la función para cargar productos cuando el DOM esté listo
+    cargarProductos();
 
     // Funcionalidad para el modal Stock Actual
     const modalStockActual = document.getElementById('modalStockActual');
@@ -78,58 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('piso').value = '';
         document.getElementById('salon').value = '';
     }
-
-    // Abrir modal Stock Actual al hacer clic en el botón Informe
-    const botonesInforme = document.querySelectorAll('.producto-card .btn.informe');
-    botonesInforme.forEach(boton => {
-        boton.addEventListener('click', function() {
-            modalStockActual.style.display = 'block';
-
-            const productoIndex = this.dataset.productoIndex;
-            const productoSeleccionado = productos[productoIndex];
-
-            // Aquí iría la lógica para cargar los datos específicos de stock para este producto
-            const stockTableBody = modalStockActual.querySelector('.stock-table tbody');
-            stockTableBody.innerHTML = ''; // Limpiar contenido previo
-
-            // Datos de stock de ejemplo para el producto seleccionado (pueden variar)
-            // Ahora usando productoSeleccionado para obtener los datos correctos
-            const stockData = [
-                { codigo: generarCodigoAleatorio(), nombre: productoSeleccionado.tipo, estado: 'Bueno', precio: generarPrecioAleatorio(), tipoArticulo: productoSeleccionado.tipo, accion: 'Usar' }
-                // Puedes añadir más filas de stock aquí si un producto tiene múltiples ítems en stock
-            ];
-
-            stockData.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.codigo}</td>
-                    <td>${item.nombre}</td>
-                    <td>${item.estado}</td>
-                    <td>${item.precio}</td>
-                    <td>${item.tipoArticulo}</td>
-                    <td><button class="btn usar-articulo">
-                            ${item.accion}
-                            <i class="fas fa-vote-yea"></i>
-                        </button></td>
-                `;
-                stockTableBody.appendChild(row);
-            });
-
-            // Adjuntar event listeners a los botones "Usar" en la tabla de Stock Actual
-            modalStockActual.querySelectorAll('.btn.usar-articulo').forEach(botonUsar => {
-                botonUsar.addEventListener('click', function() {
-                    // Guardar la referencia del botón 'Usar' que se acaba de clickear
-                    botonUsarActivo = this;
-                    // Ocultar modal de stock y mostrar modal de ubicación
-                    modalStockActual.style.display = 'none';
-                    modalSeleccionarUbicacion.style.display = 'block';
-
-                    // Limpiar el formulario de ubicación al abrir la modal
-                    limpiarFormularioUbicacion();
-                });
-            });
-        });
-    });
 
     // Funcionalidad para el modal Seleccionar Ubicación
 
@@ -186,4 +201,4 @@ document.addEventListener('DOMContentLoaded', () => {
         cerrarModalUbicacion();
       }
     }
-}); 
+});
