@@ -423,8 +423,49 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     await cargarReportesPendientes();
     await cargarReportesDetalle();
+
+    // Event listener para el campo de búsqueda
+    const searchInput = document.getElementById("searchInput");
+    if (searchInput) {
+      searchInput.addEventListener("keyup", async (event) => {
+        const searchTerm = event.target.value.trim();
+        if (searchTerm.length > 2) {
+          await buscarReportesPorUsuario(searchTerm);
+        } else if (searchTerm.length === 0) {
+          await cargarReportesPendientes(); // Recargar todos los reportes pendientes si el campo está vacío
+        }
+      });
+    }
+
     console.log("Aplicación inicializada correctamente");
   } catch (error) {
     console.error("Error en la inicialización:", error);
   }
 });
+
+// Función para buscar reportes por usuario
+async function buscarReportesPorUsuario(usuario) {
+  try {
+    console.log(`Buscando reportes para el usuario: ${usuario}`);
+    const url = `https://ucv-reports-backend.onrender.com/reportes/buscar-usuario/${usuario}`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const reportes = await response.json();
+    debugResponse(reportes, `REPORTES POR USUARIO: ${usuario}`);
+
+    reportesPendientes = reportes.filter((r) => {
+      const status = r.estado || r.acciones;
+      if (!status) return false;
+      const lowerCaseStatus = status.toString().trim().toLowerCase();
+      return lowerCaseStatus.includes("pendiente");
+    });
+    renderReportesPendientes();
+  } catch (error) {
+    console.error("Error al buscar reportes por usuario:", error);
+    alert("Error al buscar reportes por usuario: " + error.message);
+  }
+}
