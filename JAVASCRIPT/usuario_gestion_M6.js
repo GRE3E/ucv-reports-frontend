@@ -214,6 +214,9 @@ document.addEventListener("DOMContentLoaded", () => {
         updateData.contraseña = passwordUser;
       }
 
+      console.log("User ID to update:", userId);
+      console.log("Data being sent for update:", updateData);
+
       try {
         const response = await fetch(
           `https://ucv-reports-backend.onrender.com/usuarios/${userId}`,
@@ -225,6 +228,10 @@ document.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify(updateData),
           }
         );
+
+        console.log("Response status:", response.status);
+        const responseData = await response.json();
+        console.log("Response data:", responseData);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
