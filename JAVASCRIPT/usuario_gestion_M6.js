@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   const usersTableBody = document.querySelector(".usuarios-table tbody");
 
-  const fetchUsers = async (roleId = null) => {
+  const fetchUsers = async (status = "habilitados", roleId = null) => {
     try {
-      let url = "https://ucv-reports-backend.onrender.com/usuarios/habilitados";
+      let url = `https://ucv-reports-backend.onrender.com/usuarios/${status}`;
       if (roleId) {
         url = `https://ucv-reports-backend.onrender.com/usuarios/role/${roleId}`;
       }
@@ -12,41 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const users = await response.json();
-      populateTable(users);
+      populateTable(users, status === "eliminados"); // Pass a flag if disabled users are being displayed
     } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  };
-
-  // Nueva función para obtener usuarios habilitados
-  const fetchEnabledUsers = async () => {
-    try {
-      const response = await fetch(
-        "https://ucv-reports-backend.onrender.com/usuarios/habilitados"
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const users = await response.json();
-      populateTable(users);
-    } catch (error) {
-      console.error("Error fetching enabled users:", error);
-    }
-  };
-
-  // Nueva función para obtener usuarios deshabilitados
-  const fetchDisabledUsers = async () => {
-    try {
-      const response = await fetch(
-        "https://ucv-reports-backend.onrender.com/usuarios/eliminados"
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const users = await response.json();
-      populateTable(users);
-    } catch (error) {
-      console.error("Error fetching disabled users:", error);
+      console.error(`Error fetching ${status} users:`, error);
     }
   };
 
@@ -71,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const populateTable = (users) => {
+  const populateTable = (users, is_disabled_user = false) => {
     usersTableBody.innerHTML = ""; // Clear existing rows
     users.forEach((user) => {
       const row = usersTableBody.insertRow();
@@ -81,20 +49,29 @@ document.addEventListener("DOMContentLoaded", () => {
       row.insertCell().textContent = getRoleName(user.id_cargo);
       row.insertCell().textContent = "********"; // Password masked
       const actionsCell = row.insertCell();
-      actionsCell.innerHTML = `
-                <button class="btn-action btn-edit" data-id="${user.IDUsuario}"><i class="fas fa-edit"></i>Editar</button>
-                <button class="btn-action btn-disable" data-id="${user.IDUsuario}"><i class="fas fa-user-slash"></i>Deshabilitar</button>
-            `;
+
+      if (is_disabled_user) {
+        actionsCell.innerHTML = `
+                  <button class="btn-action btn-edit" data-id="${user.IDUsuario}"><i class="fas fa-edit"></i>Editar</button>
+                  <button class="btn-action btn-enable" data-id="${user.IDUsuario}"><i class="fas fa-user-plus"></i>Habilitar</button>
+              `;
+        actionsCell
+          .querySelector(".btn-enable")
+          .addEventListener("click", () => enableUser(user.IDUsuario));
+      } else {
+        actionsCell.innerHTML = `
+                  <button class="btn-action btn-edit" data-id="${user.IDUsuario}"><i class="fas fa-edit"></i>Editar</button>
+                  <button class="btn-action btn-disable" data-id="${user.IDUsuario}"><i class="fas fa-user-slash"></i>Deshabilitar</button>
+              `;
+        actionsCell
+          .querySelector(".btn-disable")
+          .addEventListener("click", () => openDisableModal(user));
+      }
 
       // Add event listener for edit button
       actionsCell
         .querySelector(".btn-edit")
         .addEventListener("click", () => openEditModal(user));
-
-      // Add event listener for disable button
-      actionsCell
-        .querySelector(".btn-disable")
-        .addEventListener("click", () => openDisableModal(user));
     });
   };
 
@@ -120,9 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
   roleFilterSelect.addEventListener("change", (event) => {
     const selectedRoleId = event.target.value;
     if (selectedRoleId) {
-      fetchUsers(selectedRoleId);
+      fetchUsers("habilitados", selectedRoleId);
     } else {
-      fetchUsers(); // Fetch all enabled users if "Ordenar por Rol" is selected
+      fetchUsers("habilitados"); // Fetch all enabled users if "Ordenar por Rol" is selected
     }
   });
 
@@ -130,12 +107,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("click", (event) => {
     // Botón para usuarios habilitados
     if (event.target.closest(".btn-action.enabled-btn")) {
-      fetchEnabledUsers();
+      fetchUsers("habilitados");
     }
 
     // Botón para usuarios deshabilitados
     if (event.target.closest(".btn-action.disabled-btn")) {
-      fetchDisabledUsers();
+      fetchUsers("eliminados");
     }
   });
 
@@ -166,6 +143,30 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Function to open disable modal and handle disable action
+  const enableUser = async (userId) => {
+    try {
+      const response = await fetch(
+        `https://ucv-reports-backend.onrender.com/usuarios/${userId}/enable`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      alert("Usuario habilitado exitosamente!");
+      fetchUsers("eliminados"); // Refresh the disabled users list
+    } catch (error) {
+      console.error("Error enabling user:", error);
+      alert("Error al habilitar el usuario.");
+    }
+  };
+
   const openDisableModal = (user) => {
     const modal = document.getElementById("modalDeshabilitar");
     modal.style.display = "block";
@@ -196,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           alert("Usuario deshabilitado exitosamente!");
           document.getElementById("modalDeshabilitar").style.display = "none";
-          fetchUsers();
+          fetchUsers("habilitados"); // Refresh the enabled users list
         } catch (error) {
           console.error("Error disabling user:", error);
           alert("Error al deshabilitar el usuario.");
@@ -264,7 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         alert("Usuario actualizado exitosamente!");
         document.getElementById("modalEditActual").style.display = "none";
-        fetchUsers();
+        fetchUsers("habilitados");
       } catch (error) {
         console.error("Error updating user:", error);
         alert("Error al actualizar el usuario.");
@@ -277,7 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
   searchInput.addEventListener("keyup", async (event) => {
     const value = event.target.value.trim();
     if (value === "") {
-      fetchUsers();
+      fetchUsers("habilitados");
       return;
     }
     try {
@@ -303,26 +304,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Funciones para los modales (mantenerlas si ya existen o se planean usar)
-function abrirModalDeshabilitados() {
-  const modal = document.getElementById("modalDeshabilitados");
-  modal.style.display = "block";
-}
-
-function cerrarModalDeshabilitados() {
-  const modal = document.getElementById("modalDeshabilitados");
-  modal.style.display = "none";
-}
-
 // Cerrar modales al hacer clic fuera de ellos
 window.onclick = function (event) {
-  const modalDeshabilitados = document.getElementById("modalDeshabilitados");
   const modalEditActual = document.getElementById("modalEditActual");
   const modalDeshabilitar = document.getElementById("modalDeshabilitar");
 
-  if (event.target == modalDeshabilitados) {
-    modalDeshabilitados.style.display = "none";
-  }
   if (event.target == modalEditActual) {
     modalEditActual.style.display = "none";
   }
