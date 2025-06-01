@@ -6,20 +6,25 @@ document.addEventListener("DOMContentLoaded", () => {
   // Función para cargar y mostrar productos
   async function cargarProductos() {
     try {
-      const response = await fetch("https://ucv-reports-backend.onrender.com/hardware"); // Ajusta esta URL a tu endpoint 
+      const response = await fetch(
+        "https://ucv-reports-backend.onrender.com/hardware"
+      ); // Ajusta esta URL a tu endpoint
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const productos = await response.json();
 
-      productosGridContainer.innerHTML = ''; // Limpiar productos estáticos existentes
+      productosGridContainer.innerHTML = ""; // Limpiar productos estáticos existentes
 
       productos.forEach((producto) => {
         const productoCard = document.createElement("div");
         productoCard.classList.add("producto-card");
 
         productoCard.innerHTML = `
-            <img src="${producto.urlImagen || '../../CSS/auth/images/placeholder.jpg'}" alt="${producto.nombre}">
+            <img src="${
+              producto.urlImagen ||
+              "https://cairosales.com/37240-thickbox_default/lenovo-all-in-one-pc-215-inch-fhd-intel-core-i5-8400-4gb-520-22icb.jpg"
+            }" alt="${producto.nombre}">
             <div class="producto-card-info">
                 <h3>Tipo: ${producto.nombre}</h3>
             </div>
@@ -85,11 +90,23 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault(); // Prevenir el envío por defecto del formulario
 
       console.log("Valor de articulo:", selectArticulo.value);
-      console.log("Valor de otroArticulo:", document.getElementById("otroArticulo").value);
-      console.log("Valor de codigoProducto:", document.getElementById("codigoProducto").value);
-      console.log("Valor de nombreProducto:", document.getElementById("nombreProducto").value);
+      console.log(
+        "Valor de otroArticulo:",
+        document.getElementById("otroArticulo").value
+      );
+      console.log(
+        "Valor de codigoProducto:",
+        document.getElementById("codigoProducto").value
+      );
+      console.log(
+        "Valor de nombreProducto:",
+        document.getElementById("nombreProducto").value
+      );
       console.log("Valor de precio:", document.getElementById("precio").value);
-      console.log("Valor de pabellon:", document.getElementById("pabellon").value);
+      console.log(
+        "Valor de pabellon:",
+        document.getElementById("pabellon").value
+      );
       console.log("Valor de piso:", document.getElementById("piso").value);
       console.log("Valor de salon:", document.getElementById("salon").value);
 
@@ -111,37 +128,38 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       formData.append("precio", document.getElementById("precio").value);
 
-
       try {
         const hardwareData = {
           idarticulostipo: (() => {
             let parsedValue;
             const articleTypeMap = {
-                "ordenador": 1,
-                "proyector": 2,
-                "escritorio": 3
+              ordenador: 1,
+              proyector: 2,
+              escritorio: 3,
             };
 
             if (selectArticulo.value === "otro") {
-                parsedValue = parseInt(document.getElementById("otroArticulo").value);
+              parsedValue = parseInt(
+                document.getElementById("otroArticulo").value
+              );
             } else if (articleTypeMap[selectArticulo.value]) {
-                parsedValue = articleTypeMap[selectArticulo.value];
+              parsedValue = articleTypeMap[selectArticulo.value];
             } else {
-                parsedValue = parseInt(selectArticulo.value);
+              parsedValue = parseInt(selectArticulo.value);
             }
             return isNaN(parsedValue) ? 0 : parsedValue;
           })(),
           Codigo: String(document.getElementById("codigoProducto").value),
           nombre: String(document.getElementById("nombreProducto").value),
-          Precio: parseFloat(document.getElementById("precio").value || '0'),
+          Precio: parseFloat(document.getElementById("precio").value || "0"),
 
           idpabellon: (() => {
             const pabellonMap = {
-                "A": 1,
-                "B": 2,
-                "C": 3,
-                "D": 4, //nmo se sabe
-                "E": 5
+              A: 1,
+              B: 2,
+              C: 3,
+              D: 4, //nmo se sabe
+              E: 5,
             };
             return pabellonMap[document.getElementById("pabellon").value] || 1;
           })(),
@@ -155,11 +173,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Asumiendo que el backend tiene un endpoint para guardar productos
         const response = await fetch(
-            "https://ucv-reports-backend.onrender.com/hardware",
+          "https://ucv-reports-backend.onrender.com/hardware",
           {
             method: "POST",
             headers: {
-              'Content-Type': 'application/json'
+              "Content-Type": "application/json",
             },
             body: JSON.stringify(hardwareData),
           }
@@ -209,4 +227,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-  
