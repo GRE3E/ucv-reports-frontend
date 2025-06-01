@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    fetch("/usuarios/add", {
+    fetch("https://ucv-reports-backend.onrender.com/usuarios/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
