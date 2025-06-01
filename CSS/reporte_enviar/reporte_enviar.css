@@ -1,3 +1,9 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,13 +13,12 @@
 
 body {
     display: flex;
-    height: 100%;
     background-color: #f4f4f4; /* Un gris claro de fondo para mayor contraste */
 }
 
 .container {
   display: flex;
-  height: 100%;
+  height: 100%; /* Asegura que el contenedor ocupe la altura del body */
   width: 100vw;
 }
 
@@ -22,7 +27,6 @@ body {
 /* Main content */
 .main {
   flex: 1;
-  height: 100vh;
   min-width: 0;
   background-color: #f9f9f9;
   display: flex;
@@ -32,7 +36,7 @@ body {
   /* Elimina el centrado vertical */
   justify-content: flex-start;
   align-items: stretch;
-  min-height: 100vh; /* Asegura que ocupe toda la altura de la pantalla */
+  min-height: 100vh; /* Asegura que el main tenga al menos la altura de la ventana */
 }
 
 .header {
@@ -43,7 +47,6 @@ body {
   padding: 26px 25px;
   box-shadow: 0 3px 1px rgba(140, 24, 22, 0.9);
   position: relative;
-  overflow: hidden;
   width: full; 
   border-radius: 0; 
   margin: 0; 
@@ -110,33 +113,56 @@ body {
 
 form {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 24px; /* Aumentado ligeramente el espacio vertical y horizontal */
+  align-items: flex-start;
 }
 
+.form-box {
+  background: white; /* Fondo blanco para la caja del formulario */
+  padding: 30px; /* Espacio interno dentro de la caja */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  min-width: 0;
+  max-width: 100%; /* Permitir que ocupe el 100% del contenedor */
+  width: 100%;
+  /* margin: 20px auto; */ /* El centrado lo manejaremos en .form-section */
+}
+
+.form-fields {
+    flex: 1; /* Permite que el contenedor de campos crezca y ocupe el espacio disponible */
+    min-width: 300px; /* Establece un ancho mínimo antes de que se envuelva */
+    display: flex; /* Usar flexbox para los campos también */
+    flex-direction: column; /* Apilar los campos verticalmente */
+    gap: 15px; /* Espacio entre cada campo (label + input) */
+}
 
 label {
   display: flex;
   flex-direction: column;
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 15px;
   user-select: none;
-  color: #a1a1a1;
+  color: #555;
+  width: calc(50% - 12px); /* Ajustado el cálculo del ancho para el nuevo gap */
+  box-sizing: border-box;
 }
 
 select, input[type="text"] {
-  padding: 10px;
+  padding: 12px; /* Aumentar padding interno de los inputs */
   cursor: pointer;
-  font-size: 20px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
+  font-size: 16px; /* Ajustar tamaño de fuente del input */
+  margin-top: 8px; /* Más espacio entre label y input */
+  border: 1px solid #ddd; /* Borde más sutil */
   border-radius: 5px;
-  transition: border-color 0.3s ease; /* Transición suave para el borde */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Añadir transición para sombra */
 }
 
 select:focus, input[type="text"]:focus {
   cursor: pointer;
-  border: 3px solid #ff3e3e; /* Rojo oscuro al enfocar */
+  border-color: #1e88e5; /* Cambiar color del borde al enfocar */
+  box-shadow: 0 0 8px rgba(30, 136, 229, 0.3); /* Añadir sombra al enfocar */
   outline: none; /* Elimina el borde predeterminado al enfocar */
 }
 
@@ -192,7 +218,7 @@ select:focus, input[type="text"]:focus {
     min-width: 300px;
     background: linear-gradient(180deg, #233559 0%, #18253f 100%);
     color: white;
-    height: full ;
+    height: 100%; /* Volvemos a 100% para que se estire con el contenedor flex */
     position: static;
     transition: transform 0.3s ease;
     z-index: 1000;
@@ -275,8 +301,7 @@ select:focus, input[type="text"]:focus {
     width: 100%;
 }
 
-.nav-item:hover,
-.nav-item.active {
+.nav-item:hover, .nav-item.active {
     border-radius: 12px 0 0 12px; /* Bordes redondeados solo a la izquierda */
     background: #DD2324 !important;
     color: #fff !important;
@@ -473,8 +498,8 @@ select:focus, input[type="text"]:focus {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-top: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; /* Revertido el margen arriba */
 }
 
 .submit-btn:hover {
@@ -490,4 +515,44 @@ select:focus, input[type="text"]:focus {
 
 .submit-btn i {
     font-size: 18px;
+}
+
+/* Media query para responsive: apilar en pantallas pequeñas */
+@media (max-width: 768px) {
+    form {
+        flex-direction: column;
+        gap: 18px; /* Aumentado ligeramente el espacio entre elementos apilados */
+    }
+
+    label {
+        width: 100%;
+    }
+    
+    .form-box {
+        padding: 20px;
+    }
+
+    /* form-fields ya no existe */
+    /*
+    .form-fields {
+        width: 100%; 
+        min-width: 0; 
+        gap: 10px; 
+    }
+    */
+    
+    label {
+        font-size: 14px;
+    }
+
+    select, input[type="text"] {
+        font-size: 15px;
+        padding: 10px;
+        margin-top: 5px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        margin-top: 15px; /* Revertido el margen superior cuando se apila */
+    }
 }
