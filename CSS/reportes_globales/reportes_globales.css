@@ -2,26 +2,28 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Arial, sans-serif;
+
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    color: #16222d;
-    min-height: 100vh;
+  display: flex;
+  height: 100vh;
+  background-color: #f4f4f4; /* Un gris claro de fondo para mayor contraste */
 }
 
 .header {
     background: linear-gradient(135deg, #DD2324 0%, #af1818 100%);
     color: white;
+    user-select: none;  
     text-align: center;
-    padding: 40px 20px;
+    padding: 24px 20px;
     box-shadow: 0 4px 20px rgba(221, 35, 36, 0.3);
     position: relative;
     overflow: hidden;
-    width: 100%; /* Asegura que el header ocupe todo el ancho */
-    border-radius: 0; /* Sin bordes redondeados */
-    margin: 0; /* Sin margen */
+    width: 100%; 
+    border-radius: 0; 
+    margin: 0; 
 }
 
 .header::before {
@@ -66,6 +68,7 @@ body {
 }
 
 .subtitle {
+    user-select: none;
     text-align: center;
     margin-bottom: 50px;
     color: #16222d;
@@ -80,16 +83,19 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    margin: 20px 20px 0 20px;
 }
 
 .reports-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 30px;
-    margin-top: 30px;
+    margin: 20px 20px 0 20px;
 }
 
 .report-card {
+    user-select: none;
+    cursor: pointer;
     background: white;
     border-radius: 20px;
     overflow: hidden;
@@ -384,12 +390,11 @@ body {
 
 /* Sidebar y menú lateral */
 .sidebar {
+    position: relative;
     width: 300px;
     min-width: 300px;
     background: linear-gradient(180deg, #233559 0%, #18253f 100%);
     color: white;
-    height: 100vh;
-    position: static;
     transition: transform 0.3s ease;
     z-index: 1000;
     box-shadow: 4px 0 20px rgba(0,0,0,0.15);
@@ -480,7 +485,7 @@ body {
     background: #DD2324 !important; /* Rojo fuerte */
     color: #fff !important;
     border-left-color: #DD2324;
-    transform: translateX(8px);
+    transform: translateX(0px);
 }
 
 .nav-item.active::before {
@@ -504,7 +509,7 @@ body {
         position: fixed;
         left: 0;
         top: 0;
-        height: 100vh;
+        height: 100%;
         transform: translateX(-100%);
         width: 260px;
         min-width: 0;
@@ -519,7 +524,7 @@ body {
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
+        height: 100%;
         background: rgba(0,0,0,0.5);
         z-index: 1000;
     }
