@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         const hardwareData = {
           idarticulostipo: parseInt(selectArticulo.value === "otro" ? document.getElementById("otroArticulo").value : selectArticulo.value),
-          Codigo: parseInt(document.getElementById("codigoProducto").value),
+          Codigo: String(document.getElementById("codigoProducto").value),
           nombre: String(document.getElementById("nombreProducto").value),
           Precio: parseFloat(document.getElementById("precio").value),
           idpabellon: parseInt(document.getElementById("idpabellon") ? document.getElementById("idpabellon").value : '0'),
