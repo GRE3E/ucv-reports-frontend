@@ -104,17 +104,13 @@ document.addEventListener("DOMContentLoaded", () => {
       formData.append("precio", document.getElementById("precio").value);
       formData.append("cantidad", document.getElementById("cantidad").value);
 
-      const fileInput = document.getElementById("urlImagen");
-      if (fileInput.files.length > 0) {
-        formData.append("urlImagen", fileInput.files[0]);
-      }
-
       try {
         const hardwareData = {
           idarticulostipo: parseInt(selectArticulo.value === "otro" ? (document.getElementById("otroArticulo").value || '0') : selectArticulo.value || '0'),
           Codigo: String(document.getElementById("codigoProducto").value),
           nombre: String(document.getElementById("nombreProducto").value),
-          Precio: parseFloat(document.getElementById("precio").value),
+          Precio: parseFloat(document.getElementById("precio").value || '0'),
+          cantidad: parseInt(document.getElementById("cantidad").value || '0'),
           idpabellon: parseInt(document.getElementById("idpabellon") ? document.getElementById("idpabellon").value : '0'),
           idpiso: parseInt(document.getElementById("idpiso") ? document.getElementById("idpiso").value : '0'),
           idsalon: parseInt(document.getElementById("idsalon") ? document.getElementById("idsalon").value : '0'),
