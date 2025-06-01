@@ -106,16 +106,20 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         const hardwareData = {
           idarticulostipo: (() => {
-            console.log("Valor de selectArticulo.value antes de parsear:", selectArticulo.value);
             let parsedValue;
+            const articleTypeMap = {
+                "ordenador": 1,
+                "proyector": 2,
+                "escritorio": 3
+            };
+
             if (selectArticulo.value === "otro") {
-              const otroArticuloValue = document.getElementById("otroArticulo").value;
-              console.log("Valor de document.getElementById(\"otroArticulo\").value antes de parsear:", otroArticuloValue);
-              parsedValue = parseInt(otroArticuloValue);
+                parsedValue = parseInt(document.getElementById("otroArticulo").value);
+            } else if (articleTypeMap[selectArticulo.value]) {
+                parsedValue = articleTypeMap[selectArticulo.value];
             } else {
-              parsedValue = parseInt(selectArticulo.value);
+                parsedValue = parseInt(selectArticulo.value);
             }
-            console.log("Valor parseado de idarticulostipo:", parsedValue);
             return isNaN(parsedValue) ? 0 : parsedValue;
           })(),
           Codigo: String(document.getElementById("codigoProducto").value),
