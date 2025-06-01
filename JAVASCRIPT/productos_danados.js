@@ -122,61 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const stockTableBody =
     modalStockActualDanados.querySelector(".stock-table tbody");
 
-  // Abrir modal Stock Actual de Artículos Dañados al hacer clic en el botón Informe
-  // Esta parte se mueve a adjuntarEventListenersInforme
-  // const botonesInforme = document.querySelectorAll(
-  //   ".producto-card .btn.informe"
-  // );
-  // botonesInforme.forEach((boton) => {
-  //   boton.addEventListener("click", function () {
-  //     modalStockActualDanados.style.display = "block";
-
-  //     const productoIndex = this.dataset.productoIndex;
-  //     const productoSeleccionado = productos[productoIndex];
-
-  //     // Limpiar contenido previo de la tabla
-  //     stockTableBody.innerHTML = "";
-
-  //     // Datos de ejemplo para la tabla de stock dañado (un solo ítem por producto para simplificar)
-  //     const itemDanado = {
-  //       codigo: generarCodigoDanadoAleatorio(),
-  //       nombre: `Marca ${productoSeleccionado.tipo}`, // Ejemplo de marca y nombre
-  //       estado: "Descompuesto",
-  //       precio: generarPrecioAleatorio(),
-  //       tipoArticulo: productoSeleccionado.tipo,
-  //       accion: "Dañado", // Estado inicial del botón
-  //     };
-
-  //     const row = document.createElement("tr");
-  //     row.innerHTML = `
-  //               <td>${itemDanado.codigo}</td>
-  //               <td>${itemDanado.nombre}</td>
-  //               <td>${itemDanado.estado}</td>
-  //               <td>S/. ${itemDanado.precio}</td>
-  //               <td>${itemDanado.tipoArticulo}</td>
-  //               <td><button class="btn btn-accion-danado">${itemDanado.accion}</button></td>
-  //           `;
-  //     stockTableBody.appendChild(row);
-
-  //     // Añadir event listener al botón de acción recién creado
-  //     const botonAccion = row.querySelector(".btn-accion-danado");
-  //     botonAccion.addEventListener("click", function () {
-  //       if (this.textContent === "Dañado") {
-  //         this.textContent = "Arreglado";
-  //         this.classList.remove("btn-danado");
-  //         this.classList.add("btn-arreglado");
-  //       } else {
-  //         this.textContent = "Dañado";
-  //         this.classList.remove("btn-arreglado");
-  //         this.classList.add("btn-danado");
-  //       }
-  //     });
-
-  //     // Asegurarse de añadir la clase inicial 'btn-danado' al botón
-  //     botonAccion.classList.add("btn-danado");
-  //   });
-  // });
-
   // Cerrar modal Stock Actual de Artículos Dañados al hacer clic en la X
   if (spanCerrarStockActualDanados) {
     spanCerrarStockActualDanados.onclick = function () {
