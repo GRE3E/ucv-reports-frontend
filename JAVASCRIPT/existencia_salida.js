@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para cargar productos desde la API
     async function cargarProductos() {
         try {
-            const response = await fetch('/hardware'); // Asume que existe un endpoint /hardware
+            const response = await fetch("https://ucv-reports-backend.onrender.com/hardware"); // Ajusta esta URL a tu endpoint
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
