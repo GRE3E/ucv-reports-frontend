@@ -1,19 +1,19 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
 body {
-  display: flex;
-  height: 100vh;
-  background-color: #f4f4f4; /* Un gris claro de fondo para mayor contraste */
+    display: flex;
+    height: 100%;
+    background-color: #f4f4f4; /* Un gris claro de fondo para mayor contraste */
 }
 
 .container {
   display: flex;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
 }
 
@@ -36,25 +36,68 @@ body {
 }
 
 .header {
-    background: linear-gradient(135deg, #DD2324 0%, #af1818 100%);
-    color: white;
-    user-select: none;  
-    text-align: center;
-    padding: 24px 20px;
-    box-shadow: 0 4px 20px rgba(221, 35, 36, 0.3);
-    position: relative;
-    overflow: hidden;
-    width: 100%; 
-    border-radius: 0; 
-    margin: 0; 
+  background: linear-gradient(135deg, #DD2324 0%, #af1818 100%);
+  color: white;
+  justify-items: center;
+  user-select: none;  
+  padding: 26px 25px;
+  box-shadow: 0 3px 1px rgba(140, 24, 22, 0.9);
+  position: relative;
+  overflow: hidden;
+  width: full; 
+  border-radius: 0; 
+  margin: 0; 
 }
+
+.header h1{
+  font-size: 3rem;
+  margin-bottom: 15px;
+  position: relative;
+  z-index: 1;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.hamburger {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background: #DD2324;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 992px) {
+    .hamburger {
+        display: block;
+    }
+    .sidebar.mobile-visible ~ .main-content .header .hamburger,
+    .sidebar.mobile-visible ~ .header .hamburger,
+    .sidebar.mobile-visible ~ .sidebar-overlay ~ .main-content .header .hamburger {
+        z-index: 900; /* Menor que el de la sidebar (1001) */
+    }
+    .sidebar.mobile-visible + .sidebar-overlay + .main-content .header .hamburger {
+        z-index: 900;
+    }
+}
+
 
 .form-section {
   width: 100%;
   display: flex;
   justify-content: center; /* Centra horizontalmente */
   align-items: flex-start; /* Arriba */
-  padding: 30px 0; /* Espacio solo arriba y abajo si quieres */
+  padding: 40px 50px; /* Espacio solo arriba y abajo si quieres */
 }
 
 .form-section h2 {
@@ -68,19 +111,23 @@ body {
 form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
+
 
 label {
   display: flex;
   flex-direction: column;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 14px;
+  user-select: none;
+  color: #a1a1a1;
 }
 
 select, input[type="text"] {
   padding: 10px;
-  font-size: 14px;
+  cursor: pointer;
+  font-size: 20px;
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -88,17 +135,15 @@ select, input[type="text"] {
 }
 
 select:focus, input[type="text"]:focus {
-  border-color: #8b0000; /* Rojo oscuro al enfocar */
+  cursor: pointer;
+  border: 3px solid #ff3e3e; /* Rojo oscuro al enfocar */
   outline: none; /* Elimina el borde predeterminado al enfocar */
-  box-shadow: 0 0 5px rgba(139, 0, 0, 0.5); /* Sombra suave al enfocar */
 }
 
 @media (max-width: 500px) {
   .container {
     flex-direction: column;
-  }
-  
-  
+  }  
 }
 
 @media (max-width: 600px) {
@@ -118,7 +163,7 @@ select:focus, input[type="text"]:focus {
     font-size: 18px;
   }
   select, input[type="text"] {
-    font-size: 13px;
+    font-size: 15px;
     padding: 8px;
   }
   .form-box {
@@ -147,7 +192,7 @@ select:focus, input[type="text"]:focus {
     min-width: 300px;
     background: linear-gradient(180deg, #233559 0%, #18253f 100%);
     color: white;
-    min-height:100em ;
+    height: full ;
     position: static;
     transition: transform 0.3s ease;
     z-index: 1000;
@@ -190,6 +235,7 @@ select:focus, input[type="text"]:focus {
 }
 
 .logo-text {
+    user-select: none;
     font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: -0.5px;
@@ -315,7 +361,7 @@ select:focus, input[type="text"]:focus {
     padding-top: 56px; /* Ajusta este valor al alto real de tu header */
   }
   .form-section {
-    margin-top: 56px; /* Ajusta este valor al alto real de tu header en móvil */
+    margin-top: 10px; /* Ajusta este valor al alto real de tu header en móvil */
   }
   .container {
     display: block;
@@ -401,3 +447,11 @@ select:focus, input[type="text"]:focus {
   max-width: 100%;
   width: 100%;
 }
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2.2rem;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }}

@@ -6,6 +6,12 @@
     <title>Registrar Reporte</title>
     <link rel="stylesheet" href="../../CSS/reporte_enviar/reporte_enviar.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../../CSS/auth/images/logo_ucv_modal.png"
+    />
+    
   </head>
   <body>
     <div class="container">
@@ -25,11 +31,7 @@
             <i class="fas fa-list-alt"></i>
             <span>Artículos Reportados</span>
           </a>
-<<<<<<< HEAD
-          <a href="#" class="nav-item">
-=======
           <a href="../../HTML/auth/login.html" class="nav-item">
->>>>>>> e6f4b30724be1c8e33272fb04f6c0daad2d8f233
             <i class="fas fa-sign-out-alt"></i>
             <span>Salir</span>
           </a>
@@ -37,12 +39,17 @@
       </nav>
       <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
       <main class="main" id="mainContent">
+
         <header class="header">
-          <button class="mobile-toggle" onclick="toggleSidebar()">
+          <h1>
+            <i class="fa-solid fa-layer-group"></i>
+            Registrar Reporte
+          </h1>
+          <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()">
             <i class="fas fa-bars"></i>
           </button>
-          <h1>Registrar Reporte</h1>
         </header>
+
         <section class="form-section">
           <div class="form-box">
             <form>
