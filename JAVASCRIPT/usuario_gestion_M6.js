@@ -18,6 +18,38 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  // Nueva función para obtener usuarios habilitados
+  const fetchEnabledUsers = async () => {
+    try {
+      const response = await fetch(
+        "https://ucv-reports-backend.onrender.com/usuarios/habilitados"
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const users = await response.json();
+      populateTable(users);
+    } catch (error) {
+      console.error("Error fetching enabled users:", error);
+    }
+  };
+
+  // Nueva función para obtener usuarios deshabilitados
+  const fetchDisabledUsers = async () => {
+    try {
+      const response = await fetch(
+        "https://ucv-reports-backend.onrender.com/usuarios/eliminados"
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const users = await response.json();
+      populateTable(users);
+    } catch (error) {
+      console.error("Error fetching disabled users:", error);
+    }
+  };
+
   const fetchRoles = async () => {
     try {
       const response = await fetch(
@@ -39,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const populateTable = (users, is_disabled_user = false) => {
+  const populateTable = (users) => {
     usersTableBody.innerHTML = ""; // Clear existing rows
     users.forEach((user) => {
       const row = usersTableBody.insertRow();
@@ -49,28 +81,20 @@ document.addEventListener("DOMContentLoaded", () => {
       row.insertCell().textContent = getRoleName(user.id_cargo);
       row.insertCell().textContent = "********"; // Password masked
       const actionsCell = row.insertCell();
-      if (is_disabled_user) {
-        actionsCell.innerHTML = `
-                  <button class="btn-action btn-enable" data-id="${user.IDUsuario}"><i class="fas fa-user-plus"></i>Habilitar</button>
-              `;
-        actionsCell
-          .querySelector(".btn-enable")
-          .addEventListener("click", () => enableUser(user.IDUsuario));
-      } else {
-        actionsCell.innerHTML = `
-                  <button class="btn-action btn-edit" data-id="${user.IDUsuario}"><i class="fas fa-edit"></i>Editar</button>
-                  <button class="btn-action btn-disable" data-id="${user.IDUsuario}"><i class="fas fa-user-slash"></i>Deshabilitar</button>
-              `;
-        // Add event listener for edit button
-        actionsCell
-          .querySelector(".btn-edit")
-          .addEventListener("click", () => openEditModal(user));
+      actionsCell.innerHTML = `
+                <button class="btn-action btn-edit" data-id="${user.IDUsuario}"><i class="fas fa-edit"></i>Editar</button>
+                <button class="btn-action btn-disable" data-id="${user.IDUsuario}"><i class="fas fa-user-slash"></i>Deshabilitar</button>
+            `;
 
-        // Add event listener for disable button
-        actionsCell
-          .querySelector(".btn-disable")
-          .addEventListener("click", () => openDisableModal(user));
-      }
+      // Add event listener for edit button
+      actionsCell
+        .querySelector(".btn-edit")
+        .addEventListener("click", () => openEditModal(user));
+
+      // Add event listener for disable button
+      actionsCell
+        .querySelector(".btn-disable")
+        .addEventListener("click", () => openDisableModal(user));
     });
   };
 
@@ -102,8 +126,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Event listeners para los botones de usuarios habilitados/deshabilitados
+  document.addEventListener("click", (event) => {
+    // Botón para usuarios habilitados
+    if (event.target.closest(".btn-action.enabled-btn")) {
+      fetchEnabledUsers();
+    }
+
+    // Botón para usuarios deshabilitados
+    if (event.target.closest(".btn-action.disabled-btn")) {
+      fetchDisabledUsers();
+    }
+  });
+
   // Function to open edit modal and populate with user data
-  const openEditModal = async (user) => {
+  const openEditModal = (user) => {
     const modal = document.getElementById("modalEditActual");
     modal.style.display = "block";
 
@@ -113,33 +150,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById(
       "apellidosUser"
     ).value = `${user.apellido_paterno} ${user.apellido_materno}`;
-
-    // Set the correct role in the select dropdown dynamically
+    // Set the correct role in the select dropdown
     const roleSelect = document.getElementById("roleUser");
-    roleSelect.innerHTML = ""; // Clear existing options
-
-    try {
-      const response = await fetch(
-        "https://ucv-reports-backend.onrender.com/cargos"
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+    Array.from(roleSelect.options).forEach((option) => {
+      if (option.value === getRoleName(user.idcargo)) {
+        option.selected = true;
+      } else {
+        option.selected = false;
       }
-      const roles = await response.json();
-
-      roles.forEach((role) => {
-        const option = document.createElement("option");
-        option.value = role.idcargo;
-        option.textContent = role.descripcion;
-        roleSelect.appendChild(option);
-      });
-
-      // Set the user's current role as selected
-      roleSelect.value = user.id_cargo;
-    } catch (error) {
-      console.error("Error fetching roles for edit modal:", error);
-    }
-
+    });
     document.getElementById("passwordUser").value = ""; // Password should not be pre-filled for security
 
     // Store user ID in a data attribute on the save button for later use
@@ -176,8 +195,8 @@ document.addEventListener("DOMContentLoaded", () => {
           }
 
           alert("Usuario deshabilitado exitosamente!");
-        document.getElementById("modalDeshabilitar").style.display = "none";
-        fetchUsers('habilitados');
+          document.getElementById("modalDeshabilitar").style.display = "none";
+          fetchUsers();
         } catch (error) {
           console.error("Error disabling user:", error);
           alert("Error al deshabilitar el usuario.");
@@ -208,7 +227,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const apellido_materno = apellidosArray.slice(1).join(" ") || "";
 
       // Map role name back to id_cargo
-      const id_cargo = parseInt(roleUser); // Parse to integer as roleUser will now be idcargo
+      const id_cargo_map = {
+        Alumno: 1,
+        Docente: 2,
+        PersonalUCV: 3,
+        Administrador: 4,
+      };
+      const id_cargo = id_cargo_map[roleUser];
 
       const updateData = {
         nombre: nombreUser,
@@ -220,9 +245,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (passwordUser) {
         updateData.contraseña = passwordUser;
       }
-
-      console.log("User ID to update:", userId);
-      console.log("Data being sent for update:", updateData);
 
       try {
         const response = await fetch(
@@ -236,17 +258,13 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         );
 
-        console.log("Response status:", response.status);
-        const responseData = await response.json();
-        console.log("Response data:", responseData);
-
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         alert("Usuario actualizado exitosamente!");
         document.getElementById("modalEditActual").style.display = "none";
-        fetchUsers('habilitados');
+        fetchUsers();
       } catch (error) {
         console.error("Error updating user:", error);
         alert("Error al actualizar el usuario.");
@@ -260,7 +278,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const value = event.target.value.trim();
     if (value === "") {
       fetchUsers();
-
       return;
     }
     try {
@@ -286,33 +303,15 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-const enableUser = async (userId) => {
-  try {
-    const response = await fetch(
-      `https://ucv-reports-backend.onrender.com/usuarios/${userId}/enable`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    alert("Usuario habilitado exitosamente!");
-    fetchUsers(); // Refresh main user list
-  } catch (error) {
-    console.error("Error enabling user:", error);
-    alert("Error al habilitar el usuario.");
-  }
-};
-
 // Funciones para los modales (mantenerlas si ya existen o se planean usar)
 function abrirModalDeshabilitados() {
-  fetchDisabledUsers(); // Fetch and display disabled users when modal opens
+  const modal = document.getElementById("modalDeshabilitados");
+  modal.style.display = "block";
+}
+
+function cerrarModalDeshabilitados() {
+  const modal = document.getElementById("modalDeshabilitados");
+  modal.style.display = "none";
 }
 
 // Cerrar modales al hacer clic fuera de ellos
@@ -321,8 +320,14 @@ window.onclick = function (event) {
   const modalEditActual = document.getElementById("modalEditActual");
   const modalDeshabilitar = document.getElementById("modalDeshabilitar");
 
-  if (event.target == modalEditActual || event.target == modalDeshabilitar) {
-    event.target.style.display = "none";
+  if (event.target == modalDeshabilitados) {
+    modalDeshabilitados.style.display = "none";
+  }
+  if (event.target == modalEditActual) {
+    modalEditActual.style.display = "none";
+  }
+  if (event.target == modalDeshabilitar) {
+    modalDeshabilitar.style.display = "none";
   }
 };
 
