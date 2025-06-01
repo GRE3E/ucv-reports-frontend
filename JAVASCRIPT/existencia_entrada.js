@@ -126,9 +126,18 @@ document.addEventListener("DOMContentLoaded", () => {
           nombre: String(document.getElementById("nombreProducto").value),
           Precio: parseFloat(document.getElementById("precio").value || '0'),
 
-          idpabellon: parseInt(document.getElementById("pabellon").value || '0'),
-          idpiso: parseInt(document.getElementById("piso").value || '0'),
-          idsalon: parseInt(document.getElementById("salon").value || '0'),
+          idpabellon: (() => {
+            const pabellonMap = {
+                "A": 1,
+                "B": 2,
+                "C": 3,
+                "D": 4,
+                "E": 5
+            };
+            return pabellonMap[document.getElementById("pabellon").value] || 0;
+          })(),
+          idpiso: parseInt(document.getElementById("piso").value) || 0,
+          idsalon: parseInt(document.getElementById("salon").value) || 0,
           imagen: "../../CSS/auth/images/placeholder.jpg",
           Estado: String("Pendiente"),
         };
