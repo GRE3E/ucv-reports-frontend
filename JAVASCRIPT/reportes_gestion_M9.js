@@ -33,13 +33,15 @@ async function cargarReportesPendientes() {
       console.log("Reporte acciones (antes del filtro):", r.acciones)
     );
 
-    // reportesPendientes = reportes.filter((r) => {
-    //   if (!r.acciones) return false;
+    reportesPendientes = reportes.filter((r) => {
+      // Use 'estado' or 'acciones' for filtering
+      const status = r.estado || r.acciones;
+      if (!status) return false;
 
-    //   const acciones = r.acciones.toString().trim().toLowerCase();
-    //   return acciones.includes("pendiente");
-    // });
-    reportesPendientes = reportes; // Eliminar filtro, usar todos los reportes
+      const lowerCaseStatus = status.toString().trim().toLowerCase();
+      return lowerCaseStatus.includes("pendiente");
+    });
+    // reportesPendientes = reportes; // Eliminar filtro, usar todos los reportes
     console.log(
       `Reportes pendientes filtrados (después del filtro): ${reportesPendientes.length}`
     );
