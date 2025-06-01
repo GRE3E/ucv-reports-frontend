@@ -18,29 +18,27 @@
         A continuación ingresa los datos que te solicitamos para comprobar que eres el dueño auténtico de la
         cuenta
       </p>
-      <form>
-        <!-- ...código existente... -->
-        <form>
+      <form id="recuperacionForm">
           <div class="input-icon">
             <i class="fa fa-user"></i>
-            <input type="text" placeholder="Usuario" required />
+            <input type="text" id="usuario" placeholder="Usuario" required />
           </div>
           <div class="input-icon">
             <i class="fa fa-id-card"></i>
-            <input type="text" placeholder="Nombre" required />
+            <input type="text" id="nombre" placeholder="Nombre" required />
           </div>
           <div class="input-icon">
             <i class="fa fa-id-card"></i>
-            <input type="text" placeholder="Apellido Paterno" required />
+            <input type="text" id="apellidoPaterno" placeholder="Apellido Paterno" required />
           </div>
           <div class="input-icon">
             <i class="fa fa-user-tag"></i>
-            <input type="text" placeholder="Apellido Materno" required />
+            <input type="text" id="apellidoMaterno" placeholder="Apellido Materno" required />
           </div>
-          <button class="btn primary" type="button"
-            onclick="window.location.href='auth/recuperacion'">Continuar</button>
+          <button class="btn primary" type="submit">Continuar</button>
           <button class="btn secondary" type="button" onclick="window.location.href='/login'">Volver</button>
         </form>
+        <script src="../../JAVASCRIPT/auth/recuperacion.js"></script>
     </div>
   </div>
 </body>
