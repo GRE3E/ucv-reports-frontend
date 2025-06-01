@@ -29,7 +29,9 @@ async function cargarReportesPendientes() {
     debugResponse(reportes, "REPORTES PENDIENTES");
 
     // Log each report's 'acciones' to debug the filter
-    reportes.forEach((r) => console.log("Reporte acciones:", r.acciones));
+    reportes.forEach((r) =>
+      console.log("Reporte acciones (antes del filtro):", r.acciones)
+    );
 
     reportesPendientes = reportes.filter((r) => {
       if (!r.acciones) return false;
@@ -37,7 +39,10 @@ async function cargarReportesPendientes() {
       const acciones = r.acciones.toString().trim().toLowerCase();
       return acciones.includes("pendiente");
     });
-    console.log(`Reportes pendientes filtrados: ${reportesPendientes.length}`);
+    console.log(
+      `Reportes pendientes filtrados (después del filtro): ${reportesPendientes.length}`
+    );
+    console.log("Contenido de reportesPendientes:", reportesPendientes); // Nuevo log
 
     renderReportesPendientes();
   } catch (error) {
@@ -52,6 +57,8 @@ function renderReportesPendientes() {
   if (!tbody) {
     console.error("No se encuentra el tbody de la tabla principal");
     return;
+  } else {
+    console.log("tbody de la tabla principal encontrado."); // Nuevo log
   }
 
   tbody.innerHTML = "";
@@ -114,6 +121,7 @@ async function cargarReportesDetalle() {
     debugResponse(reportes, "REPORTES DETALLE");
 
     reportesDetalle = reportes;
+    console.log("Contenido de reportesDetalle:", reportesDetalle); // Nuevo log
     renderReportesDetalle();
   } catch (error) {
     console.error("Error al cargar los reportes:", error);
@@ -127,6 +135,8 @@ function renderReportesDetalle() {
   if (!tbody) {
     console.error("No se encuentra el tbody del modal de reportes");
     return;
+  } else {
+    console.log("tbody del modal de reportes encontrado."); // Nuevo log
   }
 
   tbody.innerHTML = "";
