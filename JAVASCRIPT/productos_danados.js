@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Usar r_descripcion y lugar_problema del reporte
         productoCard.innerHTML = `
-            <img src="https://via.placeholder.com/150" alt="Imagen de Reporte">
+            <img src="https://cdn-icons-png.flaticon.com/512/7415/7415672.png" alt="Imagen de Reporte">
             <div class="producto-card-info">
                 <h3>Descripción: ${reporte.r_descripcion}</h3>
                 <p>Lugar del Problema: ${reporte.lugar_problema}</p>
@@ -69,24 +69,30 @@ document.addEventListener("DOMContentLoaded", () => {
         // Limpiar contenido previo de la tabla
         stockTableBody.innerHTML = "";
 
-        // Datos de ejemplo para la tabla de stock dañado (un solo ítem por producto para simplificar)
-        const itemDanado = {
+        // Datos del reporte seleccionado para la tabla de stock dañado
+        const itemReporte = {
           codigo: generarCodigoDanadoAleatorio(),
-          nombre: `Reporte ID: ${reporteSeleccionado.r_id_reporte}`, // Usar ID del reporte
-          estado: "Aprobado", // Estado fijo para reportes aprobados
-          precio: generarPrecioAleatorio(),
-          tipoArticulo: reporteSeleccionado.r_Articulos, // Usar el tipo de artículo del reporte
+          idReporte: reporteSeleccionado.r_id_reporte,
+          descripcion: reporteSeleccionado.r_descripcion,
+          fecha: new Date(reporteSeleccionado.r_fecha).toLocaleDateString(),
+          articulos: reporteSeleccionado.r_Articulos,
+          lugarProblema: reporteSeleccionado.lugar_problema,
+          estado: "Aprobado", // Asumiendo que solo se muestran reportes aprobados aquí
+          precioEstimado: generarPrecioAleatorio(), // Generar un precio estimado
           accion: "Dañado", // Estado inicial del botón
         };
 
         const row = document.createElement("tr");
         row.innerHTML = `
-                  <td>${itemDanado.codigo}</td>
-                  <td>${itemDanado.nombre}</td>
-                  <td>${itemDanado.estado}</td>
-                  <td>S/. ${itemDanado.precio}</td>
-                  <td>${itemDanado.tipoArticulo}</td>
-                  <td><button class="btn btn-accion-danado">${itemDanado.accion}</button></td>
+                  <td>${itemReporte.codigo}</td>
+                  <td>${itemReporte.idReporte}</td>
+                  <td>${itemReporte.descripcion}</td>
+                  <td>${itemReporte.fecha}</td>
+                  <td>${itemReporte.articulos}</td>
+                  <td>${itemReporte.lugarProblema}</td>
+                  <td>${itemReporte.estado}</td>
+                  <td>S/. ${itemReporte.precioEstimado}</td>
+                  <td><button class="btn btn-accion-danado">${itemReporte.accion}</button></td>
               `;
         stockTableBody.appendChild(row);
 
