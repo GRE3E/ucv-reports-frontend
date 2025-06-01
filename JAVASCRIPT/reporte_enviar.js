@@ -39,7 +39,8 @@ async function sendReport() {
         descripcion: document.getElementById('descripcion').value,
         evidencia: document.getElementById('evidencia').value,
         fecha: new Date().toISOString(), // Añadido campo fecha en formato ISO 8601
-        estado: "Pendiente" // Añadido campo estado con valor por defecto
+        estado: "Pendiente", // Añadido campo estado con valor por defecto
+        Motivo: document.getElementById('motivo').value // Añadido campo Motivo
     };
 
   try {
