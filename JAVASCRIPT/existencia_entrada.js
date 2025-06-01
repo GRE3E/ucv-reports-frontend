@@ -126,9 +126,9 @@ document.addEventListener("DOMContentLoaded", () => {
           nombre: String(document.getElementById("nombreProducto").value),
           Precio: parseFloat(document.getElementById("precio").value || '0'),
 
-          idpabellon: parseInt(document.getElementById("pabellon") ? document.getElementById("pabellon").value : '0'),
-          idpiso: parseInt(document.getElementById("piso") ? document.getElementById("piso").value : '0'),
-          idsalon: String(document.getElementById("salon") ? document.getElementById("salon").value : ''),
+          idpabellon: parseInt(document.getElementById("pabellon").value || '0'),
+          idpiso: parseInt(document.getElementById("piso").value || '0'),
+          idsalon: parseInt(document.getElementById("salon").value || '0'),
           imagen: "../../CSS/auth/images/placeholder.jpg",
           Estado: String("Pendiente"),
         };
