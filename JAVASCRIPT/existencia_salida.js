@@ -32,8 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //         imagen: '../../CSS/auth/images/mouse.jpg',
     //         tipo: 'Mouse',
     //         cantidad: 50
-    //     },
-    // ];
+    
 
     // Función para generar un código aleatorio (ejemplo simple)
     function generarCodigoAleatorio() {
