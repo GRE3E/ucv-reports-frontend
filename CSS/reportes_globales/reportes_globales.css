@@ -19,6 +19,9 @@ body {
     box-shadow: 0 4px 20px rgba(221, 35, 36, 0.3);
     position: relative;
     overflow: hidden;
+    width: 100%; /* Asegura que el header ocupe todo el ancho */
+    border-radius: 0; /* Sin bordes redondeados */
+    margin: 0; /* Sin margen */
 }
 
 .header::before {
@@ -46,9 +49,20 @@ body {
 }
 
 .container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 40px 20px;
+    width: 100%;
+    margin: 0;
+    padding: 0; /* Quita el padding aquí */
+    display: flex;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.main-content {
+    padding: 0; /* Quita el padding para que el header llegue al borde */
+    width: 100%;
+    flex: 1 1 0%;
+    max-width: 100vw;
+    box-sizing: border-box;
 }
 
 .subtitle {
@@ -368,6 +382,193 @@ body {
     }
 }
 
+/* Sidebar y menú lateral */
+.sidebar {
+    width: 300px;
+    min-width: 300px;
+    background: linear-gradient(180deg, #233559 0%, #18253f 100%);
+    color: white;
+    height: 100vh;
+    position: static;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+    overflow-y: auto;
+}
+
+.logo-section {
+    padding: 35px 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    position: sticky;
+    top: 0;
+    background: inherit;
+    z-index: 10;
+}
+
+.logo {
+    width: 55px;
+    height: 55px;
+    background: linear-gradient(135deg, #DD2324 0%, #af1818 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    color: white;
+    box-shadow: 0 6px 20px rgba(221, 35, 36, 0.4);
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.logo-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.nav-menu {
+    padding: 25px 0;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 18px 30px;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-left: 4px solid transparent;
+    gap: 18px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    position: relative;
+    margin: 2px 0;
+    border-radius: 8px 0 0 8px;
+}
+
+.nav-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: rgba(221, 35, 36, 0.2);
+    transition: width 0.3s ease;
+}
+
+.nav-item:hover::before {
+    width: 100%;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    border-radius: 12px 0 0 12px; /* Bordes redondeados solo a la izquierda */
+    background: #DD2324 !important;
+    color: #fff !important;
+    border-left-color: #DD2324;
+    transform: translateX(8px);
+}
+
+.nav-item.active {
+    background: #DD2324 !important; /* Rojo fuerte */
+    color: #fff !important;
+    border-left-color: #DD2324;
+    transform: translateX(8px);
+}
+
+.nav-item.active::before {
+    width: 100%;
+}
+
+.nav-item i {
+    width: 22px;
+    text-align: center;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.nav-item:hover i {
+    transform: scale(1.1);
+}
+
+/* Responsive para sidebar */
+@media (max-width: 992px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        transform: translateX(-100%);
+        width: 260px;
+        min-width: 0;
+        z-index: 1001;
+    }
+    .sidebar.mobile-visible {
+        transform: translateX(0);
+    }
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.5);
+        z-index: 1000;
+    }
+    .sidebar-overlay.active {
+        display: block;
+    }
+}
+
+.hamburger {
+    display: none;
+    position: fixed;
+    top: 22px;
+    left: 22px;
+    z-index: 2001;
+    background: #DD2324;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 992px) {
+    .hamburger {
+        display: block;
+    }
+    .sidebar.mobile-visible ~ .main-content .header .hamburger,
+    .sidebar.mobile-visible ~ .header .hamburger,
+    .sidebar.mobile-visible ~ .sidebar-overlay ~ .main-content .header .hamburger {
+        z-index: 900; /* Menor que el de la sidebar (1001) */
+    }
+    .sidebar.mobile-visible + .sidebar-overlay + .main-content .header .hamburger {
+        z-index: 900;
+    }
+}
+
+/* Para que el contenido principal no quede debajo del sidebar en escritorio */
+@media (min-width: 993px) {
+  .main-content {
+    margin-left: 0; /* Quita el margen izquierdo */
+    width: 100%;
+    flex: 1 1 0%;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+}
+
 @media (max-width: 768px) {
     .header h1 {
         font-size: 2.2rem;
@@ -381,7 +582,19 @@ body {
     }
     
     .container {
-        padding: 30px 15px;
+        padding: 0; /* Elimina el marco blanco en móviles */
+    }
+
+    .main-content {
+        padding: 0; /* El contenido llega a los bordes */
+    }
+
+    .header {
+        border-radius: 0;
+        margin: 0;
+        width: 100vw; /* Asegura que el header ocupe todo el ancho de la pantalla */
+        left: 0;
+        position: relative;
     }
 
     .modal {

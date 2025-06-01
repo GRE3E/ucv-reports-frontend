@@ -14,25 +14,58 @@
     />
   </head>
   <body>
-    <header class="header">
-      <h1>
-        <i class="fas fa-chart-line"></i>
-        Reportes Globales
-      </h1>
-    </header>
-
     <div class="container">
-      <div class="subtitle">
-        <i class="fas fa-info-circle fa-icon"></i>
-        <div>
-          <strong>Sistema de Gestión de Reportes</strong><br />
-          Puedes observar los reportes enviados de hoy. Haz clic en "Visualizar"
-          para ver la información detallada del problema reportado.
+      <aside class="sidebar" id="sidebar">
+        <div class="logo-section">
+          <div class="logo">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <span class="logo-text">Sistema<br>Reportes</span>
         </div>
-      </div>
+        <nav class="nav-menu">
+          <a href="../reporte_enviar/reporte_enviar.html" class="nav-item">
+            <i class="fas fa-paper-plane"></i>
+            <span>Enviar Reporte</span>
+          </a>
+          <a href="reportes_globales.html" class="nav-item active">
+            <i class="fas fa-list-alt"></i>
+            <span>Artículos Reportados</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fas fa-history"></i>
+            <span>Historial</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Salir</span>
+          </a>
+        </nav>
+      </aside>
+      <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-      <div class="reports-grid" id="reportsGrid">
-        <!-- Las tarjetas se llenarán dinámicamente -->
+      <div class="main-content" id="mainContent">
+        <header class="header">
+          <h1>
+            <i class="fas fa-chart-line"></i>
+            Reportes Globales
+          </h1>
+          <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+          </button>
+        </header>
+
+        <div class="subtitle">
+          <i class="fas fa-info-circle fa-icon"></i>
+          <div>
+            <strong>Sistema de Gestión de Reportes</strong><br />
+            Puedes observar los reportes enviados de hoy. Haz clic en "Visualizar"
+            para ver la información detallada del problema reportado.
+          </div>
+        </div>
+
+        <div class="reports-grid" id="reportsGrid">
+          <!-- Las tarjetas se llenarán dinámicamente -->
+        </div>
       </div>
     </div>
 
@@ -204,6 +237,31 @@
       document.addEventListener("keydown", function (event) {
         if (event.key === "Escape") {
           closeModal();
+        }
+      });
+
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("sidebarOverlay");
+        const main = document.getElementById("mainContent");
+        sidebar.classList.toggle("mobile-visible");
+        overlay.classList.toggle("active");
+        if (main) main.classList.toggle("blur");
+        if (sidebar.classList.contains("mobile-visible")) {
+          document.body.style.overflow = "hidden";
+        } else {
+          document.body.style.overflow = "auto";
+        }
+      }
+      window.addEventListener('resize', function() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("sidebarOverlay");
+        const main = document.getElementById("mainContent");
+        if (window.innerWidth > 992) {
+          sidebar.classList.remove("mobile-visible");
+          overlay.classList.remove("active");
+          if (main) main.classList.remove("blur");
+          document.body.style.overflow = "auto";
         }
       });
     </script>
