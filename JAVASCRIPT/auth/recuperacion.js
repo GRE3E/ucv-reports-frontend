@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const data = await response.json();
       if (data.success) {
         // Aquí podrías guardar el userId en sessionStorage/localStorage si lo necesitas
-        window.location.href = "recuperacion.html";
+        window.location.href = "/auth/recuperacion";
       } else {
         alert("Los datos ingresados no coinciden con ningún usuario.");
       }
