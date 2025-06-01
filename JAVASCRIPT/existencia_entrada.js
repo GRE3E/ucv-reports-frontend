@@ -106,7 +106,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         const hardwareData = {
-          idarticulostipo: parseInt(selectArticulo.value === "otro" ? (document.getElementById("otroArticulo").value || '0') : selectArticulo.value || '0'),
+          idarticulostipo: (() => {
+            let valueToParse;
+            if (selectArticulo.value === "otro") {
+              valueToParse = document.getElementById("otroArticulo").value;
+            } else {
+              valueToParse = selectArticulo.value;
+            }
+            console.log('Valor de selectArticulo.value antes de parsear:', selectArticulo.value);
+            if (selectArticulo.value === "otro") {
+              console.log('Valor de otroArticulo.value antes de parsear:', document.getElementById("otroArticulo").value);
+            }
+            const parsed = parseInt(valueToParse);
+            console.log('Valor parseado de idarticulostipo:', parsed);
+            return isNaN(parsed) ? 0 : parsed;
+          })(),
           Codigo: String(document.getElementById("codigoProducto").value),
           nombre: String(document.getElementById("nombreProducto").value),
           Precio: parseFloat(document.getElementById("precio").value || '0'),
