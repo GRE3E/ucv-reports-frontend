@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
         apellido_paterno: apellidoPaterno,
         apellido_materno: apellidoMaterno,
         contraseña: password,
-        id_cargo: parseInt(id_cargo),
+        id_cargo: 1,
       }),
     })
       .then((res) => res.json())
