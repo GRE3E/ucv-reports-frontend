@@ -84,6 +84,15 @@ document.addEventListener("DOMContentLoaded", () => {
     formAgregarProducto.addEventListener("submit", async function (event) {
       event.preventDefault(); // Prevenir el envío por defecto del formulario
 
+      console.log("Valor de articulo:", selectArticulo.value);
+      console.log("Valor de otroArticulo:", document.getElementById("otroArticulo").value);
+      console.log("Valor de codigoProducto:", document.getElementById("codigoProducto").value);
+      console.log("Valor de nombreProducto:", document.getElementById("nombreProducto").value);
+      console.log("Valor de precio:", document.getElementById("precio").value);
+      console.log("Valor de pabellon:", document.getElementById("pabellon").value);
+      console.log("Valor de piso:", document.getElementById("piso").value);
+      console.log("Valor de salon:", document.getElementById("salon").value);
+
       const formData = new FormData();
       formData.append("articulo", selectArticulo.value);
       if (selectArticulo.value === "otro") {
