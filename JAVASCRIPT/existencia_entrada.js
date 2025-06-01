@@ -134,13 +134,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 "D": 4, //nmo se sabe
                 "E": 5
             };
-            return pabellonMap[document.getElementById("pabellon").value] || 0;
+            return pabellonMap[document.getElementById("pabellon").value] || 1;
           })(),
           idpiso: parseInt(document.getElementById("piso").value) || 0,
           idsalon: parseInt(document.getElementById("salon").value) || 0,
           imagen: "../../CSS/auth/images/placeholder.jpg",
           Estado: String("Pendiente"),
         };
+
+        console.log("Datos enviados al backend:", hardwareData);
+
         // Asumiendo que el backend tiene un endpoint para guardar productos
         const response = await fetch(
             "https://ucv-reports-backend.onrender.com/hardware",
