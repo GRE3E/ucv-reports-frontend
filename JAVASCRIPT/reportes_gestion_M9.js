@@ -446,7 +446,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Función para buscar reportes por usuario
 async function buscarReportesPorUsuario(usuario) {
   try {
-    const url = `https://ucv-reports-backend.onrender.com/reportes/buscar-usuario/${encodeURIComponent(usuario)}`;
+    console.log(`Buscando reportes para el usuario: ${usuario}`);
+    const url = `https://ucv-reports-backend.onrender.com/reportes/buscar-usuario/${usuario}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -454,7 +455,8 @@ async function buscarReportesPorUsuario(usuario) {
     }
 
     const reportes = await response.json();
-    // Filtra solo los pendientes si es necesario
+    debugResponse(reportes, `REPORTES POR USUARIO: ${usuario}`);
+
     reportesPendientes = reportes.filter((r) => {
       const status = r.estado || r.acciones;
       if (!status) return false;
