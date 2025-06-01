@@ -176,9 +176,8 @@ document.addEventListener("DOMContentLoaded", () => {
           }
 
           alert("Usuario deshabilitado exitosamente!");
-          document.getElementById("modalDeshabilitar").style.display = "none";
-          fetchUsers();
-          // REMOVE DUPLICATE CALLS
+        document.getElementById("modalDeshabilitar").style.display = "none";
+        fetchUsers('habilitados');
         } catch (error) {
           console.error("Error disabling user:", error);
           alert("Error al deshabilitar el usuario.");
@@ -247,8 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         alert("Usuario actualizado exitosamente!");
         document.getElementById("modalEditActual").style.display = "none";
-        fetchUsers();
-        // REMOVE DUPLICATE CALLS
+        fetchUsers('habilitados');
       } catch (error) {
         console.error("Error updating user:", error);
         alert("Error al actualizar el usuario.");
@@ -262,7 +260,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const value = event.target.value.trim();
     if (value === "") {
       fetchUsers();
-      // REMOVE DUPLICATE CALLS
 
       return;
     }
@@ -288,21 +285,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
-const fetchDisabledUsers = async () => {
-  try {
-    const response = await fetch(
-      "https://ucv-reports-backend.onrender.com/usuarios/eliminados"
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const users = await response.json();
-    populateTable(users, true); // Pass a flag to indicate disabled users
-  } catch (error) {
-    console.error("Error fetching disabled users:", error);
-  }
-};
 
 const enableUser = async (userId) => {
   try {
