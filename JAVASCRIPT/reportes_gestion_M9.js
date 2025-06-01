@@ -28,7 +28,7 @@ async function cargarReportesPendientes() {
     const reportes = await response.json();
     debugResponse(reportes, "REPORTES PENDIENTES");
 
-    reportesPendientes = reportes.filter((r) => r.estado === "Pendiente");
+    reportesPendientes = reportes.filter((r) => r.acciones === "Pendiente");
     console.log(`Reportes pendientes filtrados: ${reportesPendientes.length}`);
 
     renderReportesPendientes();
