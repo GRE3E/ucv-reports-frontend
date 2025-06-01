@@ -50,6 +50,10 @@
       "dest": "/HTML/reportes_gestion/usuarios_gestion_M6.html"
     },
     {
+      "src": "/articulos_uso_actual",
+      "dest": "/HTML/reportes_gestion/articulos_uso_actual.html"
+    },
+    {
       "src": "/reportes_globales/reportes_globales",
       "dest": "/HTML/reportes_globales/reportes_globales.html"
     },

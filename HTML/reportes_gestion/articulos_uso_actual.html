@@ -2,10 +2,10 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Productos Dañados</title>
+    <title>Articulos de uso Actual</title>
     <link
       rel="stylesheet"
-      href="../../CSS/reportes_gestion/productos_danados.css"
+      href="../../CSS/reportes_gestion/articulos_uso_actual.css"
     />
     <!-- Nuevo CSS -->
     <!-- Añadir Font Awesome -->
@@ -45,12 +45,12 @@
             ><i class="fas fa-file-export"></i> Existencia de Salida</a
           >
         </li>
-        <li class="active">
+        <li>
           <a href="/productos_danados"
             ><i class="fas fa-exclamation-triangle"></i> Productos Dañados</a
           >
         </li>
-        <li>
+        <li class="active">
           <a href="/articulos_uso_actual"
             ><i class="fas fa-cogs"></i> Artículos Uso Actual</a
           >
@@ -60,74 +60,49 @@
         </li>
       </ul>
     </div>
+
     <div class="main-content">
       <div class="header">
         <div class="header-logo"></div>
-        <h1>Gestión de Reportes</h1>
+        <h1>Artículos Uso Actual</h1>
       </div>
       <!-- Sin sección de Productos Nuevos -->
-      <div class="productos-grid-container">
+      <div class="articulos-grid-container">
         <!-- Aquí irán las tarjetas de productos dañados -->
       </div>
     </div>
 
-    <!-- Modal de Usuarios Deshabilitados (mantenido por similitud) -->
-    <div id="modalDeshabilitados" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="cerrarModalDeshabilitados()">&times;</span>
-        <h2>Usuarios Deshabilitados</h2>
-        <table class="usuarios-table">
-          <thead>
-            <tr>
-              <th>Usuario</th>
-              <th>Apellidos</th>
-              <th>Rol</th>
-              <th>Contraseña</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>angiexs</td>
-              <td>Ximena Santillan</td>
-              <td>Alumno</td>
-              <td>**********</td>
-              <td>
-                <button class="btn reactivar">
-                  <span class="icon">✏️</span> Reactivar
-                </button>
-              </td>
-            </tr>
-            <!-- ...más filas aquí... -->
-          </tbody>
-        </table>
-      </div>
-    </div>
 
     <!-- Modal de Stock Actual de Artículos Dañados -->
-    <div id="modalStockActualDanados" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Stock Actual de Artículos Dañados</h2>
-        <table class="stock-table">
-          <thead>
-            <tr>
-              <th>Código</th>
-              <th>Nombre</th>
-              <th>Estado</th>
-              <th>Precio</th>
-              <th>Tipo de Artículo</th>
-              <th>Acción</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Las filas se llenarán con JavaScript -->
-          </tbody>
-        </table>
-      </div>
+    <div id="modalStockArticulos" class="modal">
+        <div class="modal-content-articulo">
+            <span class="close">&times;</span>
+                <div class="icono-container-modal">
+                    <img
+                        src="../../CSS/auth/images/logo_ucv_modal.png"
+                        class="icono-btn-modal"
+                        alt="report_LOGO-ucv"
+                    />
+                </div>
+                <h2>Artículos disponibles actuales</h2>
+            <table class="stock-table">
+                <thead>
+                    <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Tipo de Artículo</th>
+                    <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Las filas se llenarán con JavaScript -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <script src="../../JAVASCRIPT/productos_danados.js"></script>
+    <script src="../../JAVASCRIPT/articulos_uso_actual.js"></script>
     <!-- Nuevo archivo JS -->
   </body>
 </html>
