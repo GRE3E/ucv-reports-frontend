@@ -424,25 +424,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     await cargarReportesPendientes();
     await cargarReportesDetalle();
 
+    // Event listener para el campo de búsqueda
     const searchInput = document.getElementById("searchInput");
     if (searchInput) {
-      searchInput.addEventListener("keyup", (event) => {
-        const searchTerm = event.target.value.trim().toLowerCase();
-        if (searchTerm.length === 0) {
-          renderReportesPendientes();
-          return;
+      searchInput.addEventListener("keyup", async (event) => {
+        const searchTerm = event.target.value.trim();
+        if (searchTerm.length > 2) {
+          await buscarReportesPorUsuario(searchTerm);
+        } else if (searchTerm.length === 0) {
+          await cargarReportesPendientes(); // Recargar todos los reportes pendientes si el campo está vacío
         }
-        // Filtrar en el frontend por coincidencia parcial en usuario
-        const filtrados = reportesPendientes.filter((reporte) => {
-          const usuario =
-            (reporte.usuario ||
-              reporte.nombre_usuario ||
-              reporte.user ||
-              "").toLowerCase();
-          return usuario.includes(searchTerm);
-        });
-        // Renderizar solo los reportes filtrados
-        renderReportesPendientesCustom(filtrados);
       });
     }
 
@@ -452,49 +443,29 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// Nueva función para renderizar una lista personalizada de reportes pendientes
-function renderReportesPendientesCustom(lista) {
-  const tbody = document.querySelector(".reportes-table tbody");
-  if (!tbody) return;
-  tbody.innerHTML = "";
+// Función para buscar reportes por usuario
+async function buscarReportesPorUsuario(usuario) {
+  try {
+    console.log(`Buscando reportes para el usuario: ${usuario}`);
+    const url = `https://ucv-reports-backend.onrender.com/reportes/buscar-usuario/${usuario}`;
+    const response = await fetch(url);
 
-  if (lista.length === 0) {
-    tbody.innerHTML =
-      '<tr><td colspan="4">No hay reportes pendientes</td></tr>';
-    return;
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const reportes = await response.json();
+    debugResponse(reportes, `REPORTES POR USUARIO: ${usuario}`);
+
+    reportesPendientes = reportes.filter((r) => {
+      const status = r.estado || r.acciones;
+      if (!status) return false;
+      const lowerCaseStatus = status.toString().trim().toLowerCase();
+      return lowerCaseStatus.includes("pendiente");
+    });
+    renderReportesPendientes();
+  } catch (error) {
+    console.error("Error al buscar reportes por usuario:", error);
+    alert("Error al buscar reportes por usuario: " + error.message);
   }
-
-  lista.forEach((reporte) => {
-    const tr = document.createElement("tr");
-    const usuario =
-      reporte.usuario ||
-      reporte.nombre_usuario ||
-      reporte.user ||
-      "Sin usuario";
-    const lugar =
-      reporte.lugarDelProblema ||
-      reporte.lugardelproblema ||
-      reporte.lugar_problema ||
-      reporte.lugar ||
-      "Sin lugar";
-    const fecha =
-      reporte.fecha || reporte.r_fecha || reporte.created_at || "Sin fecha";
-    const historialId = reporte.historial_id;
-    tr.innerHTML = `
-      <td>${usuario}</td>
-      <td>${lugar}</td>
-      <td>${fecha}</td>
-      <td>
-        <button class="btn aprobar" onclick="aprobarReporte(${historialId})">
-          <i class="fas fa-check-circle"></i>
-          Aprobar Reporte
-        </button>
-        <button class="btn desaprobado" onclick="abrirModalDesaprobar(${historialId})">
-          <i class="fas fa-ban"></i>
-          Desaprobar Reporte
-        </button>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
 }
