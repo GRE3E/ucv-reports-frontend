@@ -50,7 +50,7 @@
       "dest": "/HTML/reportes_gestion/articulos_uso_actual.html"
     },
     {
-      "src": "/reportes_globales/reportes_globales",
+      "src": "/reportes_globales",
       "dest": "/HTML/reportes_globales/reportes_globales.html"
     },
     {
