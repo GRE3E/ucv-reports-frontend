@@ -267,22 +267,22 @@ body {
   }
 }
 
-.btn.desaprobar {
+.btn.desaprobado {
     background: #e74c3c;
     color: #fff;
     border: none;
 }
-.btn.desaprobar:hover {
+.btn.desaprobado:hover {
     background: #a43124;
 }
 
 .btn.aprobar {
-    background: #1cca1c;
+    background: #2ecc71;
     color: #fff;
     border: none;
 }
 .btn.aprobar:hover {
-    background: #248a17;
+    background: #148f77;
 }
 
 /* Modal estilos */

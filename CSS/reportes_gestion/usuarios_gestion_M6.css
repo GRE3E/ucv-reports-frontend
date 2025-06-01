@@ -144,6 +144,18 @@ body {
     transition: background 0.2s;
 }
 
+.enabled-btn {
+    background: #2ecc71;
+    color: #fff;
+    border: none;
+    font-size: 1.1em;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
 .icono-container-modal{
     justify-content: center;
     display: flex;
@@ -283,14 +295,6 @@ tr:nth-child(even) {
     display: block;
     margin: 10px auto; /* centrar horizontalmente */
   }
-}
-
-.btn.visualizar {
-    background: #2196f3;
-    color: #fff;
-}
-.btn.visualizar:hover {
-    background: #1769aa;
 }
 
 .btn.editar {
