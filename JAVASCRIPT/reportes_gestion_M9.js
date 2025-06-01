@@ -31,7 +31,12 @@ async function cargarReportesPendientes() {
     // Log each report's 'acciones' to debug the filter
     reportes.forEach((r) => console.log("Reporte acciones:", r.acciones));
 
-    reportesPendientes = reportes.filter((r) => r.acciones && r.acciones.trim().toLowerCase() === "pendiente");
+    reportesPendientes = reportes.filter((r) => {
+      if (!r.acciones) return false;
+
+      const acciones = r.acciones.toString().trim().toLowerCase();
+      return acciones.includes("pendiente");
+    });
     console.log(`Reportes pendientes filtrados: ${reportesPendientes.length}`);
 
     renderReportesPendientes();
