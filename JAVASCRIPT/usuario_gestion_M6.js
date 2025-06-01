@@ -1,101 +1,142 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const usersTableBody = document.querySelector(".usuarios-table tbody");
+  const roleFilterSelect = document.getElementById("roleFilter");
+  const disabledBtn = document.querySelector(".disabled-btn");
+  let roles = [];
+  let showingDisabled = false;
 
-  const fetchUsers = async (roleId = null) => {
+  // Fetch roles/cargos and populate filter
+  async function fetchRoles() {
     try {
-      let url = "https://ucv-reports-backend.onrender.com/usuarios/habilitados";
-      if (roleId) {
-        url = `https://ucv-reports-backend.onrender.com/usuarios/role/${roleId}`;
-      }
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const users = await response.json();
-      populateTable(users);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  };
-
-  const fetchRoles = async () => {
-    try {
-      const response = await fetch(
-        "https://ucv-reports-backend.onrender.com/cargos"
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const roles = await response.json();
-      const roleFilterSelect = document.getElementById("roleFilter");
+      const response = await fetch("https://ucv-reports-backend.onrender.com/cargos");
+      if (!response.ok) throw new Error("Error al obtener cargos");
+      roles = await response.json();
+      roleFilterSelect.innerHTML = `<option value="">Ordenar por Rol</option>`;
       roles.forEach((role) => {
         const option = document.createElement("option");
-        option.value = role.ID_cargo;
+        option.value = role.idcargo;
         option.textContent = role.descripcion;
         roleFilterSelect.appendChild(option);
       });
     } catch (error) {
-      console.error("Error fetching roles:", error);
+      console.error(error);
     }
-  };
+  }
 
-  const populateTable = (users) => {
-    usersTableBody.innerHTML = ""; // Clear existing rows
+  // Fetch users (habilitados o deshabilitados, y opcionalmente por cargo)
+  async function fetchUsers({ disabled = false, cargoId = "" } = {}) {
+    let url = disabled
+      ? "https://ucv-reports-backend.onrender.com/usuarios/eliminados"
+      : "https://ucv-reports-backend.onrender.com/usuarios/habilitados";
+    if (cargoId) url += `?idcargo=${cargoId}`;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Error al obtener usuarios");
+      const users = await response.json();
+      populateTable(users, disabled);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // Render users table
+  function populateTable(users, disabled = false) {
+    usersTableBody.innerHTML = "";
     users.forEach((user) => {
       const row = usersTableBody.insertRow();
       row.insertCell().textContent = user.usuario;
       row.insertCell().textContent = user.nombre;
       row.insertCell().textContent = `${user.apellido_paterno} ${user.apellido_materno}`;
-      row.insertCell().textContent = getRoleName(user.id_cargo);
-      row.insertCell().textContent = "********"; // Password masked
+      row.insertCell().textContent = getRoleName(user.id_cargo)
+      row.insertCell().textContent = "********";
       const actionsCell = row.insertCell();
-      actionsCell.innerHTML = `
-                <button class="btn-action btn-edit" data-id="${user.IDUsuario}"><i class="fas fa-edit"></i>Editar</button>
-                <button class="btn-action btn-disable" data-id="${user.IDUsuario}"><i class="fas fa-user-slash"></i>Deshabilitar</button>
-            `;
-
-      // Add event listener for edit button
-      actionsCell
-        .querySelector(".btn-edit")
-        .addEventListener("click", () => openEditModal(user));
-
-      // Add event listener for disable button
-      actionsCell
-        .querySelector(".btn-disable")
-        .addEventListener("click", () => openDisableModal(user));
+      if (disabled) {
+        actionsCell.innerHTML = `
+          <button class="btn reactivar" data-id="${user.IDUsuario}">
+            <i class="fas fa-user-check"></i> Habilitar
+          </button>
+        `;
+        actionsCell.querySelector(".btn.reactivar").onclick = () => habilitarUsuario(user.IDUsuario);
+      } else {
+        actionsCell.innerHTML = `
+          <button class="btn editar" data-id="${user.IDUsuario}">
+            <i class="fas fa-edit"></i> Editar
+          </button>
+          <button class="btn deshabilitar" data-id="${user.IDUsuario}">
+            <i class="fas fa-user-slash"></i> Deshabilitar
+          </button>
+        `;
+        actionsCell.querySelector(".btn.editar").onclick = () => openEditModal(user);
+        actionsCell.querySelector(".btn.deshabilitar").onclick = () => openDisableModal(user);
+      }
     });
-  };
+  }
 
   const getRoleName = (id_cargo) => {
-    switch (id_cargo) {
-      case 1:
-        return "Alumno";
-      case 2:
-        return "Docente";
-      case 3:
-        return "PersonalUCV";
-      case 4:
-        return "Administrador";
-      default:
-        return "Desconocido";
+ switch (id_cargo) {
+case 1:
+return "Alumno";
+case 2:
+return "Docente";
+case 3:
+return "PersonalUCV";
+case 4:
+return "Administrador";
+default:
+return "Desconocido";
+ }
+};
+
+  // Filtrar por rol/cargo
+  roleFilterSelect.addEventListener("change", (e) => {
+    const cargoId = e.target.value;
+    fetchUsers({ disabled: showingDisabled, cargoId });
+  });
+
+  // Alternar entre habilitados y deshabilitados
+  disabledBtn.addEventListener("click", () => {
+    showingDisabled = !showingDisabled;
+    fetchUsers({ disabled: showingDisabled, cargoId: roleFilterSelect.value });
+    disabledBtn.innerHTML = showingDisabled
+      ? '<i class="fas fa-users"></i> Usuarios Habilitados'
+      : '<i class="fas fa-ban"></i> Usuarios Deshabilitados';
+  });
+
+  // Buscar usuario por nombre de usuario
+  document.querySelector('.search-controls input[type="text"]').addEventListener("keyup", async (event) => {
+    const value = event.target.value.trim();
+    if (value === "") {
+      fetchUsers({ disabled: showingDisabled, cargoId: roleFilterSelect.value });
+      return;
     }
-  };
-
-  fetchUsers();
-  fetchRoles();
-
-  const roleFilterSelect = document.getElementById("roleFilter");
-  roleFilterSelect.addEventListener("change", (event) => {
-    const selectedRoleId = event.target.value;
-    if (selectedRoleId) {
-      fetchUsers(selectedRoleId);
-    } else {
-      fetchUsers(); // Fetch all enabled users if "Ordenar por Rol" is selected
+    try {
+      const response = await fetch(
+        `https://ucv-reports-backend.onrender.com/usuarios/buscar-usuario/${encodeURIComponent(value)}`
+      );
+      if (!response.ok) throw new Error("Error buscando usuario");
+      const user = await response.json();
+      if (user && (!showingDisabled ? user.Estado === "Habilitado" : user.Estado === "Deshabilitado")) {
+        populateTable([user], showingDisabled);
+      } else {
+        populateTable([], showingDisabled);
+      }
+    } catch (error) {
+      console.error(error);
+      populateTable([], showingDisabled);
     }
   });
 
-  // Function to open edit modal and populate with user data
-  const openEditModal = (user) => {
+  // Habilitar usuario
+  async function habilitarUsuario(id) {
+    await fetch(`https://ucv-reports-backend.onrender.com/usuarios/${id}/enable`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    });
+    fetchUsers({ disabled: true, cargoId: roleFilterSelect.value });
+  }
+
+  // Modal editar y deshabilitar (mantén tu lógica actual aquí)
+  function openEditModal(user) {
     const modal = document.getElementById("modalEditActual");
     modal.style.display = "block";
 
@@ -118,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Store user ID in a data attribute on the save button for later use
     document.querySelector(".btn.guardar-edit").dataset.userId = user.IDUsuario;
-  };
+  }
 
   // Function to open disable modal and handle disable action
   const openDisableModal = (user) => {
@@ -228,38 +269,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-  const searchInput = document.querySelector(
-    '.search-controls input[type="text"]'
-  );
-  searchInput.addEventListener("keyup", async (event) => {
-    const value = event.target.value.trim();
-    if (value === "") {
-      fetchUsers();
-      // REMOVE DUPLICATE CALLS
-
-      return;
-    }
-    try {
-      const response = await fetch(
-        `https://ucv-reports-backend.onrender.com/usuarios/buscar-usuario/${encodeURIComponent(
-          value
-        )}`
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const user = await response.json();
-      if (user) {
-        populateTable([user]);
-      } else {
-        // Si no se encuentra, limpia la tabla
-        populateTable([]);
-      }
-    } catch (error) {
-      console.error("Error searching user:", error);
-      populateTable([]);
-    }
-  });
+  // Inicialización
+  await fetchRoles();
+  fetchUsers();
 });
 
 // Funciones para los modales (mantenerlas si ya existen o se planean usar)
