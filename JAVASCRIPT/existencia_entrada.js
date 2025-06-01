@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         const hardwareData = {
-          idarticulostipo: parseInt(selectArticulo.value === "otro" ? document.getElementById("otroArticulo").value : selectArticulo.value),
+          idarticulostipo: parseInt(selectArticulo.value === "otro" ? (document.getElementById("otroArticulo").value || '0') : selectArticulo.value || '0'),
           Codigo: String(document.getElementById("codigoProducto").value),
           nombre: String(document.getElementById("nombreProducto").value),
           Precio: parseFloat(document.getElementById("precio").value),
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
             newProduct.urlImagen || "../../CSS/auth/images/placeholder.jpg"; // Ajusta esto según tu backend
 
           productoCard.innerHTML = `
-                      <img src="${imageUrl}" alt="${newProduct.nombreProducto}">
+                      <img src="${imageUrl}" alt="${newProduct.nombre}">
                       <div class="producto-card-info">
                           <h3>Tipo: ${newProduct.nombre}</h3>
                           <p>Cantidad: ${newProduct.cantidad}</p>
