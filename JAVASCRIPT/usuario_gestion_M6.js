@@ -281,10 +281,70 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+const fetchDisabledUsers = async () => {
+  try {
+    const response = await fetch(
+      "https://ucv-reports-backend.onrender.com/usuarios/eliminados"
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const users = await response.json();
+    const disabledUsersTableBody = document.querySelector(
+      "#modalDeshabilitados .usuarios-table tbody"
+    );
+    disabledUsersTableBody.innerHTML = ""; // Clear existing rows
+    users.forEach((user) => {
+      const row = disabledUsersTableBody.insertRow();
+      row.insertCell().textContent = user.usuario;
+      row.insertCell().textContent = `${user.apellido_paterno} ${user.apellido_materno}`;
+      row.insertCell().textContent = user.rol; // Assuming 'rol' is returned from the backend
+      row.insertCell().textContent = "********"; // Password masked
+      const actionsCell = row.insertCell();
+      actionsCell.innerHTML = `
+                  <button class="btn-action btn-enable" data-id="${user.IDUsuario}"><i class="fas fa-user-plus"></i>Habilitar</button>
+              `;
+
+      actionsCell
+        .querySelector(".btn-enable")
+        .addEventListener("click", () => enableUser(user.IDUsuario));
+    });
+  } catch (error) {
+    console.error("Error fetching disabled users:", error);
+  }
+};
+
+const enableUser = async (userId) => {
+  try {
+    const response = await fetch(
+      `https://ucv-reports-backend.onrender.com/usuarios/${userId}/enable`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    alert("Usuario habilitado exitosamente!");
+    document.getElementById("modalDeshabilitados").style.display = "none";
+    fetchUsers(); // Refresh main user list
+    fetchDisabledUsers(); // Refresh disabled user list
+  } catch (error) {
+    console.error("Error enabling user:", error);
+    alert("Error al habilitar el usuario.");
+  }
+};
+
 // Funciones para los modales (mantenerlas si ya existen o se planean usar)
 function abrirModalDeshabilitados() {
   const modal = document.getElementById("modalDeshabilitados");
   modal.style.display = "block";
+  fetchDisabledUsers(); // Fetch and display disabled users when modal opens
 }
 
 function cerrarModalDeshabilitados() {
