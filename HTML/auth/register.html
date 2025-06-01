@@ -29,18 +29,33 @@
           ¡Bienvenido! Por favor, completa los siguientes campos para crear tu
           cuenta:
         </p>
-        <form>
+        <form id="registerForm">
           <div class="input-icon">
-            <i class="fa fa-user-circle" style="color:#007bff;"></i>
-            <input type="text" placeholder="Nombres Completos" required />
+            <i class="fa fa-user-circle" style="color: #007bff"></i>
+            <input
+              type="text"
+              placeholder="Nombres Completos"
+              id="nombre"
+              required
+            />
           </div>
           <div class="input-icon">
-            <i class="fa fa-user-tag" style="color:#e30513;"></i>
-            <input type="text" placeholder="Apellido Paterno" required />
+            <i class="fa fa-user-tag" style="color: #e30513"></i>
+            <input
+              type="text"
+              placeholder="Apellido Paterno"
+              id="apellidoPaterno"
+              required
+            />
           </div>
           <div class="input-icon">
-            <i class="fa fa-user-friends" style="color:#ffb347;"></i>
-            <input type="text" placeholder="Apellido Materno" required />
+            <i class="fa fa-user-friends" style="color: #ffb347"></i>
+            <input
+              type="text"
+              placeholder="Apellido Materno"
+              id="apellidoMaterno"
+              required
+            />
           </div>
           <div class="input-icon">
             <i class="fa fa-lock"></i>
@@ -55,14 +70,18 @@
             </button>
           </div>
           <div class="input-icon">
-            <i class="fa fa-check-circle" style="color:#28a745;"></i>
+            <i class="fa fa-check-circle" style="color: #28a745"></i>
             <input
               type="password"
               placeholder="Verificar Contraseña"
               id="verificarPassword"
               required
             />
-            <button type="button" class="toggle-password" id="toggleVerificarPassword">
+            <button
+              type="button"
+              class="toggle-password"
+              id="toggleVerificarPassword"
+            >
               <i class="fa fa-eye"></i>
             </button>
           </div>
