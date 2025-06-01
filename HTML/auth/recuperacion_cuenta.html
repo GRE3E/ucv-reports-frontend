@@ -462,6 +462,7 @@
 
           try {
             // Simulación de verificación - reemplaza con tu endpoint real
+            console.log("Sending request to change-password endpoint");
             const response = await fetch(
               "https://ucv-reports-backend.onrender.com/auth/verificar-datos-recuperacion",
               {
@@ -476,6 +477,7 @@
               }
             );
             const data = await response.json();
+            console.log("Response from change-password:", data);
 
             if (data.success) {
               usuarioVerificado = data.userId;
@@ -495,7 +497,9 @@
         passwordForm.addEventListener("submit", async function (e) {
           e.preventDefault();
           const nuevaPassword = nuevaPasswordInput.value;
+          console.log("New Password:", nuevaPassword);
           const confirmarPassword = confirmarPasswordInput.value;
+          console.log("Confirm Password:", confirmarPassword);
 
           if (nuevaPassword !== confirmarPassword) {
             alert("Las contraseñas no coinciden.");
@@ -509,6 +513,7 @@
 
           try {
             // Aquí enviarías la nueva contraseña al servidor
+            console.log("Sending request to change-password endpoint");
             const response = await fetch(
               "https://ucv-reports-backend.onrender.com/auth/change-password",
               {
@@ -521,6 +526,7 @@
               }
             );
             const data = await response.json();
+            console.log("Response from change-password:", data);
 
             if (data.success) {
               alert(
