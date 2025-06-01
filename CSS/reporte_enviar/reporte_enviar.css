@@ -393,7 +393,7 @@ select:focus, input[type="text"]:focus {
 
 .form-box {
   background: transparent;
-  padding: 0;
+  padding: 1px 15px;
   border-radius: 0;
   box-shadow: none;
   min-width: 0;
