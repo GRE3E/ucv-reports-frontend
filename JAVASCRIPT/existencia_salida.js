@@ -1,39 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const productosGridContainer = document.querySelector('.productos-grid-container');
 
-    // Datos de ejemplo de productos (reemplazar con datos reales y rutas de imagen correctas)
-    // const productos = [
-    //     {
-    //         imagen: '../../CSS/auth/images/ordenador.jpg',
-    //         tipo: 'Ordenador',
-    //         cantidad: 16
-    //     },
-    //     {
-    //         imagen: '../../CSS/auth/images/proyector.jpg',
-    //         tipo: 'Proyector',
-    //         cantidad: 5
-    //     },
-    //     {
-    //         imagen: '../../CSS/auth/images/escritorios.jpg',
-    //         tipo: 'Escritorio',
-    //         cantidad: 9
-    //     },
-    //     {
-    //         imagen: '../../CSS/auth/images/pizarra.jpg',
-    //         tipo: 'Pizarra Acrilica',
-    //         cantidad: 1
-    //     },
-    //     {
-    //         imagen: '../../CSS/auth/images/ventilador.jpg',
-    //         tipo: 'Ventilador',
-    //         cantidad: 15
-    //     },
-    //     {
-    //         imagen: '../../CSS/auth/images/mouse.jpg',
-    //         tipo: 'Mouse',
-    //         cantidad: 50
-    
-
     // Función para generar un código aleatorio (ejemplo simple)
     function generarCodigoAleatorio() {
         return 'COD-' + Math.random().toString(36).substr(2, 6).toUpperCase();
@@ -62,9 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 productoCard.innerHTML = `
                     <img src="${producto.imagen_url || '../../CSS/auth/images/default.jpg'}" alt="${producto.nombre}">
                     <div class="producto-card-info">
-                        <h3>Tipo: ${producto.nombre}</h3>
-                        <p>Cantidad: ${producto.cantidad}</p>
-                    </div>
+                <h3>Tipo: ${producto.nombre}</h3>
+            </div>
                     <button class="btn informe" data-producto-id="${producto.id}" data-producto-nombre="${producto.nombre}">
                         <i class="fas fa-file-alt fa-sm"></i>
                         Informe
