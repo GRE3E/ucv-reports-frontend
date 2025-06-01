@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <img src="${producto.urlImagen || '../../CSS/auth/images/placeholder.jpg'}" alt="${producto.nombre}">
             <div class="producto-card-info">
                 <h3>Tipo: ${producto.nombre}</h3>
-                <p>Cantidad: ${producto.cantidad}</p>
             </div>
             <button class="btn comprar">
                 <img src="../../CSS/auth/images/cartIcon.png" alt="Carrito" class="icono-btn">
@@ -102,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("nombreProducto").value
       );
       formData.append("precio", document.getElementById("precio").value);
-      formData.append("cantidad", document.getElementById("cantidad").value);
+
 
       try {
         const hardwareData = {
@@ -124,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
           Codigo: String(document.getElementById("codigoProducto").value),
           nombre: String(document.getElementById("nombreProducto").value),
           Precio: parseFloat(document.getElementById("precio").value || '0'),
-          cantidad: parseInt(document.getElementById("cantidad").value || '0'),
+
           idpabellon: parseInt(document.getElementById("idpabellon") ? document.getElementById("idpabellon").value : '0'),
           idpiso: parseInt(document.getElementById("idpiso") ? document.getElementById("idpiso").value : '0'),
           idsalon: parseInt(document.getElementById("idsalon") ? document.getElementById("idsalon").value : '0'),
@@ -159,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       <img src="${imageUrl}" alt="${newProduct.nombre}">
                       <div class="producto-card-info">
                           <h3>Tipo: ${newProduct.nombre}</h3>
-                          <p>Cantidad: ${newProduct.cantidad}</p>
+
                       </div>
                       <button class="btn comprar">
                           <i class="fas fa-shopping-cart"></i>
