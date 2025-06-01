@@ -18,16 +18,22 @@
     <div class="reset-container">
       <div class="reset-box">
         <h1>Restablecer Contraseña</h1>
-        <form>
+        <form id="resetPasswordForm">
           <div class="input-container">
             <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Nueva Contraseña" required />
+            <input
+              type="password"
+              id="newPassword"
+              placeholder="Nueva Contraseña"
+              required
+            />
           </div>
 
           <div class="input-container">
             <i class="fas fa-lock"></i>
             <input
               type="password"
+              id="confirmPassword"
               placeholder="Confirmar Contraseña"
               required
             />
@@ -35,6 +41,7 @@
 
           <button type="submit" class="btn">Confirmar</button>
         </form>
+        <script src="../../JAVASCRIPT/auth/recuperacion.js"></script>
       </div>
     </div>
   </body>
