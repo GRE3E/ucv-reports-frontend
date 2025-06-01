@@ -87,6 +87,7 @@ function renderReportesPendientes() {
       "Sin lugar";
     const fecha =
       reporte.fecha || reporte.r_fecha || reporte.created_at || "Sin fecha";
+    const historialId = reporte.historial_id;
     const idReporte = reporte.id_reporte || reporte.r_id_reporte || reporte.id;
     const acciones = reporte.acciones || "Sin acciones"; // Usar acciones del endpoint
 
@@ -95,11 +96,11 @@ function renderReportesPendientes() {
       <td>${lugar}</td>
       <td>${fecha}</td>
       <td>
-        <button class="btn aprobar" onclick="aprobarReporte(${idReporte})">
+        <button class="btn aprobar" onclick="aprobarReporte(${historialId})">
           <i class="fas fa-check-circle"></i>
           Aprobar Reporte
         </button>
-        <button class="btn desaprobado" onclick="abrirModalDesaprobar(${idReporte})">
+        <button class="btn desaprobado" onclick="abrirModalDesaprobar(${historialId})">
           <i class="fas fa-ban"></i>
           Desaprobar Reporte
         </button>
@@ -185,16 +186,16 @@ function renderReportesDetalle() {
   });
 }
 
-async function aprobarReporte(id) {
-  if (!id) {
-    alert("ID de reporte no válido");
+async function aprobarReporte(historialId) {
+  if (!historialId) {
+    alert("ID de historial de reporte no válido");
     return;
   }
 
   try {
-    console.log(`Aprobando reporte ID: ${id}`);
+    console.log(`Aprobando historial de reporte ID: ${historialId}`);
     const response = await fetch(
-      `https://ucv-reports-backend.onrender.com/historial-reportes/${id}/estado`,
+      `https://ucv-reports-backend.onrender.com/historial-reportes/${historialId}/estado`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -217,13 +218,13 @@ async function aprobarReporte(id) {
 
 let idDesaprobar = null;
 
-function abrirModalDesaprobar(id) {
-  if (!id) {
-    alert("ID de reporte no válido");
+function abrirModalDesaprobar(historialId) {
+  if (!historialId) {
+    alert("ID de historial de reporte no válido");
     return;
   }
 
-  idDesaprobar = id;
+  idDesaprobar = historialId;
   const modal = document.getElementById("modalDesaprobar");
   const input = document.getElementById("motivoDesaprobacion");
 
@@ -251,12 +252,12 @@ async function aceptarDesaprobacion() {
   }
 
   if (!idDesaprobar) {
-    alert("ID de reporte no válido");
+    alert("ID de historial de reporte no válido");
     return;
   }
 
   try {
-    console.log(`Desaprobando reporte ID: ${idDesaprobar}`);
+    console.log(`Desaprobando historial de reporte ID: ${idDesaprobar}`);
     const response = await fetch(
       `https://ucv-reports-backend.onrender.com/historial-reportes/${idDesaprobar}/estado`,
       {
