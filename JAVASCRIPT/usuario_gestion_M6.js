@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const populateTable = (users) => {
+  const populateTable = (users, is_disabled_user = false) => {
     usersTableBody.innerHTML = ""; // Clear existing rows
     users.forEach((user) => {
       const row = usersTableBody.insertRow();
@@ -49,20 +49,28 @@ document.addEventListener("DOMContentLoaded", () => {
       row.insertCell().textContent = getRoleName(user.id_cargo);
       row.insertCell().textContent = "********"; // Password masked
       const actionsCell = row.insertCell();
-      actionsCell.innerHTML = `
-                <button class="btn-action btn-edit" data-id="${user.IDUsuario}"><i class="fas fa-edit"></i>Editar</button>
-                <button class="btn-action btn-disable" data-id="${user.IDUsuario}"><i class="fas fa-user-slash"></i>Deshabilitar</button>
-            `;
+      if (is_disabled_user) {
+        actionsCell.innerHTML = `
+                  <button class="btn-action btn-enable" data-id="${user.IDUsuario}"><i class="fas fa-user-plus"></i>Habilitar</button>
+              `;
+        actionsCell
+          .querySelector(".btn-enable")
+          .addEventListener("click", () => enableUser(user.IDUsuario));
+      } else {
+        actionsCell.innerHTML = `
+                  <button class="btn-action btn-edit" data-id="${user.IDUsuario}"><i class="fas fa-edit"></i>Editar</button>
+                  <button class="btn-action btn-disable" data-id="${user.IDUsuario}"><i class="fas fa-user-slash"></i>Deshabilitar</button>
+              `;
+        // Add event listener for edit button
+        actionsCell
+          .querySelector(".btn-edit")
+          .addEventListener("click", () => openEditModal(user));
 
-      // Add event listener for edit button
-      actionsCell
-        .querySelector(".btn-edit")
-        .addEventListener("click", () => openEditModal(user));
-
-      // Add event listener for disable button
-      actionsCell
-        .querySelector(".btn-disable")
-        .addEventListener("click", () => openDisableModal(user));
+        // Add event listener for disable button
+        actionsCell
+          .querySelector(".btn-disable")
+          .addEventListener("click", () => openDisableModal(user));
+      }
     });
   };
 
@@ -290,25 +298,7 @@ const fetchDisabledUsers = async () => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const users = await response.json();
-    const disabledUsersTableBody = document.querySelector(
-      "#modalDeshabilitados .usuarios-table tbody"
-    );
-    disabledUsersTableBody.innerHTML = ""; // Clear existing rows
-    users.forEach((user) => {
-      const row = disabledUsersTableBody.insertRow();
-      row.insertCell().textContent = user.usuario;
-      row.insertCell().textContent = `${user.apellido_paterno} ${user.apellido_materno}`;
-      row.insertCell().textContent = user.rol; // Assuming 'rol' is returned from the backend
-      row.insertCell().textContent = "********"; // Password masked
-      const actionsCell = row.insertCell();
-      actionsCell.innerHTML = `
-                  <button class="btn-action btn-enable" data-id="${user.IDUsuario}"><i class="fas fa-user-plus"></i>Habilitar</button>
-              `;
-
-      actionsCell
-        .querySelector(".btn-enable")
-        .addEventListener("click", () => enableUser(user.IDUsuario));
-    });
+    populateTable(users, true); // Pass a flag to indicate disabled users
   } catch (error) {
     console.error("Error fetching disabled users:", error);
   }
@@ -331,9 +321,7 @@ const enableUser = async (userId) => {
     }
 
     alert("Usuario habilitado exitosamente!");
-    document.getElementById("modalDeshabilitados").style.display = "none";
     fetchUsers(); // Refresh main user list
-    fetchDisabledUsers(); // Refresh disabled user list
   } catch (error) {
     console.error("Error enabling user:", error);
     alert("Error al habilitar el usuario.");
@@ -342,14 +330,7 @@ const enableUser = async (userId) => {
 
 // Funciones para los modales (mantenerlas si ya existen o se planean usar)
 function abrirModalDeshabilitados() {
-  const modal = document.getElementById("modalDeshabilitados");
-  modal.style.display = "block";
   fetchDisabledUsers(); // Fetch and display disabled users when modal opens
-}
-
-function cerrarModalDeshabilitados() {
-  const modal = document.getElementById("modalDeshabilitados");
-  modal.style.display = "none";
 }
 
 // Cerrar modales al hacer clic fuera de ellos
@@ -358,14 +339,8 @@ window.onclick = function (event) {
   const modalEditActual = document.getElementById("modalEditActual");
   const modalDeshabilitar = document.getElementById("modalDeshabilitar");
 
-  if (event.target == modalDeshabilitados) {
-    modalDeshabilitados.style.display = "none";
-  }
-  if (event.target == modalEditActual) {
-    modalEditActual.style.display = "none";
-  }
-  if (event.target == modalDeshabilitar) {
-    modalDeshabilitar.style.display = "none";
+  if (event.target == modalEditActual || event.target == modalDeshabilitar) {
+    event.target.style.display = "none";
   }
 };
 

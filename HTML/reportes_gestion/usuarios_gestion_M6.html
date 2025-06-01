@@ -71,8 +71,14 @@
             <option value="">Ordenar por Rol</option>
           </select>
           <input type="text" placeholder="Buscar por usuario" />
-          <button class="disabled-btn" onclick="abrirModalDeshabilitados()">
-            <i class="fas fa-ban"></i> Usuarios Deshabilitados
+          <button class="btn-action enabled-btn" onclick="fetchUsers()">
+            Usuarios Habilitados
+          </button>
+          <button
+            class="btn-action disabled-btn"
+            onclick="fetchDisabledUsers()"
+          >
+            Usuarios Deshabilitados
           </button>
         </div>
       </div>
