@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "A": 1,
                 "B": 2,
                 "C": 3,
-                "D": 4,
+                "D": 4, //nmo se sabe
                 "E": 5
             };
             return pabellonMap[document.getElementById("pabellon").value] || 0;
