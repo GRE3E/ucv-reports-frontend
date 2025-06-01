@@ -3,22 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ".productos-grid-container"
   );
 
-  // Datos de los productos dañados (ahora se obtendrán dinámicamente)
-  // const productos = [
-  //   {
-  //     imagen:
-  //       "https://preview.redd.it/broken-monitor-help-v0-b3gnoeqsnfbc1.jpeg?auto=webp&s=4f4b13ed4fcead6cde95cda24880ae20718352d5", // Imagen del monitor dañado
-  //     tipo: "Monitor Dañado",
-  //     cantidad: 1,
-  //   },
-  //   {
-  //     imagen:
-  //       "https://static5.depositphotos.com/1028742/405/i/450/depositphotos_4050880-stock-photo-old-broken-chair.jpg", // Imagen de la silla dañada
-  //     tipo: "Silla Dañada",
-  //     cantidad: 1,
-  //   },
-  // ];
-
   // Función para generar un código aleatorio para artículos dañados
   function generarCodigoDanadoAleatorio() {
     return "DAÑO-" + Math.random().toString(36).substr(2, 6).toUpperCase();
@@ -32,13 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // Función para obtener y mostrar los reportes aprobados
   async function obtenerYMostrarReportesAprobados() {
     try {
-      const response = await fetch('http://localhost:3000/reportes/aprobados'); // Asegúrate de que esta URL sea correcta para tu backend
+      const response = await fetch(
+        "https://ucv-reports-backend.onrender.com//reportes/aprobados"
+      ); // Asegúrate de que esta URL sea correcta para tu backend
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const reportesAprobados = await response.json();
 
-      productosGridContainer.innerHTML = ''; // Limpiar contenido existente
+      productosGridContainer.innerHTML = ""; // Limpiar contenido existente
 
       reportesAprobados.forEach((reporte, index) => {
         const productoCard = document.createElement("div");
@@ -62,10 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Re-adjuntar event listeners después de que los elementos se hayan creado
       adjuntarEventListenersInforme(reportesAprobados);
-
     } catch (error) {
       console.error("Error al obtener los reportes aprobados:", error);
-      productosGridContainer.innerHTML = '<p>No se pudieron cargar los reportes aprobados.</p>';
+      productosGridContainer.innerHTML =
+        "<p>No se pudieron cargar los reportes aprobados.</p>";
     }
   }
 
