@@ -33,12 +33,13 @@ async function cargarReportesPendientes() {
       console.log("Reporte acciones (antes del filtro):", r.acciones)
     );
 
-    reportesPendientes = reportes.filter((r) => {
-      if (!r.acciones) return false;
+    // reportesPendientes = reportes.filter((r) => {
+    //   if (!r.acciones) return false;
 
-      const acciones = r.acciones.toString().trim().toLowerCase();
-      return acciones.includes("pendiente");
-    });
+    //   const acciones = r.acciones.toString().trim().toLowerCase();
+    //   return acciones.includes("pendiente");
+    // });
+    reportesPendientes = reportes; // Eliminar filtro, usar todos los reportes
     console.log(
       `Reportes pendientes filtrados (después del filtro): ${reportesPendientes.length}`
     );
@@ -80,13 +81,14 @@ function renderReportesPendientes() {
       "Sin usuario";
     const lugar =
       reporte.lugarDelProblema ||
-      reporte.lugardelproblema ||
+      reporte.lugardelproblema || // Usar lugardelproblema del endpoint
       reporte.lugar_problema ||
       reporte.lugar ||
       "Sin lugar";
     const fecha =
       reporte.fecha || reporte.r_fecha || reporte.created_at || "Sin fecha";
     const idReporte = reporte.id_reporte || reporte.r_id_reporte || reporte.id;
+    const acciones = reporte.acciones || "Sin acciones"; // Usar acciones del endpoint
 
     tr.innerHTML = `
       <td>${usuario}</td>
