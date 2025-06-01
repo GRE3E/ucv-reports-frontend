@@ -235,13 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const apellido_materno = apellidosArray.slice(1).join(" ") || "";
 
       // Map role name back to id_cargo
-      const id_cargo_map = {
-        Alumno: 1,
-        Docente: 2,
-        PersonalUCV: 3,
-        Administrador: 4,
-      };
-      const id_cargo = id_cargo_map[roleUser];
+      const id_cargo = parseInt(roleUser);
 
       const updateData = {
         nombre: nombreUser,
