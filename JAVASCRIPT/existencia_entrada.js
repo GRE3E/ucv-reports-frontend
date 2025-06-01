@@ -115,9 +115,9 @@ document.addEventListener("DOMContentLoaded", () => {
           Codigo: parseInt(document.getElementById("codigoProducto").value),
           nombre: String(document.getElementById("nombreProducto").value),
           Precio: parseFloat(document.getElementById("precio").value),
-          idpabellon: parseInt(document.getElementById("idpabellon").value),
-          idpiso: parseInt(document.getElementById("idpiso").value),
-          idsalon: parseInt(document.getElementById("idsalon").value),
+          idpabellon: parseInt(document.getElementById("idpabellon") ? document.getElementById("idpabellon").value : '0'),
+          idpiso: parseInt(document.getElementById("idpiso") ? document.getElementById("idpiso").value : '0'),
+          idsalon: parseInt(document.getElementById("idsalon") ? document.getElementById("idsalon").value : '0'),
           imagen: "../../CSS/auth/images/placeholder.jpg",
           Estado: String("Pendiente"),
         };
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
           productoCard.innerHTML = `
                       <img src="${imageUrl}" alt="${newProduct.nombreProducto}">
                       <div class="producto-card-info">
-                          <h3>Tipo: ${newProduct.articulo}</h3>
+                          <h3>Tipo: ${newProduct.nombre}</h3>
                           <p>Cantidad: ${newProduct.cantidad}</p>
                       </div>
                       <button class="btn comprar">
