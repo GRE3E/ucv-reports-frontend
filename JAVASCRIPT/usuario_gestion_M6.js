@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Function to open edit modal and populate with user data
-  const openEditModal = (user) => {
+  const openEditModal = async (user) => {
     const modal = document.getElementById("modalEditActual");
     modal.style.display = "block";
 
@@ -105,15 +105,33 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById(
       "apellidosUser"
     ).value = `${user.apellido_paterno} ${user.apellido_materno}`;
-    // Set the correct role in the select dropdown
+
+    // Set the correct role in the select dropdown dynamically
     const roleSelect = document.getElementById("roleUser");
-    Array.from(roleSelect.options).forEach((option) => {
-      if (option.value === getRoleName(user.id_cargo)) {
-        option.selected = true;
-      } else {
-        option.selected = false;
+    roleSelect.innerHTML = ""; // Clear existing options
+
+    try {
+      const response = await fetch(
+        "https://ucv-reports-backend.onrender.com/cargos"
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    });
+      const roles = await response.json();
+
+      roles.forEach((role) => {
+        const option = document.createElement("option");
+        option.value = role.idcargo;
+        option.textContent = role.descripcion;
+        roleSelect.appendChild(option);
+      });
+
+      // Set the user's current role as selected
+      roleSelect.value = user.id_cargo;
+    } catch (error) {
+      console.error("Error fetching roles for edit modal:", error);
+    }
+
     document.getElementById("passwordUser").value = ""; // Password should not be pre-filled for security
 
     // Store user ID in a data attribute on the save button for later use
@@ -183,13 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const apellido_materno = apellidosArray.slice(1).join(" ") || "";
 
       // Map role name back to id_cargo
-      const id_cargo_map = {
-        Alumno: 1,
-        Docente: 2,
-        PersonalUCV: 3,
-        Administrador: 4,
-      };
-      const id_cargo = id_cargo_map[roleUser];
+      const id_cargo = parseInt(roleUser); // Parse to integer as roleUser will now be idcargo
 
       const updateData = {
         nombre: nombreUser,
