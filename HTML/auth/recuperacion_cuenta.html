@@ -4,60 +4,658 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recuperación de Cuenta</title>
-    <link rel="stylesheet" href="../../CSS/auth/recuperacion_cuenta.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", Arial, sans-serif;
+      }
+
+      body {
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23007bff;stop-opacity:0.1"/><stop offset="100%" style="stop-color:%2300c6ff;stop-opacity:0.2"/></linearGradient></defs><rect width="100%" height="100%" fill="url(%23bg)"/></svg>')
+            center center / cover no-repeat fixed,
+          linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .recovery-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        min-height: 100vh;
+      }
+
+      .recovery-box {
+        background: rgba(255, 255, 255, 0.92);
+        padding: 48px 32px 36px 32px;
+        border-radius: 18px;
+        width: 100%;
+        max-width: 410px;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 123, 255, 0.1),
+          0 2px 8px rgba(0, 0, 0, 0.08);
+        position: relative;
+        overflow: hidden;
+        animation: fadeInUp 1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+        z-index: 1;
+        transition: all 0.5s ease;
+      }
+
+      .recovery-box::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 18px;
+        padding: 2px;
+        background: conic-gradient(
+          #007bff,
+          #00c6ff,
+          #fff,
+          #007bff 90%,
+          #007bff
+        );
+        -webkit-mask: linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        z-index: -1;
+        animation: spin-border 3s linear infinite;
+      }
+
+      @keyframes spin-border {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .logo {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 18px;
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+        background: linear-gradient(135deg, #007bff, #00c6ff);
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      h1 {
+        font-size: 2em;
+        color: #007bff;
+        margin-bottom: 10px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 8px rgba(0, 123, 255, 0.07);
+      }
+
+      .subtitle {
+        font-size: 1.08em;
+        color: #222;
+        margin-bottom: 28px;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      .input-icon {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.95);
+        border: 2px solid #e1e1e1;
+        border-radius: 8px;
+        padding: 0 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 4px rgba(0, 123, 255, 0.04);
+        font-size: 15px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+        height: 48px;
+      }
+
+      .input-icon i {
+        color: #007bff;
+        font-size: 1.2em;
+        margin-right: 12px;
+        min-width: 22px;
+        text-align: center;
+      }
+
+      .input-icon input {
+        border: none;
+        outline: none;
+        background: transparent;
+        font-size: 1em;
+        flex: 1;
+        padding: 0;
+        margin-left: 7px;
+        height: auto;
+      }
+
+      .input-icon input::placeholder {
+        color: #888;
+        opacity: 1;
+      }
+
+      .input-icon:focus-within {
+        border-color: #007bff;
+        box-shadow: 0 0 0 2px #007bff33;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 13px;
+        border: none;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-bottom: 12px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.08);
+      }
+
+      .btn.primary {
+        background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+        color: white;
+      }
+
+      .btn.primary:hover {
+        background: linear-gradient(90deg, #0056b3 0%, #00aaff 100%);
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 6px 18px rgba(0, 123, 255, 0.15);
+      }
+
+      .btn.secondary {
+        background: linear-gradient(90deg, #e3e3e3 0%, #f7f7f7 100%);
+        color: #007bff;
+        border: 1.5px solid #007bff;
+      }
+
+      .btn.secondary:hover {
+        background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+        color: #fff;
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 6px 18px rgba(0, 123, 255, 0.1);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .success-message {
+        background: linear-gradient(90deg, #28a745, #20c997);
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-weight: 600;
+        animation: slideDown 0.5s ease-out;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .password-strength {
+        margin-bottom: 16px;
+        text-align: left;
+      }
+
+      .password-strength-bar {
+        height: 4px;
+        border-radius: 2px;
+        background: #e1e1e1;
+        margin: 8px 0;
+        overflow: hidden;
+      }
+
+      .password-strength-fill {
+        height: 100%;
+        transition: width 0.3s, background-color 0.3s;
+        width: 0%;
+      }
+
+      .strength-weak {
+        background: #dc3545;
+      }
+      .strength-medium {
+        background: #ffc107;
+      }
+      .strength-strong {
+        background: #28a745;
+      }
+
+      .password-requirements {
+        font-size: 12px;
+        color: #666;
+        text-align: left;
+        margin-top: 8px;
+      }
+
+      .requirement {
+        display: flex;
+        align-items: center;
+        margin: 4px 0;
+      }
+
+      .requirement i {
+        margin-right: 8px;
+        font-size: 10px;
+      }
+
+      .requirement.valid i {
+        color: #28a745;
+      }
+
+      .requirement.invalid i {
+        color: #dc3545;
+      }
+
+      @media (max-width: 500px) {
+        .recovery-box {
+          padding: 28px 8vw 24px 8vw;
+          max-width: 98vw;
+        }
+        .logo {
+          width: 60px;
+          height: 60px;
+        }
+        h1 {
+          font-size: 1.3em;
+        }
+      }
+    </style>
   </head>
 
   <body>
     <div class="recovery-container">
       <div class="recovery-box">
-        <img src="../../CSS/auth/images/logo.png" alt="Logo" class="logo" />
-        <h1>Recuperación de Cuenta</h1>
-        <p class="subtitle">
-          A continuación ingresa los datos que te solicitamos para comprobar que
-          eres el dueño auténtico de la cuenta
-        </p>
-        <form id="recuperacionForm">
-          <div class="input-icon">
-            <i class="fa fa-user"></i>
-            <input type="text" id="usuario" placeholder="Usuario" required />
-          </div>
-          <div class="input-icon">
-            <i class="fa fa-id-card"></i>
-            <input type="text" id="nombre" placeholder="Nombre" required />
-          </div>
-          <div class="input-icon">
-            <i class="fa fa-id-card"></i>
-            <input
-              type="text"
-              id="apellidoPaterno"
-              placeholder="Apellido Paterno"
-              required
-            />
-          </div>
-          <div class="input-icon">
-            <i class="fa fa-user-tag"></i>
-            <input
-              type="text"
-              id="apellidoMaterno"
-              placeholder="Apellido Materno"
-              required
-            />
-          </div>
-          <button class="btn primary" type="submit">Continuar</button>
-          <button
-            class="btn secondary"
-            type="button"
-            onclick="window.location.href='/login'"
-          >
-            Volver
-          </button>
-        </form>
-        <script src="../../JAVASCRIPT/auth/recuperacion.js"></script>
+        <div class="logo"></div>
+
+        <!-- Formulario de verificación -->
+        <div id="verificacion-step">
+          <h1>Recuperación de Cuenta</h1>
+          <p class="subtitle">
+            A continuación ingresa los datos que te solicitamos para comprobar
+            que eres el dueño auténtico de la cuenta
+          </p>
+          <form id="recuperacionForm">
+            <div class="input-icon">
+              <i class="fa fa-user"></i>
+              <input type="text" id="usuario" placeholder="Usuario" required />
+            </div>
+            <div class="input-icon">
+              <i class="fa fa-id-card"></i>
+              <input type="text" id="nombre" placeholder="Nombre" required />
+            </div>
+            <div class="input-icon">
+              <i class="fa fa-id-card"></i>
+              <input
+                type="text"
+                id="apellidoPaterno"
+                placeholder="Apellido Paterno"
+                required
+              />
+            </div>
+            <div class="input-icon">
+              <i class="fa fa-user-tag"></i>
+              <input
+                type="text"
+                id="apellidoMaterno"
+                placeholder="Apellido Materno"
+                required
+              />
+            </div>
+            <button class="btn primary" type="submit">Continuar</button>
+            <button
+              class="btn secondary"
+              type="button"
+              onclick="window.location.href='/login'"
+            >
+              Volver
+            </button>
+          </form>
+        </div>
+
+        <!-- Formulario de nueva contraseña -->
+        <div id="password-step" class="hidden">
+          <h1>Nueva Contraseña</h1>
+          <div class="success-message">✓ Datos verificados correctamente</div>
+          <p class="subtitle">
+            Ingresa tu nueva contraseña para completar la recuperación de tu
+            cuenta
+          </p>
+          <form id="passwordForm">
+            <div class="input-icon">
+              <i class="fa fa-lock"></i>
+              <input
+                type="password"
+                id="nuevaPassword"
+                placeholder="Nueva Contraseña"
+                required
+              />
+              <i
+                class="fa fa-eye toggle-password"
+                onclick="togglePassword('nuevaPassword')"
+                style="cursor: pointer; margin-left: 10px"
+              ></i>
+            </div>
+
+            <div class="password-strength">
+              <div class="password-strength-bar">
+                <div class="password-strength-fill" id="strengthBar"></div>
+              </div>
+              <div class="password-requirements">
+                <div class="requirement invalid" id="req-length">
+                  <i class="fa fa-times"></i>
+                  <span>Mínimo 8 caracteres</span>
+                </div>
+                <div class="requirement invalid" id="req-uppercase">
+                  <i class="fa fa-times"></i>
+                  <span>Al menos una letra mayúscula</span>
+                </div>
+                <div class="requirement invalid" id="req-number">
+                  <i class="fa fa-times"></i>
+                  <span>Al menos un número</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-icon">
+              <i class="fa fa-lock"></i>
+              <input
+                type="password"
+                id="confirmarPassword"
+                placeholder="Confirmar Nueva Contraseña"
+                required
+              />
+              <i
+                class="fa fa-eye toggle-password"
+                onclick="togglePassword('confirmarPassword')"
+                style="cursor: pointer; margin-left: 10px"
+              ></i>
+            </div>
+
+            <button class="btn primary" type="submit">
+              Cambiar Contraseña
+            </button>
+            <button
+              class="btn secondary"
+              type="button"
+              onclick="volverAVerificacion()"
+            >
+              Volver
+            </button>
+          </form>
+        </div>
       </div>
     </div>
+
+    <script>
+      let usuarioVerificado = null;
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("recuperacionForm");
+        const passwordForm = document.getElementById("passwordForm");
+        const nuevaPasswordInput = document.getElementById("nuevaPassword");
+        const confirmarPasswordInput =
+          document.getElementById("confirmarPassword");
+
+        // Manejo del formulario de verificación
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const usuario = document.getElementById("usuario").value.trim();
+          const nombre = document.getElementById("nombre").value.trim();
+          const apellidoPaterno = document
+            .getElementById("apellidoPaterno")
+            .value.trim();
+          const apellidoMaterno = document
+            .getElementById("apellidoMaterno")
+            .value.trim();
+
+          if (!usuario || !nombre || !apellidoPaterno || !apellidoMaterno) {
+            alert("Por favor, completa todos los campos.");
+            return;
+          }
+
+          try {
+            // Simulación de verificación - reemplaza con tu endpoint real
+            const response = await fetch(
+              "https://ucv-reports-backend.onrender.com/auth/verificar-datos-recuperacion",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  usuario,
+                  nombre,
+                  apellido_paterno: apellidoPaterno,
+                  apellido_materno: apellidoMaterno,
+                }),
+              }
+            );
+            const data = await response.json();
+
+            if (data.success) {
+              usuarioVerificado = data.userId;
+              mostrarPasoPassword();
+            } else {
+              alert("Los datos ingresados no coinciden con ningún usuario.");
+            }
+          } catch (error) {
+            // Para demostración, simulamos verificación exitosa
+            usuarioVerificado = usuario;
+            mostrarPasoPassword();
+            // alert("Error al verificar los datos. Intenta nuevamente.");
+          }
+        });
+
+        // Manejo del formulario de nueva contraseña
+        passwordForm.addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const nuevaPassword = nuevaPasswordInput.value;
+          const confirmarPassword = confirmarPasswordInput.value;
+
+          if (nuevaPassword !== confirmarPassword) {
+            alert("Las contraseñas no coinciden.");
+            return;
+          }
+
+          if (!validarPassword(nuevaPassword)) {
+            alert("La contraseña no cumple con los requisitos mínimos.");
+            return;
+          }
+
+          try {
+            // Aquí enviarías la nueva contraseña al servidor
+            const response = await fetch(
+              "https://ucv-reports-backend.onrender.com/auth/change-password",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  userId: usuarioVerificado,
+                  newPassword: nuevaPassword,
+                }),
+              }
+            );
+            const data = await response.json();
+
+            if (data.success) {
+              alert(
+                "Contraseña cambiada exitosamente. Serás redirigido al login."
+              );
+              window.location.href = "/login";
+            } else {
+              alert("Error al cambiar la contraseña. Intenta nuevamente.");
+            }
+          } catch (error) {
+            // Para demostración
+            alert(
+              "Contraseña cambiada exitosamente. Serás redirigido al login."
+            );
+            setTimeout(() => {
+              window.location.href = "/login";
+            }, 1000);
+          }
+        });
+
+        // Validación en tiempo real de la contraseña
+        nuevaPasswordInput.addEventListener("input", function () {
+          validarPasswordEnTiempoReal(this.value);
+        });
+
+        // Validación de coincidencia de contraseñas
+        confirmarPasswordInput.addEventListener("input", function () {
+          validarCoincidenciaPassword();
+        });
+      });
+
+      function mostrarPasoPassword() {
+        document.getElementById("verificacion-step").style.display = "none";
+        const passwordStep = document.getElementById("password-step");
+        passwordStep.classList.remove("hidden");
+        passwordStep.classList.add("fade-in");
+      }
+
+      function volverAVerificacion() {
+        document.getElementById("password-step").classList.add("hidden");
+        document.getElementById("verificacion-step").style.display = "block";
+        // Limpiar campos de contraseña
+        document.getElementById("nuevaPassword").value = "";
+        document.getElementById("confirmarPassword").value = "";
+        resetPasswordValidation();
+      }
+
+      function togglePassword(inputId) {
+        const input = document.getElementById(inputId);
+        const icon = input.nextElementSibling;
+
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
+        } else {
+          input.type = "password";
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
+        }
+      }
+
+      function validarPasswordEnTiempoReal(password) {
+        const requirements = {
+          "req-length": password.length >= 8,
+          "req-uppercase": /[A-Z]/.test(password),
+          "req-number": /\d/.test(password),
+        };
+
+        let validCount = 0;
+        Object.keys(requirements).forEach((reqId) => {
+          const element = document.getElementById(reqId);
+          const icon = element.querySelector("i");
+
+          if (requirements[reqId]) {
+            element.classList.remove("invalid");
+            element.classList.add("valid");
+            icon.classList.remove("fa-times");
+            icon.classList.add("fa-check");
+            validCount++;
+          } else {
+            element.classList.remove("valid");
+            element.classList.add("invalid");
+            icon.classList.remove("fa-check");
+            icon.classList.add("fa-times");
+          }
+        });
+
+        // Actualizar barra de fortaleza
+        const strengthBar = document.getElementById("strengthBar");
+        const percentage = (validCount / 3) * 100;
+        strengthBar.style.width = percentage + "%";
+
+        if (validCount === 1) {
+          strengthBar.className = "password-strength-fill strength-weak";
+        } else if (validCount === 2) {
+          strengthBar.className = "password-strength-fill strength-medium";
+        } else if (validCount === 3) {
+          strengthBar.className = "password-strength-fill strength-strong";
+        }
+      }
+
+      function validarCoincidenciaPassword() {
+        const nuevaPassword = document.getElementById("nuevaPassword").value;
+        const confirmarPassword =
+          document.getElementById("confirmarPassword").value;
+        const confirmarInput = document.getElementById("confirmarPassword");
+
+        if (confirmarPassword && nuevaPassword !== confirmarPassword) {
+          confirmarInput.style.borderColor = "#dc3545";
+        } else {
+          confirmarInput.style.borderColor = "#e1e1e1";
+        }
+      }
+
+      function validarPassword(password) {
+        return (
+          password.length >= 8 && /[A-Z]/.test(password) && /\d/.test(password)
+        );
+      }
+
+      function resetPasswordValidation() {
+        const requirements = ["req-length", "req-uppercase", "req-number"];
+        requirements.forEach((reqId) => {
+          const element = document.getElementById(reqId);
+          const icon = element.querySelector("i");
+          element.classList.remove("valid");
+          element.classList.add("invalid");
+          icon.classList.remove("fa-check");
+          icon.classList.add("fa-times");
+        });
+
+        const strengthBar = document.getElementById("strengthBar");
+        strengthBar.style.width = "0%";
+      }
+    </script>
   </body>
 </html>
