@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const roleFilterSelect = document.getElementById("roleFilter");
       roles.forEach((role) => {
         const option = document.createElement("option");
-        option.value = role.ID_cargo;
+        option.value = role.idcargo;
         option.textContent = role.descripcion;
         roleFilterSelect.appendChild(option);
       });
