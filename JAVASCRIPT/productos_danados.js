@@ -55,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Función para adjuntar event listeners a los botones de informe
   function adjuntarEventListenersInforme(reportes) {
     const botonesInforme = document.querySelectorAll(
       ".producto-card .btn.informe"
