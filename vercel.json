@@ -23,10 +23,6 @@
     },
     {
       "src": "/reporte_enviar",
-      "dest": "/HTML/reporte_enviar/registrar_reporte.html"
-    },
-    {
-      "src": "/reporte_enviar/reporte_enviar",
       "dest": "/HTML/reporte_enviar/reporte_enviar.html"
     },
     {
