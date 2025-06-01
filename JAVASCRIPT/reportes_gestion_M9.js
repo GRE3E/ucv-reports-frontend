@@ -194,10 +194,11 @@ async function aprobarReporte(id) {
   try {
     console.log(`Aprobando reporte ID: ${id}`);
     const response = await fetch(
-      `https://ucv-reports-backend.onrender.com/reportes/${id}/aprobar`,
+      `https://ucv-reports-backend.onrender.com/historial-reportes/${id}/estado`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ estado: "Aprobado" }),
       }
     );
 
@@ -257,11 +258,11 @@ async function aceptarDesaprobacion() {
   try {
     console.log(`Desaprobando reporte ID: ${idDesaprobar}`);
     const response = await fetch(
-      `https://ucv-reports-backend.onrender.com/reportes/${idDesaprobar}/desaprobar`,
+      `https://ucv-reports-backend.onrender.com/historial-reportes/${idDesaprobar}/estado`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ motivo: motivo }),
+        body: JSON.stringify({ estado: "Desaprobado", motivo: motivo }),
       }
     );
 
