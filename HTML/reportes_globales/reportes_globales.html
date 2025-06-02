@@ -20,43 +20,47 @@
           <div class="logo">
             <i class="fas fa-shield-alt"></i>
           </div>
-          <span class="logo-text">Sistema<br>Reportes</span>
+          <span class="logo-text">Sistema<br />Reportes</span>
         </div>
         <nav class="nav-menu">
-          <a href="../reporte_enviar/reporte_enviar.html" class="nav-item">
+          <a href="/reporte_enviar" class="nav-item">
             <i class="fas fa-paper-plane"></i>
             <span>Enviar Reporte</span>
           </a>
-          <a href="reportes_globales.html" class="nav-item active">
+          <a href="/reportes_globales" class="nav-item active">
             <i class="fas fa-list-alt"></i>
             <span>Artículos Reportados</span>
           </a>
-          <a href="../auth/login.html" class="nav-item">
+          <a href="/" class="nav-item">
             <i class="fas fa-sign-out-alt"></i>
             <span>Salir</span>
           </a>
         </nav>
       </aside>
-      <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+      <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="toggleSidebar()"
+      ></div>
 
       <div class="main-content" id="mainContent">
-    <header class="header">
-  <div class="header-title">
-    <i class="fas fa-chart-line"></i>
-    <span>Reportes Globales</span>
-  </div>
-  <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()">
-    <i class="fas fa-bars"></i>
-  </button>
-</header>
-
+        <header class="header">
+          <div class="header-title">
+            <i class="fas fa-chart-line"></i>
+            <span>Reportes Globales</span>
+          </div>
+          <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+          </button>
+        </header>
 
         <div class="subtitle">
           <i class="fas fa-info-circle fa-icon"></i>
           <div>
             <strong>Sistema de Gestión de Reportes</strong><br />
-            Puedes observar los reportes enviados de hoy. Haz clic en "Visualizar"
-            para ver la información detallada del problema reportado.
+            Puedes observar los reportes enviados de hoy. Haz clic en
+            "Visualizar" para ver la información detallada del problema
+            reportado.
           </div>
         </div>
 
