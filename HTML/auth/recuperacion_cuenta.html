@@ -536,7 +536,7 @@
               );
               window.location.href = "/login";
             } else {
-              alert("Error al cambiar la contraseña. Intenta nuevamente.");
+              console.error("Error al cambiar la contraseña:", error);
             }
           } catch (error) {
             console.error("Error al cambiar la contraseña:", error);
