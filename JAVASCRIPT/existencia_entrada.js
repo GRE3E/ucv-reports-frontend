@@ -51,10 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="producto-card-info">
                 <h3>Tipo: ${producto.nombre}</h3>
             </div>
-            <button class="btn comprar">
-                <img src="../../CSS/auth/images/cartIcon.png" alt="Carrito" class="icono-btn">
-                Comprar
-            </button>
         `;
 
         productosGridContainer.appendChild(productoCard);
@@ -79,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btnAgregarProducto) {
     btnAgregarProducto.onclick = function () {
       modalAgregarProducto.style.display = "block";
+      loadPabellonesEntrada(); // Cargar pabellones al abrir el modal
     };
   }
 
@@ -105,6 +102,119 @@ document.addEventListener("DOMContentLoaded", () => {
         otroArticuloGroup.style.display = "none";
       }
     });
+  }
+
+  // Event listeners para los selects de ubicación dentro del modal
+  const selectPabellonEntrada = document.getElementById("pabellon");
+  const selectPisoEntrada = document.getElementById("piso");
+  const selectSalonEntrada = document.getElementById("salon");
+
+  if (selectPabellonEntrada) {
+    selectPabellonEntrada.addEventListener("change", loadPisosEntrada);
+  }
+  if (selectPisoEntrada) {
+    selectPisoEntrada.addEventListener("change", loadAulasEntrada);
+  }
+
+  // Funciones para cargar dinámicamente Pabellón, Piso y Salón
+  async function loadPabellonesEntrada() {
+    try {
+      const response = await fetchWithAuth(
+        "https://ucv-reports-backend.onrender.com/pabellon"
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const pabellones = await response.json();
+      selectPabellonEntrada.innerHTML =
+        '<option value="">Seleccione un pabellón</option>';
+      pabellones.forEach((pabellon) => {
+        const option = document.createElement("option");
+        option.value = pabellon.id;
+        option.textContent = pabellon.Pabellon;
+        selectPabellonEntrada.appendChild(option);
+      });
+    } catch (error) {
+      console.error("Error al cargar los pabellones:", error);
+      alert(
+        "Error al cargar los pabellones. Revisa la consola para más detalles."
+      );
+    }
+  }
+
+  async function loadPisosEntrada() {
+    const selectedPabellonId = selectPabellonEntrada.value;
+    selectPisoEntrada.innerHTML =
+      '<option value="">Seleccione un piso</option>';
+    selectPisoEntrada.disabled = true;
+
+    if (!selectedPabellonId) {
+      return;
+    }
+
+    try {
+      const response = await fetchWithAuth(
+        "https://ucv-reports-backend.onrender.com/piso"
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const pisos = await response.json();
+      const filteredPisos = pisos.filter(
+        (piso) => piso.idpabellon == selectedPabellonId
+      );
+
+      selectPisoEntrada.disabled = false;
+      filteredPisos.forEach((piso) => {
+        const option = document.createElement("option");
+        option.value = piso.numero_piso;
+        option.textContent = piso.numero_piso;
+        selectPisoEntrada.appendChild(option);
+      });
+    } catch (error) {
+      console.error("Error al cargar los pisos:", error);
+      alert("Error al cargar los pisos. Revisa la consola para más detalles.");
+    }
+  }
+
+  async function loadAulasEntrada() {
+    const selectedPabellonId = selectPabellonEntrada.value;
+    const selectedPisoNumber = selectPisoEntrada.value;
+    selectSalonEntrada.innerHTML =
+      '<option value="">Seleccione un salón</option>';
+    selectSalonEntrada.disabled = true;
+
+    if (!selectedPabellonId || !selectedPisoNumber) {
+      return;
+    }
+
+    try {
+      const response = await fetchWithAuth(
+        "https://ucv-reports-backend.onrender.com/salon"
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const aulas = await response.json();
+      const filteredAulas = aulas.filter(
+        (aula) =>
+          aula.idpabellon == selectedPabellonId &&
+          aula.idpiso == selectedPisoNumber
+      );
+
+      selectSalonEntrada.disabled = false;
+      filteredAulas.forEach((aula) => {
+        const option = document.createElement("option");
+        option.value = aula.nombre;
+        option.textContent = aula.nombre;
+        selectSalonEntrada.appendChild(option);
+      });
+    } catch (error) {
+      console.error("Error al cargar los salones:", error);
+      alert(
+        "Error al cargar los salones. Revisa la consola para más detalles."
+      );
+    }
   }
   // Aquí puedes añadir la lógica para manejar el envío del formulario (botón Guardar)
   const formAgregarProducto = document.getElementById("formAgregarProducto");
@@ -176,18 +286,9 @@ document.addEventListener("DOMContentLoaded", () => {
           nombre: String(document.getElementById("nombreProducto").value),
           Precio: parseFloat(document.getElementById("precio").value || "0"),
 
-          idpabellon: (() => {
-            const pabellonMap = {
-              A: 1,
-              B: 2,
-              C: 3,
-              D: 4, //nmo se sabe
-              E: 5,
-            };
-            return pabellonMap[document.getElementById("pabellon").value] || 1;
-          })(),
+          idpabellon: parseInt(document.getElementById("pabellon").value) || 0,
           idpiso: parseInt(document.getElementById("piso").value) || 0,
-          idsalon: parseInt(document.getElementById("salon").value) || 0,
+          idsalon: document.getElementById("salon").value,
           imagen: "../../CSS/auth/images/placeholder.jpg",
           Estado: String("Pendiente"),
         };
