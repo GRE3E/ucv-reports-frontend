@@ -356,6 +356,14 @@ async function abrirModalDetalleDesdeReportes(id_reporte) {
       return;
     }
 
+    console.log("Google Drive File ID:", detalleReporte.googleDriveFileId);
+    const imageUrl =
+      detalleReporte.googleDriveFileId &&
+      detalleReporte.googleDriveFileId.length > 0
+        ? `https://lh3.googleusercontent.com/d/${detalleReporte.googleDriveFileId}`
+        : "";
+    console.log("Constructed Image URL:", imageUrl);
+
     detalle.innerHTML = `
       <div><b>Facultad:</b> ${
         detalleReporte.facultad || "No especificada"
@@ -382,12 +390,7 @@ async function abrirModalDetalleDesdeReportes(id_reporte) {
       }</div>
       <hr>
       <div><b>Evidencia:</b></div>
-      <img id="imgEvidencia" src="${
-        detalleReporte.googleDriveFileId &&
-        detalleReporte.googleDriveFileId.length > 0
-          ? `https://lh3.googleusercontent.com/d/${detalleReporte.googleDriveFileId}`
-          : ""
-      }" alt="Evidencia" style="max-width:100%;margin-top:10px;border-radius:8px;${
+      <img id="imgEvidencia" src="${imageUrl}" alt="Evidencia" style="max-width:100%;margin-top:10px;border-radius:8px;${
       !(
         detalleReporte.googleDriveFileId &&
         detalleReporte.googleDriveFileId.length > 0
