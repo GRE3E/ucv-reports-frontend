@@ -67,10 +67,10 @@ document.addEventListener("DOMContentLoaded", function () {
             data.role === "Profesor" ||
             data.role === "PersonalUCV"
           ) {
-            window.location.href = "/reporte_enviar.html";
+            window.location.href = "/reporte_enviar";
           } else if (data.role === "Administrador") {
             console.log("Redirecting to /usuarios_gestion");
-            window.location.href = "/reportes_gestion/usuarios_gestion_M6.html";
+            window.location.href = "/reportes_gestion";
           } else {
             console.log("Redirecting to /");
             window.location.href = "/";
