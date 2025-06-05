@@ -2,7 +2,10 @@ import { validateTokenAndRedirect, fetchWithAuth } from "./auth/auth_utils.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   // Validate token on page load
-  validateTokenAndRedirect();
+  const token = validateTokenAndRedirect();
+  if (token) {
+    console.log("Token JWT disponible en reporte_enviar.js:", token);
+  }
   function toggleSidebar() {
     const sidebar = document.getElementById("sidebar");
     const overlay = document.getElementById("sidebarOverlay");
