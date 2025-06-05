@@ -2,7 +2,7 @@ const API_URL = "https://ucv-reports-backend.onrender.com/reportes";
 
 async function fetchReports() {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetchWithAuth(API_URL);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -18,9 +18,7 @@ async function fetchReports() {
 
 function renderReports(reports) {
   const tableBody = document.getElementById("reportes-table-body");
-  const mobileCardsContainer = document.getElementById(
-    "reportes-mobile-cards"
-  );
+  const mobileCardsContainer = document.getElementById("reportes-mobile-cards");
 
   tableBody.innerHTML = ""; // Clear existing static content
   mobileCardsContainer.innerHTML = ""; // Clear existing static content
@@ -38,9 +36,7 @@ function renderReports(reports) {
                 .join(", ")}</td>
               <td>${report.descripcion}</td>
               <td>
-                  <span class="status ${statusClass}">${
-      report.estado
-    }</span>
+                  <span class="status ${statusClass}">${report.estado}</span>
               </td>
               <td>
                   <button class="action-btn btn-visualizar" onclick="visualizarReporte('${
@@ -65,9 +61,7 @@ function renderReports(reports) {
     card.innerHTML = `
               <div class="card-header">
                   <div class="card-date">${report.fecha}</div>
-                  <div class="card-status ${statusClass}">${
-      report.estado
-    }</div>
+                  <div class="card-status ${statusClass}">${report.estado}</div>
               </div>
               <div class="card-info">
                   <div class="info-row">
@@ -210,4 +204,9 @@ window.addEventListener("resize", function () {
 window.dispatchEvent(new Event("resize"));
 
 // Fetch reports when the page loads
-document.addEventListener("DOMContentLoaded", fetchReports);
+import { validateTokenAndRedirect, fetchWithAuth } from "./auth/auth_utils.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+  validateTokenAndRedirect();
+  fetchReports();
+});

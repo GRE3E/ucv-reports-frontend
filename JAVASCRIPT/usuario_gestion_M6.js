@@ -1,4 +1,7 @@
+import { validateTokenAndRedirect, fetchWithAuth } from "./auth/auth_utils.js";
+
 document.addEventListener("DOMContentLoaded", () => {
+  validateTokenAndRedirect();
   const usersTableBody = document.querySelector(".usuarios-table tbody");
 
   const fetchUsers = async (status = "habilitados", roleId = null) => {
@@ -7,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (roleId) {
         url = `https://ucv-reports-backend.onrender.com/usuarios/role/${roleId}`;
       }
-      const response = await fetch(url);
+      const response = await fetchWithAuth(url);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -20,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const fetchRoles = async () => {
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         "https://ucv-reports-backend.onrender.com/cargos"
       );
       if (!response.ok) {
@@ -151,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to open disable modal and handle disable action
   const enableUser = async (userId) => {
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `https://ucv-reports-backend.onrender.com/usuarios/${userId}/enable`,
         {
           method: "PUT",
@@ -187,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
       async () => {
         const userId = user.IDUsuario;
         try {
-          const response = await fetch(
+          const response = await fetchWithAuth(
             `https://ucv-reports-backend.onrender.com/usuarios/${userId}/disable`,
             {
               method: "PUT",
@@ -248,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       try {
-        const response = await fetch(
+        const response = await fetchWithAuth(
           `https://ucv-reports-backend.onrender.com/usuarios/${userId}`,
           {
             method: "PUT",

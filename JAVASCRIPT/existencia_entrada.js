@@ -1,4 +1,7 @@
+import { validateTokenAndRedirect, fetchWithAuth } from "./auth/auth_utils.js";
+
 document.addEventListener("DOMContentLoaded", () => {
+  validateTokenAndRedirect();
   const productosGridContainer = document.querySelector(
     ".productos-grid-container"
   );
@@ -6,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Función para cargar y mostrar productos
   async function cargarProductos() {
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         "https://ucv-reports-backend.onrender.com/hardware"
       ); // Ajusta esta URL a tu endpoint
       if (!response.ok) {
@@ -172,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Datos enviados al backend:", hardwareData);
 
         // Asumiendo que el backend tiene un endpoint para guardar productos
-        const response = await fetch(
+        const response = await fetchWithAuth(
           "https://ucv-reports-backend.onrender.com/hardware",
           {
             method: "POST",

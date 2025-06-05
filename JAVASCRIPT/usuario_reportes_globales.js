@@ -53,7 +53,7 @@ function renderReportes(reportes) {
 
 async function cargarReportes() {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetchWithAuth(API_URL);
     const reportes = await response.json();
     renderReportes(reportes);
   } catch (error) {
@@ -66,10 +66,8 @@ function openModal(reporteId) {
   if (reporte) {
     document.getElementById("modalFacultad").textContent =
       reporte.facultad || "";
-    document.getElementById("modalTurno").textContent =
-      reporte.turno || "";
-    document.getElementById("modalFecha").textContent =
-      reporte.fecha || "";
+    document.getElementById("modalTurno").textContent = reporte.turno || "";
+    document.getElementById("modalFecha").textContent = reporte.fecha || "";
     const estadoElement = document.getElementById("modalEstado");
     estadoElement.textContent = reporte.estado || "";
     estadoElement.className = "info-value";
@@ -80,10 +78,8 @@ function openModal(reporteId) {
     } else if (reporte.estado === "En Proceso") {
       estadoElement.classList.add("status-process");
     }
-    document.getElementById("modalLugar").textContent =
-      reporte.lugar || "";
-    document.getElementById("modalEvidencia").src =
-      reporte.evidencia || "";
+    document.getElementById("modalLugar").textContent = reporte.lugar || "";
+    document.getElementById("modalEvidencia").src = reporte.evidencia || "";
     document.getElementById("modalOverlay").classList.add("active");
     document.body.style.overflow = "hidden";
   }
@@ -94,7 +90,12 @@ function closeModal() {
   document.body.style.overflow = "auto";
 }
 
-document.addEventListener("DOMContentLoaded", cargarReportes);
+import { validateTokenAndRedirect, fetchWithAuth } from "./auth/auth_utils.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+  validateTokenAndRedirect();
+  cargarReportes();
+});
 
 document.addEventListener("keydown", function (event) {
   if (event.key === "Escape") {
@@ -115,7 +116,7 @@ function toggleSidebar() {
     document.body.style.overflow = "auto";
   }
 }
-window.addEventListener('resize', function() {
+window.addEventListener("resize", function () {
   const sidebar = document.getElementById("sidebar");
   const overlay = document.getElementById("sidebarOverlay");
   const main = document.getElementById("mainContent");

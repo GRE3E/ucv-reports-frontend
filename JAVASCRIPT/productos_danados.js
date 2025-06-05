@@ -1,4 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
+import { validateTokenAndRedirect, fetchWithAuth } from "./auth/auth_utils.js";
+
+document.addEventListener("DOMContentLoaded", function () {
+  validateTokenAndRedirect();
   const productosGridContainer = document.querySelector(
     ".productos-grid-container"
   );
@@ -16,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Función para obtener y mostrar los reportes aprobados
   async function obtenerYMostrarReportesAprobados() {
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         "https://ucv-reports-backend.onrender.com/reportes/aprobados"
       ); // Asegúrate de que esta URL sea correcta para tu backend
       if (!response.ok) {

@@ -1,67 +1,89 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const productosGridContainer = document.querySelector('.productos-grid-container');
+import { validateTokenAndRedirect, fetchWithAuth } from "./auth/auth_utils.js";
 
-    // Función para generar un código aleatorio (ejemplo simple)
-    function generarCodigoAleatorio() {
-        return 'COD-' + Math.random().toString(36).substr(2, 6).toUpperCase();
-    }
+document.addEventListener("DOMContentLoaded", () => {
+  validateTokenAndRedirect();
+  const productosGridContainer = document.querySelector(
+    ".productos-grid-container"
+  );
 
-    // Función para generar un precio aleatorio (entre 10 y 500, por ejemplo)
-    function generarPrecioAleatorio() {
-        return (Math.random() * (500 - 10) + 10).toFixed(2);
-    }
+  // Función para generar un código aleatorio (ejemplo simple)
+  function generarCodigoAleatorio() {
+    return "COD-" + Math.random().toString(36).substr(2, 6).toUpperCase();
+  }
 
-    // Función para cargar productos desde la API
-    async function cargarProductos() {
-        try {
-            const response = await fetch("https://ucv-reports-backend.onrender.com/hardware"); // Ajusta esta URL a tu endpoint
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const productos = await response.json();
+  // Función para generar un precio aleatorio (entre 10 y 500, por ejemplo)
+  function generarPrecioAleatorio() {
+    return (Math.random() * (500 - 10) + 10).toFixed(2);
+  }
 
-            productos.forEach((producto, index) => {
-                const productoCard = document.createElement('div');
-                productoCard.classList.add('producto-card');
+  // Función para cargar productos desde la API
+  async function cargarProductos() {
+    try {
+      const response = await fetchWithAuth(
+        "https://ucv-reports-backend.onrender.com/hardware"
+      ); // Ajusta esta URL a tu endpoint
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const productos = await response.json();
 
-                // Ajusta las propiedades según la estructura de tu tabla 'hardware'
-                // Asumiendo que 'hardware' tiene campos como 'nombre', 'cantidad', 'imagen_url'
-                productoCard.innerHTML = `
-                    <img src="${producto.imagen_url || 'https://cairosales.com/37240-thickbox_default/lenovo-all-in-one-pc-215-inch-fhd-intel-core-i5-8400-4gb-520-22icb.jpg'}" alt="${producto.nombre}">
+      productos.forEach((producto, index) => {
+        const productoCard = document.createElement("div");
+        productoCard.classList.add("producto-card");
+
+        // Ajusta las propiedades según la estructura de tu tabla 'hardware'
+        // Asumiendo que 'hardware' tiene campos como 'nombre', 'cantidad', 'imagen_url'
+        productoCard.innerHTML = `
+                    <img src="${
+                      producto.imagen_url ||
+                      "https://cairosales.com/37240-thickbox_default/lenovo-all-in-one-pc-215-inch-fhd-intel-core-i5-8400-4gb-520-22icb.jpg"
+                    }" alt="${producto.nombre}">
                     <div class="producto-card-info">
                 <h3>Tipo: ${producto.nombre}</h3>
             </div>
-                    <button class="btn informe" data-producto-id="${producto.id}" data-producto-nombre="${producto.nombre}">
+                    <button class="btn informe" data-producto-id="${
+                      producto.id
+                    }" data-producto-nombre="${producto.nombre}">
                         <i class="fas fa-file-alt fa-sm"></i>
                         Informe
                     </button>
                 `;
 
-                productosGridContainer.appendChild(productoCard);
-            });
+        productosGridContainer.appendChild(productoCard);
+      });
 
-            // Adjuntar event listeners a los botones "Informe" después de que los productos se hayan cargado
-            const botonesInforme = document.querySelectorAll('.producto-card .btn.informe');
-            botonesInforme.forEach(boton => {
-                boton.addEventListener('click', async function() {
-                    modalStockActual.style.display = 'block';
+      // Adjuntar event listeners a los botones "Informe" después de que los productos se hayan cargado
+      const botonesInforme = document.querySelectorAll(
+        ".producto-card .btn.informe"
+      );
+      botonesInforme.forEach((boton) => {
+        boton.addEventListener("click", async function () {
+          modalStockActual.style.display = "block";
 
-                    const productoId = this.dataset.productoId;
-                    const productoNombre = this.dataset.productoNombre;
+          const productoId = this.dataset.productoId;
+          const productoNombre = this.dataset.productoNombre;
 
-                    const stockTableBody = modalStockActual.querySelector('.stock-table tbody');
-                    stockTableBody.innerHTML = ''; // Limpiar contenido previo
+          const stockTableBody =
+            modalStockActual.querySelector(".stock-table tbody");
+          stockTableBody.innerHTML = ""; // Limpiar contenido previo
 
-                    // Aquí puedes hacer otra llamada a la API si necesitas detalles específicos del stock
-                    // para un producto en particular, o usar los datos ya cargados si son suficientes.
-                    // Por ahora, usaremos datos de ejemplo con el nombre del producto.
-                    const stockData = [
-                        { codigo: generarCodigoAleatorio(), nombre: productoNombre, estado: 'Bueno', precio: generarPrecioAleatorio(), tipoArticulo: productoNombre, accion: 'Usar' }
-                    ];
+          // Aquí puedes hacer otra llamada a la API si necesitas detalles específicos del stock
+          // para un producto en particular, o usar los datos ya cargados si son suficientes.
+          // Por ahora, usaremos datos de ejemplo con el nombre del producto.
+          const stockData = [
+            {
+              codigo: generarCodigoAleatorio(),
+              nombre: productoNombre,
+              estado: "Bueno",
+              precio: generarPrecioAleatorio(),
+              tipoArticulo: productoNombre,
+              accion: "Usar",
+            },
+          ];
 
-                    stockData.forEach(item => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
+          stockData.forEach((item) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
                             <td>${item.codigo}</td>
                             <td>${item.nombre}</td>
                             <td>${item.estado}</td>
@@ -72,98 +94,104 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <i class="fas fa-vote-yea"></i>
                                 </button></td>
                         `;
-                        stockTableBody.appendChild(row);
-                    });
+            stockTableBody.appendChild(row);
+          });
 
-                    // Adjuntar event listeners a los botones "Usar" en la tabla de Stock Actual
-                    modalStockActual.querySelectorAll('.btn.usar-articulo').forEach(botonUsar => {
-                        botonUsar.addEventListener('click', function() {
-                            botonUsarActivo = this;
-                            modalStockActual.style.display = 'none';
-                            modalSeleccionarUbicacion.style.display = 'block';
-                            limpiarFormularioUbicacion();
-                        });
-                    });
-                });
+          // Adjuntar event listeners a los botones "Usar" en la tabla de Stock Actual
+          modalStockActual
+            .querySelectorAll(".btn.usar-articulo")
+            .forEach((botonUsar) => {
+              botonUsar.addEventListener("click", function () {
+                botonUsarActivo = this;
+                modalStockActual.style.display = "none";
+                modalSeleccionarUbicacion.style.display = "block";
+                limpiarFormularioUbicacion();
+              });
             });
-
-        } catch (error) {
-            console.error('Error al cargar los productos:', error);
-            productosGridContainer.innerHTML = '<p>Error al cargar los productos. Inténtalo de nuevo más tarde.</p>';
-        }
-    }
-
-    // Llamar a la función para cargar productos cuando el DOM esté listo
-    cargarProductos();
-
-    // Funcionalidad para el modal Stock Actual
-    const modalStockActual = document.getElementById('modalStockActual');
-    const spanCerrarStockActual = modalStockActual.querySelector('.close');
-    const modalSeleccionarUbicacion = document.getElementById('modalSeleccionarUbicacion');
-    const spanCerrarUbicacion = modalSeleccionarUbicacion.querySelector('.close');
-
-    let botonUsarActivo = null; // Variable para guardar el botón 'Usar' activo
-
-    // Función para limpiar el formulario de selección de ubicación
-    function limpiarFormularioUbicacion() {
-        document.getElementById('pabellon').value = '';
-        document.getElementById('piso').value = '';
-        document.getElementById('salon').value = '';
-    }
-
-    // Funcionalidad para el modal Seleccionar Ubicación
-
-    // Event listener para el botón 'Confirmar Ubicación'
-    const botonConfirmarUbicacion = modalSeleccionarUbicacion.querySelector('.confirmar-ubicacion');
-    if (botonConfirmarUbicacion) {
-        botonConfirmarUbicacion.addEventListener('click', function() {
-            // Obtener los valores seleccionados/ingresados
-            const pabellonSeleccionado = document.getElementById('pabellon').value;
-            const pisoSeleccionado = document.getElementById('piso').value;
-            const salonIngresado = document.getElementById('salon').value;
-
-            // Guardar la ubicación seleccionada en el botón activo
-            if (botonUsarActivo) {
-                botonUsarActivo.dataset.pabellon = pabellonSeleccionado;
-                botonUsarActivo.dataset.piso = pisoSeleccionado;
-                botonUsarActivo.dataset.salon = salonIngresado;
-
-                // Cambiar el texto del botón 'Usar' a 'Dejar de Usar'
-                botonUsarActivo.textContent = 'Dejar de usar';
-                // Opcional: añadir una clase para estilizar el botón 'Dejar de usar'
-                // botonUsarActivo.classList.remove('usar-articulo');
-                // botonUsarActivo.classList.add('dejar-de-usar');
-
-                // Limpiar la referencia al botón activo después de usarla
-                botonUsarActivo = null;
-            }
-
-            // Cerrar la modal de selección de ubicación
-            cerrarModalUbicacion();
         });
+      });
+    } catch (error) {
+      console.error("Error al cargar los productos:", error);
+      productosGridContainer.innerHTML =
+        "<p>Error al cargar los productos. Inténtalo de nuevo más tarde.</p>";
     }
+  }
 
-    // Cerrar modal Seleccionar Ubicación al hacer clic en la X
-    if (spanCerrarUbicacion) {
-        spanCerrarUbicacion.onclick = function() {
-            cerrarModalUbicacion();
-        }
-    }
+  // Llamar a la función para cargar productos cuando el DOM esté listo
+  cargarProductos();
 
-    // Función para cerrar la modal de selección de ubicación
-    function cerrarModalUbicacion() {
-        modalSeleccionarUbicacion.style.display = 'none';
-        // Opcional: si cierras la modal de ubicación sin confirmar, podrías limpiar el botón activo
-        // botonUsarActivo = null; // Descomentar si es necesario limpiar la referencia al cerrar sin confirmar
-    }
+  // Funcionalidad para el modal Stock Actual
+  const modalStockActual = document.getElementById("modalStockActual");
+  const spanCerrarStockActual = modalStockActual.querySelector(".close");
+  const modalSeleccionarUbicacion = document.getElementById(
+    "modalSeleccionarUbicacion"
+  );
+  const spanCerrarUbicacion = modalSeleccionarUbicacion.querySelector(".close");
 
-    // Cerrar modales al hacer clic fuera de su contenido
-    window.onclick = function(event) {
-      if (event.target == modalStockActual) {
-        modalStockActual.style.display = 'none';
+  let botonUsarActivo = null; // Variable para guardar el botón 'Usar' activo
+
+  // Función para limpiar el formulario de selección de ubicación
+  function limpiarFormularioUbicacion() {
+    document.getElementById("pabellon").value = "";
+    document.getElementById("piso").value = "";
+    document.getElementById("salon").value = "";
+  }
+
+  // Funcionalidad para el modal Seleccionar Ubicación
+
+  // Event listener para el botón 'Confirmar Ubicación'
+  const botonConfirmarUbicacion = modalSeleccionarUbicacion.querySelector(
+    ".confirmar-ubicacion"
+  );
+  if (botonConfirmarUbicacion) {
+    botonConfirmarUbicacion.addEventListener("click", function () {
+      // Obtener los valores seleccionados/ingresados
+      const pabellonSeleccionado = document.getElementById("pabellon").value;
+      const pisoSeleccionado = document.getElementById("piso").value;
+      const salonIngresado = document.getElementById("salon").value;
+
+      // Guardar la ubicación seleccionada en el botón activo
+      if (botonUsarActivo) {
+        botonUsarActivo.dataset.pabellon = pabellonSeleccionado;
+        botonUsarActivo.dataset.piso = pisoSeleccionado;
+        botonUsarActivo.dataset.salon = salonIngresado;
+
+        // Cambiar el texto del botón 'Usar' a 'Dejar de Usar'
+        botonUsarActivo.textContent = "Dejar de usar";
+        // Opcional: añadir una clase para estilizar el botón 'Dejar de usar'
+        // botonUsarActivo.classList.remove('usar-articulo');
+        // botonUsarActivo.classList.add('dejar-de-usar');
+
+        // Limpiar la referencia al botón activo después de usarla
+        botonUsarActivo = null;
       }
-      if (event.target == modalSeleccionarUbicacion) {
-        cerrarModalUbicacion();
-      }
+
+      // Cerrar la modal de selección de ubicación
+      cerrarModalUbicacion();
+    });
+  }
+
+  // Cerrar modal Seleccionar Ubicación al hacer clic en la X
+  if (spanCerrarUbicacion) {
+    spanCerrarUbicacion.onclick = function () {
+      cerrarModalUbicacion();
+    };
+  }
+
+  // Función para cerrar la modal de selección de ubicación
+  function cerrarModalUbicacion() {
+    modalSeleccionarUbicacion.style.display = "none";
+    // Opcional: si cierras la modal de ubicación sin confirmar, podrías limpiar el botón activo
+    // botonUsarActivo = null; // Descomentar si es necesario limpiar la referencia al cerrar sin confirmar
+  }
+
+  // Cerrar modales al hacer clic fuera de su contenido
+  window.onclick = function (event) {
+    if (event.target == modalStockActual) {
+      modalStockActual.style.display = "none";
     }
+    if (event.target == modalSeleccionarUbicacion) {
+      cerrarModalUbicacion();
+    }
+  };
 });

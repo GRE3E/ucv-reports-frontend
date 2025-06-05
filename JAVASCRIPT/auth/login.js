@@ -1,3 +1,5 @@
+import { validateTokenAndRedirect } from "./auth_utils.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   const passwordInput = document.getElementById("password-input");
   const togglePassword = document.getElementById("togglePassword");
@@ -31,6 +33,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const usuario = usernameInput.value;
       const contraseña = passwordInput.value;
 
+      // Validar campos vacíos
+      if (!usuario || !contraseña) {
+        alert("Por favor, ingresa tu usuario y contraseña.");
+        return;
+      }
+
       console.log("Attempting login with username:", usuario);
 
       try {
@@ -59,10 +67,10 @@ document.addEventListener("DOMContentLoaded", function () {
             data.role === "Profesor" ||
             data.role === "PersonalUCV"
           ) {
-            window.location.href = "/reporte_enviar";
+            window.location.href = "/reporte_enviar.html";
           } else if (data.role === "Administrador") {
             console.log("Redirecting to /usuarios_gestion");
-            window.location.href = "/usuarios_gestion";
+            window.location.href = "/reportes_gestion/usuarios_gestion_M6.html";
           } else {
             console.log("Redirecting to /");
             window.location.href = "/";

@@ -19,7 +19,7 @@ function debugResponse(data, context) {
 async function cargarReportesPendientes() {
   try {
     console.log("Cargando reportes pendientes...");
-    const response = await fetch(API_URL);
+    const response = await fetchWithAuth(API_URL);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -116,7 +116,7 @@ function renderReportesPendientes() {
 async function cargarReportesDetalle() {
   try {
     console.log("Cargando reportes detalle...");
-    const response = await fetch(API_URL);
+    const response = await fetchWithAuth(API_URL);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -196,7 +196,7 @@ async function aprobarReporte(historialId) {
 
   try {
     console.log(`Aprobando historial de reporte ID: ${historialId}`);
-    const response = await fetch(
+    const response = await fetchWithAuth(
       `https://ucv-reports-backend.onrender.com/historial-reportes/${historialId}/estado`,
       {
         method: "PATCH",
@@ -325,7 +325,7 @@ async function abrirModalDetalleDesdeReportes(id_reporte) {
 
   try {
     console.log(`Cargando detalle del reporte ID: ${id_reporte}`);
-    const response = await fetch(
+    const response = await fetchWithAuth(
       `https://ucv-reports-backend.onrender.com/reportes/detalle/${id_reporte}`
     );
 
@@ -396,7 +396,10 @@ function cerrarModalDetalleReporte() {
 }
 
 // Inicialización mejorada
+import { validateTokenAndRedirect, fetchWithAuth } from "./auth/auth_utils.js";
+
 document.addEventListener("DOMContentLoaded", async () => {
+  validateTokenAndRedirect();
   console.log("DOM cargado, inicializando aplicación...");
 
   // Verificar que los elementos necesarios existen
@@ -448,7 +451,7 @@ async function buscarReportesPorUsuario(usuario) {
   try {
     console.log(`Buscando reportes para el usuario: ${usuario}`);
     const url = `https://ucv-reports-backend.onrender.com/reportes/buscar-usuario/${usuario}`;
-    const response = await fetch(url);
+    const response = await fetchWithAuth(url);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
