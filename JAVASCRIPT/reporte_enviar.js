@@ -81,6 +81,53 @@ async function sendReport(token) {
 
     const result = await response.json();
     console.log("Reporte enviado con éxito:", result);
+
+    // Extraer el ID de usuario del token
+    let userId = null;
+    if (token) {
+      try {
+        const payloadBase64 = token.split(".")[1];
+        const decodedPayload = JSON.parse(atob(payloadBase64));
+        userId = decodedPayload.sub; // Asumiendo que 'sub' es el ID de usuario
+      } catch (error) {
+        console.error(
+          "Error al decodificar el token JWT para obtener el ID de usuario:",
+          error
+        );
+      }
+    }
+
+    // Registrar en el historial si se obtuvo el userId y el reporte_id
+    if (userId && result.id) {
+      // Asumiendo que el ID del reporte está en result.id
+      try {
+        const historialResponse = await fetch(
+          "https://ucv-reports-backend.onrender.com/historial-reportes/add", // Usar el endpoint correcto
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              ...(token && { Authorization: `Bearer ${token}` }),
+            },
+            body: JSON.stringify({
+              usuario_id: userId,
+              reporte_id: result.id,
+            }),
+          }
+        );
+
+        if (!historialResponse.ok) {
+          throw new Error(`HTTP error! status: ${historialResponse.status}`);
+        }
+        console.log("Reporte registrado en el historial con éxito.");
+      } catch (historialError) {
+        console.error(
+          "Error al registrar el reporte en el historial:",
+          historialError
+        );
+      }
+    }
+
     alert("Reporte enviado con éxito!");
     document.getElementById("reportForm").reset();
   } catch (error) {
