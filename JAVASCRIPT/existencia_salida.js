@@ -1,7 +1,27 @@
+const token = localStorage.getItem("access_token");
+if (!token) {
+  window.location.replace("/login");
+  throw new Error("No token found. Halting script.");
+}
+
 import { validateTokenAndRedirect, fetchWithAuth } from "./auth/auth_utils.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  validateTokenAndRedirect();
+  const token = validateTokenAndRedirect();
+  if (!token) {
+    console.warn("Token no válido. Cancelando ejecución.");
+    return; // Detiene toda la ejecución si no hay token
+  }
+
+  // Mostrar token en consola si es válido
+  console.log("Token JWT disponible en existencia_salida.js:", token);
+  try {
+    const payloadBase64 = token.split(".")[1];
+    const decodedPayload = JSON.parse(atob(payloadBase64));
+    console.log("ID de usuario (sub) del token:", decodedPayload.sub);
+  } catch (error) {
+    console.error("Error al decodificar el token JWT:", error);
+  }
   const productosGridContainer = document.querySelector(
     ".productos-grid-container"
   );
