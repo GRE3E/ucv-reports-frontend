@@ -141,20 +141,64 @@ function irHistorial() {
 }
 
 async function visualizarReporte(id) {
-  // In a real application, you would fetch the specific report details here
-  // For now, we'll just show an alert with the ID
   const btn = event.target.closest(".btn-visualizar");
   const originalContent = btn.innerHTML;
   btn.innerHTML = '<div class="loading"></div> Cargando...';
   btn.disabled = true;
 
-  setTimeout(() => {
+  try {
+    const response = await fetchWithAuth(
+      `https://ucv-reports-backend.onrender.com/reportes/detalle/${id}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const detalleReporte = await response.json();
+    console.log("Detalle del reporte:", detalleReporte);
+
+    const imageUrl =
+      detalleReporte.googleDriveFileId &&
+      detalleReporte.googleDriveFileId.length > 0
+        ? `https://lh3.googleusercontent.com/d/${detalleReporte.googleDriveFileId}`
+        : "";
+
+    document.getElementById("modalFacultad").textContent =
+      detalleReporte.facultad || "No especificada";
+    document.getElementById("modalTurno").textContent =
+      detalleReporte.turno || "No especificado";
+    document.getElementById("modalFecha").textContent =
+      detalleReporte.fecha || "No especificada";
+    document.getElementById("modalEstado").textContent =
+      detalleReporte.estado || "No especificado";
+    document.getElementById("modalLugar").textContent =
+      `${
+        detalleReporte.Pabellon || detalleReporte.pabellon || "No especificado"
+      }, ` +
+      `${detalleReporte.Piso || detalleReporte.piso || "No especificado"}, ` +
+      `${detalleReporte.Salon || detalleReporte.salon || "No especificado"}`;
+    document.getElementById("modalDescripcion").textContent =
+      detalleReporte.descripcion || "No especificada";
+
+    const modalEvidencia = document.getElementById("modalEvidencia");
+    if (imageUrl) {
+      modalEvidencia.src = imageUrl;
+      modalEvidencia.style.display = "block";
+    } else {
+      modalEvidencia.src = "";
+      modalEvidencia.style.display = "none";
+    }
+
+    document.getElementById("modalOverlay").style.display = "block";
     btn.innerHTML = originalContent;
     btn.disabled = false;
-    alert(
-      `Visualizando reporte con ID: ${id}\n\nEsta funcionalidad se conectará con la vista de detalle del reporte.`
-    );
-  }, 1000);
+  } catch (error) {
+    console.error("Error al cargar el detalle del reporte:", error);
+    alert("Error al cargar el detalle del reporte: " + error.message);
+    btn.innerHTML = originalContent;
+    btn.disabled = false;
+  }
 }
 
 async function editarReporte(id) {
