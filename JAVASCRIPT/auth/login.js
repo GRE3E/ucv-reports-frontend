@@ -1,5 +1,3 @@
-import { validateTokenAndRedirect } from "./auth_utils.js";
-
 document.addEventListener("DOMContentLoaded", function () {
   const passwordInput = document.getElementById("password-input");
   const togglePassword = document.getElementById("togglePassword");
@@ -33,12 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const usuario = usernameInput.value;
       const contraseña = passwordInput.value;
 
-      // Validar campos vacíos
-      if (!usuario || !contraseña) {
-        alert("Por favor, ingresa tu usuario y contraseña.");
-        return;
-      }
-
       console.log("Attempting login with username:", usuario);
 
       try {
@@ -55,8 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const data = await response.json();
         console.log("Login API response:", data);
-        console.log("Response status:", response.status);
-        console.log("Response status text:", response.statusText);
 
         if (response.ok) {
           localStorage.setItem("access_token", data.access_token);
@@ -72,29 +62,21 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = "/reporte_enviar";
           } else if (data.role === "Administrador") {
             console.log("Redirecting to /usuarios_gestion");
-            window.location.href = "/reportes_gestion";
+            window.location.href = "/usuarios_gestion";
           } else {
             console.log("Redirecting to /");
             window.location.href = "/";
           }
         } else if (response.status === 401) {
-          console.error(
-            "Login failed: Invalid credentials. Status:",
-            response.status
-          );
+          console.error("Login failed: Invalid credentials.");
           alert("Invalid credentials. Please try again.");
         } else {
-          console.error(
-            "Login failed:",
-            data.message || "Unknown error.",
-            "Status:",
-            response.status
-          );
+          console.error("Login failed:", data.message || "Unknown error.");
           alert(data.message || "Login failed.");
         }
       } catch (error) {
         console.error("Error during login API call:", error);
-        alert("An error occurred during login. Check console for details.");
+        alert("An error occurred during login.");
       }
     });
   } else {
