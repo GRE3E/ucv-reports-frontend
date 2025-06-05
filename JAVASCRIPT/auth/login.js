@@ -55,6 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const data = await response.json();
         console.log("Login API response:", data);
+        console.log("Response status:", response.status);
+        console.log("Response status text:", response.statusText);
 
         if (response.ok) {
           localStorage.setItem("access_token", data.access_token);
@@ -76,15 +78,23 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = "/";
           }
         } else if (response.status === 401) {
-          console.error("Login failed: Invalid credentials.");
+          console.error(
+            "Login failed: Invalid credentials. Status:",
+            response.status
+          );
           alert("Invalid credentials. Please try again.");
         } else {
-          console.error("Login failed:", data.message || "Unknown error.");
+          console.error(
+            "Login failed:",
+            data.message || "Unknown error.",
+            "Status:",
+            response.status
+          );
           alert(data.message || "Login failed.");
         }
       } catch (error) {
         console.error("Error during login API call:", error);
-        alert("An error occurred during login.");
+        alert("An error occurred during login. Check console for details.");
       }
     });
   } else {
