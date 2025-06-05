@@ -61,27 +61,70 @@ async function cargarReportes() {
   }
 }
 
-function openModal(reporteId) {
+async function openModal(reporteId) {
   const reporte = reportesData[reporteId];
   if (reporte) {
-    document.getElementById("modalFacultad").textContent =
-      reporte.facultad || "";
-    document.getElementById("modalTurno").textContent = reporte.turno || "";
-    document.getElementById("modalFecha").textContent = reporte.fecha || "";
-    const estadoElement = document.getElementById("modalEstado");
-    estadoElement.textContent = reporte.estado || "";
-    estadoElement.className = "info-value";
-    if (reporte.estado === "Aprobado") {
-      estadoElement.classList.add("status-approved");
-    } else if (reporte.estado === "Pendiente") {
-      estadoElement.classList.add("status-pending");
-    } else if (reporte.estado === "En Proceso") {
-      estadoElement.classList.add("status-process");
+    try {
+      const id_reporte = reporteId.replace("reporte", "");
+      const response = await fetchWithAuth(
+        `https://ucv-reports-backend.onrender.com/reportes/detalle/${id_reporte}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const detalleReporte = await response.json();
+      console.log("Detalle del reporte:", detalleReporte);
+
+      const imageUrl =
+        detalleReporte.googleDriveFileId &&
+        detalleReporte.googleDriveFileId.length > 0
+          ? `https://lh3.googleusercontent.com/d/${detalleReporte.googleDriveFileId}`
+          : "";
+
+      document.getElementById("modalFacultad").textContent =
+        detalleReporte.facultad || "No especificada";
+      document.getElementById("modalTurno").textContent =
+        detalleReporte.turno || "No especificado";
+      document.getElementById("modalFecha").textContent =
+        detalleReporte.fecha || "No especificada";
+      const estadoElement = document.getElementById("modalEstado");
+      estadoElement.textContent = detalleReporte.estado || "No especificado";
+      estadoElement.className = "info-value";
+      if (detalleReporte.estado === "Aprobado") {
+        estadoElement.classList.add("status-approved");
+      } else if (detalleReporte.estado === "Pendiente") {
+        estadoElement.classList.add("status-pending");
+      } else if (detalleReporte.estado === "En Proceso") {
+        estadoElement.classList.add("status-process");
+      }
+      document.getElementById("modalLugar").textContent =
+        `${
+          detalleReporte.Pabellon ||
+          detalleReporte.pabellon ||
+          "No especificado"
+        }, ` +
+        `${detalleReporte.Piso || detalleReporte.piso || "No especificado"}, ` +
+        `${detalleReporte.Salon || detalleReporte.salon || "No especificado"}`;
+      document.getElementById("modalDescripcion").textContent =
+        detalleReporte.descripcion || "No especificada";
+
+      const modalEvidencia = document.getElementById("modalEvidencia");
+      if (imageUrl) {
+        modalEvidencia.src = imageUrl;
+        modalEvidencia.style.display = "block";
+      } else {
+        modalEvidencia.src = "";
+        modalEvidencia.style.display = "none";
+      }
+
+      document.getElementById("modalOverlay").classList.add("active");
+      document.body.style.overflow = "hidden";
+    } catch (error) {
+      console.error("Error al cargar el detalle del reporte:", error);
+      alert("Error al cargar el detalle del reporte: " + error.message);
     }
-    document.getElementById("modalLugar").textContent = reporte.lugar || "";
-    document.getElementById("modalEvidencia").src = reporte.evidencia || "";
-    document.getElementById("modalOverlay").classList.add("active");
-    document.body.style.overflow = "hidden";
   }
 }
 
