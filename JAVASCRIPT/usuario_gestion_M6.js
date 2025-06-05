@@ -329,6 +329,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// Manejo de logout
+const logoutLink = document.querySelector('a[href="/"]');
+if (logoutLink) {
+  logoutLink.addEventListener("click", function (e) {
+    e.preventDefault();
+    localStorage.removeItem("access_token");
+    window.location.replace("/login");
+  });
+}
+
 // Cerrar modales al hacer clic fuera de ellos
 window.onclick = function (event) {
   const modalEditActual = document.getElementById("modalEditActual");
