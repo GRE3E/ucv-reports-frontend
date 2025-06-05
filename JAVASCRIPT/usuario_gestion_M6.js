@@ -329,9 +329,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const user = JSON.parse(text);
-      if (user) {
-        populateTable([user]);
+      const users = JSON.parse(text);
+      if (Array.isArray(users) && users.length > 0) {
+        populateTable(users);
       } else {
         populateTable([]);
       }
