@@ -4,6 +4,12 @@ let reportesPendientes = [];
 let reportesDetalle = [];
 let reporteSeleccionado = null;
 
+const token = localStorage.getItem("access_token");
+if (!token) {
+  window.location.replace("/login");
+  throw new Error("No token found. Halting script.");
+}
+
 // Función para debugging - puedes eliminarla después
 function debugResponse(data, context) {
   console.log(`=== DEBUG ${context} ===`);
@@ -399,7 +405,21 @@ function cerrarModalDetalleReporte() {
 import { validateTokenAndRedirect, fetchWithAuth } from "./auth/auth_utils.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  validateTokenAndRedirect();
+  const token = validateTokenAndRedirect();
+  if (!token) {
+    console.warn("Token no válido. Cancelando ejecución.");
+    return; // Detiene toda la ejecución si no hay token
+  }
+
+  console.log("Token JWT disponible en reportes_gestion_M9.js:", token);
+  try {
+    const payloadBase64 = token.split(".")[1];
+    const decodedPayload = JSON.parse(atob(payloadBase64));
+    console.log("ID de usuario (sub) del token:", decodedPayload.sub);
+  } catch (error) {
+    console.error("Error al decodificar el token JWT:", error);
+  }
+
   console.log("DOM cargado, inicializando aplicación...");
 
   // Verificar que los elementos necesarios existen
