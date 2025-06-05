@@ -1,3 +1,9 @@
+window.cerrarModalDetalleReporte = cerrarModalDetalleReporte;
+window.cerrarModalDesaprobar = cerrarModalDesaprobar;
+window.aceptarDesaprobacion = aceptarDesaprobacion;
+window.cerrarModalReportes = cerrarModalReportes;
+window.aprobarReporte = aprobarReporte;
+window.abrirModalDesaprobar = abrirModalDesaprobar;
 const API_URL =
   "https://ucv-reports-backend.onrender.com/reportes/todos-con-usuario";
 let reportesPendientes = [];
