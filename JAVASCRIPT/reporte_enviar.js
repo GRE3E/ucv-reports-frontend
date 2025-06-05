@@ -76,10 +76,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// Example of how to trigger the sendReport function (e.g., on form submission)
-// You would typically attach this to a form's submit event listener.
-// For demonstration, let's assume there's a button with id 'submitReportBtn'
-// document.getElementById('submitReportBtn').addEventListener('click', sendReport);
+// Attach form submission listener
+document
+  .getElementById("reportForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+    sendReport();
+  });
 
 // To test in Postman, you would send a POST request to:
 // http://localhost:3000/api/reportes
