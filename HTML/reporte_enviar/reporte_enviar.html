@@ -64,47 +64,103 @@
             <form id="reportForm">
               <label
                 >Facultad:
-                <input type="text" id="facultad" placeholder="Ingrese la facultad" required />
+                <input
+                  type="text"
+                  id="facultad"
+                  placeholder="Ingrese la facultad"
+                  required
+                />
               </label>
               <label
                 >Turno:
-                <input type="text" id="turno" placeholder="Ingrese el turno" required />
+                <input
+                  type="text"
+                  id="turno"
+                  placeholder="Ingrese el turno"
+                  required
+                />
               </label>
               <label
                 >Pabellón:
-                <input type="text" id="pabellon" placeholder="Ingrese el pabellón" required />
+                <input
+                  type="text"
+                  id="pabellon"
+                  placeholder="Ingrese el pabellón"
+                  required
+                />
               </label>
               <label
                 >Piso:
-                <input type="text" id="piso" placeholder="Ingrese el piso" required />
+                <input
+                  type="text"
+                  id="piso"
+                  placeholder="Ingrese el piso"
+                  required
+                />
               </label>
               <label
                 >Aula:
-                <input type="text" id="aula" placeholder="Ingrese el aula" required />
+                <input
+                  type="text"
+                  id="aula"
+                  placeholder="Ingrese el aula"
+                  required
+                />
               </label>
               <label
                 >Artículo:
-                <input type="text" id="articulo" placeholder="Ingrese el artículo" required />
+                <input
+                  type="text"
+                  id="articulo"
+                  placeholder="Ingrese el artículo"
+                  required
+                />
               </label>
               <label
                 >Fecha:
-                <input type="text" id="fecha" placeholder="Ingrese la fecha" required />
+                <input
+                  type="text"
+                  id="fecha"
+                  placeholder="Ingrese la fecha"
+                  required
+                />
               </label>
               <label
                 >Estado:
-                <input type="text" id="estado" placeholder="Ingrese el estado" required />
+                <input
+                  type="text"
+                  id="estado"
+                  placeholder="Ingrese el estado"
+                  required
+                />
               </label>
               <label
                 >Motivo:
-                <input type="text" id="motivo" name="motivo" placeholder="Ingrese el motivo del reporte" required>
+                <input
+                  type="text"
+                  id="motivo"
+                  name="motivo"
+                  placeholder="Ingrese el motivo del reporte"
+                  required
+                />
               </label>
               <label
                 >Descripción:
-                <input type="text" id="descripcion" placeholder="Ingrese una descripción detallada del problema..." required />
+                <input
+                  type="text"
+                  id="descripcion"
+                  placeholder="Ingrese una descripción detallada del problema..."
+                  required
+                />
               </label>
               <label
                 >Evidencia:
-                <input type="text" id="evidencia" placeholder="Ingrese la evidencia" required />
+                <input
+                  type="text"
+                  id="evidencia"
+                  placeholder="Ingrese la evidencia"
+                  required
+                />
               </label>
 
               <button type="submit" class="submit-btn">
@@ -116,12 +172,14 @@
         </section>
       </main>
     </div>
-    <script src="../../JAVASCRIPT/reporte_enviar.js"></script>
+    <script type="module" src="../../JAVASCRIPT/reporte_enviar.js"></script>
     <script>
-      document.getElementById('reportForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
-        sendReport();
-      });
+      document
+        .getElementById("reportForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent default form submission
+          sendReport();
+        });
     </script>
   </body>
 </html>

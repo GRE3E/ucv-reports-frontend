@@ -10,7 +10,7 @@ export function validateTokenAndRedirect() {
 
   if (!token) {
     console.log("No JWT token found, redirecting to login.");
-    window.location.href = "/auth/login.html"; // Redirige a la página de login
+    window.location.href = "/login"; // Redirige a la página de login
     return null;
   }
 
@@ -45,7 +45,7 @@ export async function fetchWithAuth(url, options = {}) {
   if (response.status === 401) {
     console.log("Token invalid or expired, redirecting to login.");
     localStorage.removeItem("access_token"); // Clear invalid token
-    window.location.href = "/auth/login.html"; // Redirige a la página de login
+    window.location.href = "/login"; // Redirige a la página de login
     return Promise.reject("Unauthorized: Token invalid or expired.");
   }
 
