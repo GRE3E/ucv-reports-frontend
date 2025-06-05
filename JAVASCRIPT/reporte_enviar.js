@@ -66,6 +66,35 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// Cargar pabellones al iniciar la página
+loadPabellones();
+
+async function loadPabellones() {
+  try {
+    const response = await fetch(
+      "https://ucv-reports-backend.onrender.com/pabellon"
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const pabellones = await response.json();
+    const selectPabellon = document.getElementById("pabellon");
+    selectPabellon.innerHTML =
+      '<option value="">Seleccione un pabellón</option>'; // Opción por defecto
+    pabellones.forEach((pabellon) => {
+      const option = document.createElement("option");
+      option.value = pabellon.Pabellon;
+      option.textContent = pabellon.Pabellon;
+      selectPabellon.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Error al cargar los pabellones:", error);
+    alert(
+      "Error al cargar los pabellones. Revisa la consola para más detalles."
+    );
+  }
+}
+
 async function sendReport(token) {
   const reportData = {
     facultad: document.getElementById("facultad").value,
