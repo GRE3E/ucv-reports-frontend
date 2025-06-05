@@ -306,25 +306,33 @@ document.addEventListener("DOMContentLoaded", () => {
       fetchUsers("habilitados");
       return;
     }
+
     try {
       const response = await fetchWithAuth(
         `https://ucv-reports-backend.onrender.com/usuarios/buscar-usuario/${encodeURIComponent(
           value
         )}`
       );
+
       if (!response.ok) {
         if (response.status === 404) {
-          // Not Found, likely no user found
           populateTable([]);
           return;
         }
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const user = await response.json();
+
+      // Validar si el body está vacío
+      const text = await response.text();
+      if (!text) {
+        populateTable([]);
+        return;
+      }
+
+      const user = JSON.parse(text);
       if (user) {
         populateTable([user]);
       } else {
-        // Si no se encuentra, limpia la tabla
         populateTable([]);
       }
     } catch (error) {
