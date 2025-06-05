@@ -1,3 +1,9 @@
+const token = localStorage.getItem("access_token");
+if (!token) {
+  window.location.replace("/login");
+  throw new Error("No token found. Halting script.");
+}
+
 import { validateTokenAndRedirect, fetchWithAuth } from "./auth/auth_utils.js";
 
 window.toggleSidebar = function () {
@@ -48,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     logoutLink.addEventListener("click", function (e) {
       e.preventDefault();
       localStorage.removeItem("access_token");
-      window.location.href = "/login";
+      window.location.replace("/login");
     });
   }
 
