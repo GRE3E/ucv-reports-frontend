@@ -2,11 +2,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', Arial, sans-serif;
+  font-family: "Poppins", Arial, sans-serif;
 }
 
 body {
-  background: url('images/recuperar.svg') center center / cover no-repeat fixed;
+  background: url("images/recuperar.svg") center center / cover no-repeat fixed;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -22,16 +22,16 @@ body {
 }
 
 .recovery-box {
-  background: rgba(255,255,255,0.92);
+  background: rgba(255, 255, 255, 0.92);
   padding: 48px 32px 36px 32px;
   border-radius: 18px;
   width: 100%;
   max-width: 410px;
   text-align: center;
-  box-shadow: 0 8px 32px rgba(0, 123, 255, 0.10), 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 32px rgba(0, 123, 255, 0.1), 0 2px 8px rgba(0, 0, 0, 0.08);
   position: relative;
   overflow: hidden;
-  animation: fadeInUp 1s cubic-bezier(.39,.575,.565,1) both;
+  animation: fadeInUp 1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
   z-index: 1;
 }
 
@@ -42,16 +42,8 @@ recovery-box::before {
   inset: 0;
   border-radius: 52px;
   padding: 37px; /* Borde más grueso */
-  background: conic-gradient(
-    #007bff,
-    #00c6ff,
-    #fff,
-    #007bff 90%,
-    #007bff
-  );
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
+  background: conic-gradient(#007bff, #00c6ff, #fff, #007bff 90%, #007bff);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
@@ -67,10 +59,8 @@ recovery-box::before {
 
 /* Si tu navegador no soporta mask-composite, puedes usar box-shadow extra */
 .recovery-box {
-  box-shadow:
-    0 8px 32px rgba(0, 123, 255, 0.10),
-    0 2px 8px rgba(0,0,0,0.08),
-    0 0 0 3px rgba(0,123,255,0.10); /* Borde exterior sutil */
+  box-shadow: 0 8px 32px rgba(0, 123, 255, 0.1), 0 2px 8px rgba(0, 0, 0, 0.08),
+    0 0 0 3px rgba(0, 123, 255, 0.1); /* Borde exterior sutil */
 }
 @keyframes fadeInUp {
   0% {
@@ -87,9 +77,9 @@ recovery-box::before {
   width: 80px;
   height: 80px;
   object-fit: cover;
-  border-radius: 50%;      /* Hace la imagen circular */
+  border-radius: 50%; /* Hace la imagen circular */
   margin-bottom: 18px;
-  box-shadow: 0 2px 8px rgba(0,123,255,0.10);
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
   background: #fff;
   display: block;
   margin-left: auto;
@@ -102,7 +92,7 @@ h1 {
   margin-bottom: 10px;
   font-weight: 700;
   letter-spacing: 1px;
-  text-shadow: 0 2px 8px rgba(0,123,255,0.07);
+  text-shadow: 0 2px 8px rgba(0, 123, 255, 0.07);
 }
 
 .subtitle {
@@ -120,9 +110,9 @@ form input {
   border: 2px solid #e1e1e1;
   border-radius: 8px;
   font-size: 15px;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255, 255, 255, 0.95);
   transition: border-color 0.3s, box-shadow 0.3s;
-  box-shadow: 0 1px 4px rgba(0,123,255,0.04);
+  box-shadow: 0 1px 4px rgba(0, 123, 255, 0.04);
 }
 
 form input:focus {
@@ -142,7 +132,7 @@ form input:focus {
   font-weight: 600;
   letter-spacing: 1px;
   transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-  box-shadow: 0 2px 8px rgba(0,123,255,0.08);
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.08);
 }
 
 .btn.primary {
@@ -153,7 +143,7 @@ form input:focus {
 .btn.primary:hover {
   background: linear-gradient(90deg, #0056b3 0%, #00aaff 100%);
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 18px rgba(0,123,255,0.15);
+  box-shadow: 0 6px 18px rgba(0, 123, 255, 0.15);
 }
 
 .btn.secondary {
@@ -166,7 +156,7 @@ form input:focus {
   background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
   color: #fff;
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 18px rgba(0,123,255,0.10);
+  box-shadow: 0 6px 18px rgba(0, 123, 255, 0.1);
 }
 
 @media (max-width: 500px) {
@@ -185,12 +175,12 @@ form input:focus {
 .input-icon {
   display: flex;
   align-items: center;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255, 255, 255, 0.95);
   border: 2px solid #e1e1e1;
   border-radius: 8px;
   padding: 0 16px;
   margin-bottom: 16px;
-  box-shadow: 0 1px 4px rgba(0,123,255,0.04);
+  box-shadow: 0 1px 4px rgba(0, 123, 255, 0.04);
   font-size: 15px;
   transition: border-color 0.3s, box-shadow 0.3s;
   height: 48px;

@@ -330,7 +330,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Manejo de logout
-const logoutLink = document.querySelector('a[href="/"]');
+const logoutLink = document.querySelector("#exitBtn");
 if (logoutLink) {
   logoutLink.addEventListener("click", function (e) {
     e.preventDefault();

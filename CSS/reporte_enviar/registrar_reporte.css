@@ -1,7 +1,7 @@
 body {
   position: relative;
   min-height: 100vh;
-  font-family: 'Segoe UI', Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
   margin: 0;
   background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
   overflow-x: hidden;
@@ -10,8 +10,12 @@ body {
 body::before {
   content: "";
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: url('../../CSS/auth/images/recuperar.svg') center center/cover no-repeat;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("../../CSS/auth/images/recuperar.svg") center center/cover
+    no-repeat;
   filter: blur(18px) brightness(0.85);
   z-index: 0;
   pointer-events: none;
@@ -29,7 +33,7 @@ body > * {
   text-align: center;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 40px;
-  box-shadow: 0 4px 20px rgba(46,134,222,0.1);
+  box-shadow: 0 4px 20px rgba(46, 134, 222, 0.1);
 }
 
 .contenedor {
@@ -37,7 +41,7 @@ body > * {
   max-width: 500px; /* Más angosto */
   margin: 24px auto 0 auto;
   border-radius: 24px;
-  box-shadow: 0 8px 32px rgba(46,134,222,0.15);
+  box-shadow: 0 8px 32px rgba(46, 134, 222, 0.15);
   padding: 1rem 0.7rem 1.2rem 0.7rem; /* Menos padding */
   position: relative;
   z-index: 2;
@@ -94,7 +98,7 @@ textarea {
   background: #f4f8fb;
   font-size: 1rem;
   transition: box-shadow 0.2s, border-color 0.2s;
-  box-shadow: 0 2px 8px rgba(46,134,222,0.05);
+  box-shadow: 0 2px 8px rgba(46, 134, 222, 0.05);
   outline: none;
 }
 
@@ -123,8 +127,6 @@ input[type="file"] {
   width: 180px;
   overflow: hidden;
 }
-
-
 
 /* Mejora visual del botón de archivo (solo para navegadores modernos) */
 input[type="file"]::file-selector-button {
@@ -164,7 +166,7 @@ button[type="submit"] {
   font-weight: bold;
   letter-spacing: 1px;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(46,134,222,0.13);
+  box-shadow: 0 4px 16px rgba(46, 134, 222, 0.13);
   transition: background 0.2s, transform 0.1s;
 }
 

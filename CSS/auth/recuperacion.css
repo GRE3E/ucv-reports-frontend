@@ -2,21 +2,22 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
-
-html, body {
+html,
+body {
   height: 100%;
   min-height: 100vh;
   width: 100vw;
   font-family: Arial, sans-serif;
   /* Asegura que el fondo cubra todo y sea responsive */
-  background: url('../auth/images/fondo.svg') center center / cover no-repeat fixed;
+  background: url("../auth/images/fondo.svg") center center / cover no-repeat
+    fixed;
   /* Elimina cualquier fondo blanco por defecto */
   background-color: #000; /* O el color que prefieras de fallback */
   overflow-x: hidden;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 .reset-container {
   display: flex;
@@ -114,7 +115,7 @@ html, body {
 
 form input:focus {
   border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0,123,255,0.15);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
   outline: none;
 }
 h1 {

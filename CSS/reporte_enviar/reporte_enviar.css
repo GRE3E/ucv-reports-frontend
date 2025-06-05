@@ -1,19 +1,20 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 body {
-    display: flex;
-    background-color: #f4f4f4; /* Un gris claro de fondo para mayor contraste */
+  display: flex;
+  background-color: #f4f4f4; /* Un gris claro de fondo para mayor contraste */
 }
 
 .container {
@@ -40,24 +41,24 @@ body {
 }
 
 .header {
-  background: linear-gradient(135deg, #DD2324 0%, #af1818 100%);
+  background: linear-gradient(135deg, #dd2324 0%, #af1818 100%);
   color: white;
   justify-items: center;
-  user-select: none;  
+  user-select: none;
   padding: 26px 25px;
   box-shadow: 0 3px 1px rgba(140, 24, 22, 0.9);
   position: relative;
-  width: full; 
-  border-radius: 0; 
-  margin: 0; 
+  width: full;
+  border-radius: 0;
+  margin: 0;
 }
 
-.header h1{
+.header h1 {
   font-size: 3rem;
   margin-bottom: 15px;
   position: relative;
   z-index: 1;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,35 +66,42 @@ body {
 }
 
 .hamburger {
-    display: none;
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 1000;
-    background: #DD2324;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 14px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  display: none;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  background: #dd2324;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 992px) {
+  .hamburger {
+    display: block;
+  }
+  .sidebar.mobile-visible ~ .main-content .header .hamburger,
+  .sidebar.mobile-visible ~ .header .hamburger,
+  .sidebar.mobile-visible
+    ~ .sidebar-overlay
+    ~ .main-content
+    .header
     .hamburger {
-        display: block;
-    }
-    .sidebar.mobile-visible ~ .main-content .header .hamburger,
-    .sidebar.mobile-visible ~ .header .hamburger,
-    .sidebar.mobile-visible ~ .sidebar-overlay ~ .main-content .header .hamburger {
-        z-index: 900; /* Menor que el de la sidebar (1001) */
-    }
-    .sidebar.mobile-visible + .sidebar-overlay + .main-content .header .hamburger {
-        z-index: 900;
-    }
+    z-index: 900; /* Menor que el de la sidebar (1001) */
+  }
+  .sidebar.mobile-visible
+    + .sidebar-overlay
+    + .main-content
+    .header
+    .hamburger {
+    z-index: 900;
+  }
 }
-
 
 .form-section {
   width: 100%;
@@ -131,11 +139,11 @@ form {
 }
 
 .form-fields {
-    flex: 1; /* Permite que el contenedor de campos crezca y ocupe el espacio disponible */
-    min-width: 300px; /* Establece un ancho mínimo antes de que se envuelva */
-    display: flex; /* Usar flexbox para los campos también */
-    flex-direction: column; /* Apilar los campos verticalmente */
-    gap: 15px; /* Espacio entre cada campo (label + input) */
+  flex: 1; /* Permite que el contenedor de campos crezca y ocupe el espacio disponible */
+  min-width: 300px; /* Establece un ancho mínimo antes de que se envuelva */
+  display: flex; /* Usar flexbox para los campos también */
+  flex-direction: column; /* Apilar los campos verticalmente */
+  gap: 15px; /* Espacio entre cada campo (label + input) */
 }
 
 label {
@@ -149,7 +157,8 @@ label {
   box-sizing: border-box;
 }
 
-select, input[type="text"] {
+select,
+input[type="text"] {
   padding: 12px; /* Aumentar padding interno de los inputs */
   cursor: pointer;
   font-size: 16px; /* Ajustar tamaño de fuente del input */
@@ -159,7 +168,8 @@ select, input[type="text"] {
   transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Añadir transición para sombra */
 }
 
-select:focus, input[type="text"]:focus {
+select:focus,
+input[type="text"]:focus {
   cursor: pointer;
   border-color: #1e88e5; /* Cambiar color del borde al enfocar */
   box-shadow: 0 0 8px rgba(30, 136, 229, 0.3); /* Añadir sombra al enfocar */
@@ -169,7 +179,7 @@ select:focus, input[type="text"]:focus {
 @media (max-width: 500px) {
   .container {
     flex-direction: column;
-  }  
+  }
 }
 
 @media (max-width: 600px) {
@@ -188,7 +198,8 @@ select:focus, input[type="text"]:focus {
   .form-section h2 {
     font-size: 18px;
   }
-  select, input[type="text"] {
+  select,
+  input[type="text"] {
     font-size: 15px;
     padding: 8px;
   }
@@ -199,8 +210,6 @@ select:focus, input[type="text"]:focus {
 }
 
 @media (max-width: 420px) {
-  
-
   .form-section {
     padding: 8px;
   }
@@ -210,125 +219,124 @@ select:focus, input[type="text"]:focus {
   }
 }
 
-
-
 /* Sidebar Styles */
 .sidebar {
-    width: 300px;
-    min-width: 300px;
-    background: linear-gradient(180deg, #233559 0%, #18253f 100%);
-    color: white;
-    height: 100%; /* Volvemos a 100% para que se estire con el contenedor flex */
-    position: static;
-    transition: transform 0.3s ease;
-    z-index: 1000;
-    box-shadow: 4px 0 20px rgba(0,0,0,0.15);
-    overflow-y: auto;
+  width: 300px;
+  min-width: 300px;
+  background: linear-gradient(180deg, #233559 0%, #18253f 100%);
+  color: white;
+  height: 100%; /* Volvemos a 100% para que se estire con el contenedor flex */
+  position: static;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
 }
 
 .sidebar.mobile-hidden {
-    transform: translateX(-100%);
+  transform: translateX(-100%);
 }
 
 .logo-section {
-    padding: 35px 30px;
-    border-bottom: 1px solid rgba(255,255,255,0.15);
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    position: sticky;
-    top: 0;
-    background: inherit;
-    z-index: 10;
+  padding: 35px 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  position: sticky;
+  top: 0;
+  background: inherit;
+  z-index: 10;
 }
 
 .logo {
-    width: 55px;
-    height: 55px;
-    background: linear-gradient(135deg, #DD2324 0%, #af1818 100%);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    color: white;
-    box-shadow: 0 6px 20px rgba(221, 35, 36, 0.4);
-    transition: transform 0.3s ease;
+  width: 55px;
+  height: 55px;
+  background: linear-gradient(135deg, #dd2324 0%, #af1818 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: white;
+  box-shadow: 0 6px 20px rgba(221, 35, 36, 0.4);
+  transition: transform 0.3s ease;
 }
 
 .logo:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .logo-text {
-    user-select: none;
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
+  user-select: none;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 .nav-menu {
-    padding: 25px 0;
+  padding: 25px 0;
 }
 
 .nav-item {
-    display: flex;
-    align-items: center;
-    padding: 18px 30px;
-    color: rgba(255,255,255,0.8);
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border-left: 4px solid transparent;
-    gap: 18px;
-    font-size: 1.05rem;
-    font-weight: 500;
-    position: relative;
-    margin: 2px 0;
+  display: flex;
+  align-items: center;
+  padding: 18px 30px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-left: 4px solid transparent;
+  gap: 18px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  position: relative;
+  margin: 2px 0;
 }
 
 .nav-item::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    background: rgba(221, 35, 36, 0.2);
-    transition: width 0.3s ease;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: rgba(221, 35, 36, 0.2);
+  transition: width 0.3s ease;
 }
 
 .nav-item:hover::before {
-    width: 100%;
+  width: 100%;
 }
 
-.nav-item:hover, .nav-item.active {
-    border-radius: 12px 0 0 12px; /* Bordes redondeados solo a la izquierda */
-    background: #DD2324 !important;
-    color: #fff !important;
-    border-left-color: #DD2324;
-    transform: translateX(8px);
+.nav-item:hover,
+.nav-item.active {
+  border-radius: 12px 0 0 12px; /* Bordes redondeados solo a la izquierda */
+  background: #dd2324 !important;
+  color: #fff !important;
+  border-left-color: #dd2324;
+  transform: translateX(8px);
 }
 
 .nav-item.active {
-    background: #DD2324 !important; /* Rojo fuerte */
-    color: #fff !important;
-    border-left-color: #DD2324;
-    transform: translateX(0px);
+  background: #dd2324 !important; /* Rojo fuerte */
+  color: #fff !important;
+  border-left-color: #dd2324;
+  transform: translateX(0px);
 }
 
 .nav-item.active::before {
-    width: 100%;
+  width: 100%;
 }
 
 .nav-item i {
-    width: 22px;
-    text-align: center;
-    font-size: 1.2rem;
-    transition: transform 0.3s ease;
+  width: 22px;
+  text-align: center;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
 }
 
 .nav-item:hover i {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 /* Layout horizontal en escritorio */
@@ -351,8 +359,8 @@ select:focus, input[type="text"]:focus {
 /* Main ocupa el resto */
 .main {
   flex: 1;
-  padding: 0;      /* Sin padding */
-  margin: 0;       /* Sin margen */
+  padding: 0; /* Sin padding */
+  margin: 0; /* Sin margen */
 }
 
 /* Botón hamburguesa oculto en escritorio */
@@ -396,7 +404,7 @@ select:focus, input[type="text"]:focus {
     width: 100vw;
     max-width: 100vw;
     min-width: 0;
-    padding: 0;      /* Sin padding lateral en móvil */
+    padding: 0; /* Sin padding lateral en móvil */
     margin-left: 0;
   }
   .sidebar {
@@ -420,7 +428,7 @@ select:focus, input[type="text"]:focus {
     display: flex;
     align-items: center;
     margin-right: 12px;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     border: none;
     color: white;
     font-size: 1.6rem;
@@ -436,7 +444,7 @@ select:focus, input[type="text"]:focus {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
   }
   .sidebar-overlay.active {
@@ -474,85 +482,86 @@ select:focus, input[type="text"]:focus {
 }
 
 @media (max-width: 768px) {
-    .header h1 {
-        font-size: 2.2rem;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-    }
+  .header h1 {
+    font-size: 2.2rem;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
 }
 
 /* Estilos del botón de envío */
 .submit-btn {
-    width: 100%;
-    padding: 12px 20px;
-    background: linear-gradient(135deg, #1e88e5, #1565c0);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 20px; /* Revertido el margen arriba */
+  width: 100%;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #1e88e5, #1565c0);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 20px; /* Revertido el margen arriba */
 }
 
 .submit-btn:hover {
-    background: linear-gradient(135deg, #1565c0, #0d47a1);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #1565c0, #0d47a1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .submit-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .submit-btn i {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 /* Media query para responsive: apilar en pantallas pequeñas */
 @media (max-width: 768px) {
-    form {
-        flex-direction: column;
-        gap: 18px; /* Aumentado ligeramente el espacio entre elementos apilados */
-    }
+  form {
+    flex-direction: column;
+    gap: 18px; /* Aumentado ligeramente el espacio entre elementos apilados */
+  }
 
-    label {
-        width: 100%;
-    }
-    
-    .form-box {
-        padding: 20px;
-    }
+  label {
+    width: 100%;
+  }
 
-    /* form-fields ya no existe */
-    /*
+  .form-box {
+    padding: 20px;
+  }
+
+  /* form-fields ya no existe */
+  /*
     .form-fields {
         width: 100%; 
         min-width: 0; 
         gap: 10px; 
     }
     */
-    
-    label {
-        font-size: 14px;
-    }
 
-    select, input[type="text"] {
-        font-size: 15px;
-        padding: 10px;
-        margin-top: 5px;
-    }
+  label {
+    font-size: 14px;
+  }
 
-    .submit-btn {
-        width: 100%;
-        margin-top: 15px; /* Revertido el margen superior cuando se apila */
-    }
+  select,
+  input[type="text"] {
+    font-size: 15px;
+    padding: 10px;
+    margin-top: 5px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 15px; /* Revertido el margen superior cuando se apila */
+  }
 }

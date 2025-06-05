@@ -91,7 +91,7 @@ body {
 }
 
 .logo-circle {
- background-image: url("./images/logo.png");
+  background-image: url("./images/logo.png");
   background-size: cover; /* Cambiado de 60px 60px a cover */
   background-position: center;
   background-repeat: no-repeat;
@@ -390,8 +390,8 @@ body {
   transform: translateY(-50%);
   cursor: pointer;
   z-index: 3;
-  width: 38px;      /* Más ancho para mejor área clickeable */
-  height: 38px;     /* Más alto para mejor área clickeable */
+  width: 38px; /* Más ancho para mejor área clickeable */
+  height: 38px; /* Más alto para mejor área clickeable */
   display: flex;
   align-items: center;
   justify-content: center; /* Centra el ícono dentro del botón */
