@@ -307,12 +307,17 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     try {
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `https://ucv-reports-backend.onrender.com/usuarios/buscar-usuario/${encodeURIComponent(
           value
         )}`
       );
       if (!response.ok) {
+        if (response.status === 404) {
+          // Not Found, likely no user found
+          populateTable([]);
+          return;
+        }
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const user = await response.json();
