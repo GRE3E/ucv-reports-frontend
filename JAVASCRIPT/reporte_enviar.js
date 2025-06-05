@@ -73,6 +73,10 @@ loadPabellones();
 const selectPabellon = document.getElementById("pabellon");
 selectPabellon.addEventListener("change", loadPisos);
 
+// Event listener para el cambio de piso
+const selectPiso = document.getElementById("piso");
+selectPiso.addEventListener("change", loadAulas);
+
 async function loadPabellones() {
   try {
     const response = await fetch(
@@ -132,6 +136,46 @@ async function loadPisos() {
   } catch (error) {
     console.error("Error al cargar los pisos:", error);
     alert("Error al cargar los pisos. Revisa la consola para más detalles.");
+  }
+}
+
+async function loadAulas() {
+  const selectPabellon = document.getElementById("pabellon");
+  const selectedPabellonId = selectPabellon.value;
+  const selectPiso = document.getElementById("piso");
+  const selectedPisoNumber = selectPiso.value;
+  const selectAula = document.getElementById("aula");
+  selectAula.innerHTML = '<option value="">Seleccione un aula</option>'; // Opción por defecto
+  selectAula.disabled = true; // Deshabilitar hasta que se seleccione un piso
+
+  if (!selectedPabellonId || !selectedPisoNumber) {
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "https://ucv-reports-backend.onrender.com/salon"
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const aulas = await response.json();
+    const filteredAulas = aulas.filter(
+      (aula) =>
+        aula.idpabellon == selectedPabellonId &&
+        aula.idpiso == selectedPisoNumber
+    );
+
+    selectAula.disabled = false; // Habilitar el select de aulas
+    filteredAulas.forEach((aula) => {
+      const option = document.createElement("option");
+      option.value = aula.nombre;
+      option.textContent = aula.nombre;
+      selectAula.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Error al cargar las aulas:", error);
+    alert("Error al cargar las aulas. Revisa la consola para más detalles.");
   }
 }
 
