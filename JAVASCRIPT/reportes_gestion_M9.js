@@ -460,6 +460,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     }
 
+    // Event listener para el botón de abrir modal de reportes
+    const btnAbrirModalReportes = document.getElementById(
+      "abrirModalReportesBtn"
+    );
+    if (btnAbrirModalReportes) {
+      btnAbrirModalReportes.addEventListener("click", abrirModalReportes);
+    }
+
     console.log("Aplicación inicializada correctamente");
   } catch (error) {
     console.error("Error en la inicialización:", error);
