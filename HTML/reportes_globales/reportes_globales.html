@@ -18,9 +18,13 @@
       <aside class="sidebar" id="sidebar">
         <div class="logo-section">
           <div class="logo">
-            <i class="fas fa-shield-alt"></i>
+            <img
+              src="../../CSS/auth/images/logo_ucv_modal.png"
+              alt="Logo UCV"
+              style="width: 100%; height: auto"
+            />
           </div>
-          <span class="logo-text">Sistema<br />Reportes</span>
+          <span class="logo-text">Sistema Reportes</span>
         </div>
         <nav class="nav-menu">
           <a href="/reporte_enviar" class="nav-item">
@@ -54,92 +58,10 @@
           </button>
         </header>
 
-        <div class="subtitle">
-          <i class="fas fa-info-circle fa-icon"></i>
-          <div>
-            <strong>Sistema de Gestión de Reportes</strong><br />
-            Puedes observar los reportes enviados de hoy. Haz clic en
-            "Visualizar" para ver la información detallada del problema
-            reportado.
-          </div>
-        </div>
+        <!-- CONTENIDO ELIMINADO -->
 
         <div class="reports-grid" id="reportsGrid">
           <!-- Las tarjetas se llenarán dinámicamente -->
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
-      <div class="modal" onclick="event.stopPropagation()">
-        <div class="modal-header">
-          <h2 class="modal-title">
-            <i class="fas fa-file-alt"></i>
-            Detalles del Reporte
-          </h2>
-          <button class="close-btn" onclick="closeModal()">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-        <div class="modal-content">
-          <div class="modal-info">
-            <div class="info-item">
-              <span class="info-label">
-                <i class="fas fa-university"></i>
-                Facultad:
-              </span>
-              <span class="info-value" id="modalFacultad"></span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">
-                <i class="fas fa-clock"></i>
-                Turno:
-              </span>
-              <span class="info-value" id="modalTurno"></span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">
-                <i class="fas fa-calendar-check"></i>
-                Fecha:
-              </span>
-              <span class="info-value" id="modalFecha"></span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">
-                <i class="fas fa-check-circle"></i>
-                Estado:
-              </span>
-              <span class="info-value" id="modalEstado"></span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">
-                <i class="fas fa-exclamation-triangle"></i>
-                Lugar del Problema:
-              </span>
-              <span class="info-value" id="modalLugar"></span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">
-                <i class="fas fa-file-alt"></i>
-                Descripción del Problema:
-              </span>
-              <span class="info-value" id="modalDescripcion"></span>
-            </div>
-          </div>
-          <div class="evidence-section">
-            <h3 class="evidence-title">
-              <i class="fas fa-camera"></i>
-              Evidencia:
-            </h3>
-            <img
-              src=""
-              alt="Evidencia del problema"
-              class="evidence-image"
-              id="modalEvidencia"
-              style="display: none"
-            />
-          </div>
         </div>
       </div>
     </div>
