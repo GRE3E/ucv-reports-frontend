@@ -309,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetchWithAuth(
-        `https://ucv-reports-backend.onrender.com/usuarios/buscar-usuario/${encodeURIComponent(
+        `https://ucv-reports-backend.onrender.com/usuarios/buscar-parcial/${encodeURIComponent(
           value
         )}`
       );
