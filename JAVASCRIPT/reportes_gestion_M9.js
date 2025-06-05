@@ -187,9 +187,15 @@ function renderReportesDetalle() {
       <td>${fecha}</td>
       <td>${estado}</td>
       <td>
-        <button class="btn observar" onclick="abrirModalDetalleDesdeReportes(${idReporte})">Observar</button>
+        <button class="btn observar">Observar</button>
       </td>
     `;
+    const observarButton = tr.querySelector(".btn.observar");
+    if (observarButton) {
+      observarButton.addEventListener("click", () =>
+        abrirModalDetalleDesdeReportes(idReporte)
+      );
+    }
     tbody.appendChild(tr);
   });
 }
