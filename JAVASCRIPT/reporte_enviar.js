@@ -110,8 +110,8 @@ async function sendReport(token) {
               ...(token && { Authorization: `Bearer ${token}` }),
             },
             body: JSON.stringify({
-              usuario_id: userId,
-              reporte_id: result.id,
+              usuario_id: parseInt(userId),
+              reporte_id: parseInt(result.id),
             }),
           }
         );
