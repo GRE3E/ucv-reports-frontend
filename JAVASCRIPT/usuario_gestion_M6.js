@@ -167,25 +167,11 @@ document.addEventListener("DOMContentLoaded", () => {
         option.selected = false;
       }
     });
-    document.getElementById("passwordUser").value = user.contraseña || ""; // Populate password field
+    document.getElementById("passwordUser").value = ""; // Password should not be pre-filled for security
 
     // Store user ID in a data attribute on the save button for later use
     document.querySelector(".btn.guardar-edit").dataset.userId = user.IDUsuario;
   };
-
-  // Password toggle functionality
-  const togglePassword = document.getElementById("togglePassword");
-  const passwordInput = document.getElementById("passwordUser");
-
-  if (togglePassword && passwordInput) {
-    togglePassword.addEventListener("click", function () {
-      const type =
-        passwordInput.getAttribute("type") === "password" ? "text" : "password";
-      passwordInput.setAttribute("type", type);
-      this.classList.toggle("fa-eye");
-      this.classList.toggle("fa-eye-slash");
-    });
-  }
 
   // Function to open disable modal and handle disable action
   const enableUser = async (userId) => {
@@ -321,16 +307,12 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     try {
-      const response = await fetchWithAuth(
+      const response = await fetch(
         `https://ucv-reports-backend.onrender.com/usuarios/buscar-usuario/${encodeURIComponent(
           value
         )}`
       );
       if (!response.ok) {
-        if (response.status === 404) {
-          populateTable([]); // No user found, clear the table
-          return;
-        }
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const user = await response.json();
