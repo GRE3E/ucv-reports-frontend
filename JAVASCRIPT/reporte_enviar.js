@@ -69,6 +69,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // Cargar pabellones al iniciar la página
 loadPabellones();
 
+// Event listener para el cambio de pabellón
+const selectPabellon = document.getElementById("pabellon");
+selectPabellon.addEventListener("change", loadPisos);
+
 async function loadPabellones() {
   try {
     const response = await fetch(
@@ -83,7 +87,7 @@ async function loadPabellones() {
       '<option value="">Seleccione un pabellón</option>'; // Opción por defecto
     pabellones.forEach((pabellon) => {
       const option = document.createElement("option");
-      option.value = pabellon.Pabellon;
+      option.value = pabellon.id;
       option.textContent = pabellon.Pabellon;
       selectPabellon.appendChild(option);
     });
@@ -92,6 +96,42 @@ async function loadPabellones() {
     alert(
       "Error al cargar los pabellones. Revisa la consola para más detalles."
     );
+  }
+}
+
+async function loadPisos() {
+  const selectPabellon = document.getElementById("pabellon");
+  const selectedPabellonId = selectPabellon.value;
+  const selectPiso = document.getElementById("piso");
+  selectPiso.innerHTML = '<option value="">Seleccione un piso</option>'; // Opción por defecto
+  selectPiso.disabled = true; // Deshabilitar hasta que se seleccione un pabellón
+
+  if (!selectedPabellonId) {
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "https://ucv-reports-backend.onrender.com/piso"
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const pisos = await response.json();
+    const filteredPisos = pisos.filter(
+      (piso) => piso.idpabellon == selectedPabellonId
+    );
+
+    selectPiso.disabled = false; // Habilitar el select de pisos
+    filteredPisos.forEach((piso) => {
+      const option = document.createElement("option");
+      option.value = piso.numero_piso;
+      option.textContent = piso.numero_piso;
+      selectPiso.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Error al cargar los pisos:", error);
+    alert("Error al cargar los pisos. Revisa la consola para más detalles.");
   }
 }
 
