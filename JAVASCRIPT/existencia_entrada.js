@@ -288,7 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           idpabellon: parseInt(document.getElementById("pabellon").value) || 0,
           idpiso: parseInt(document.getElementById("piso").value) || 0,
-          idsalon: document.getElementById("salon").value,
+          idsalon: parseInt(document.getElementById("salon").value) || 0,
           imagen: "../../CSS/auth/images/placeholder.jpg",
           Estado: String("Pendiente"),
         };
