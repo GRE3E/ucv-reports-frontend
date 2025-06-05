@@ -387,7 +387,14 @@ async function abrirModalDetalleDesdeReportes(id_reporte) {
         detalleReporte.googleDriveFileId.length > 0
           ? `https://lh3.googleusercontent.com/d/${detalleReporte.googleDriveFileId}`
           : ""
-      }" alt="Evidencia" style="max-width:100%;margin-top:10px;border-radius:8px;" onerror="this.src=''">
+      }" alt="Evidencia" style="max-width:100%;margin-top:10px;border-radius:8px;${
+      !(
+        detalleReporte.googleDriveFileId &&
+        detalleReporte.googleDriveFileId.length > 0
+      )
+        ? "display:none;"
+        : ""
+    }">
     `;
 
     // Cerrar modal de reportes y abrir modal de detalle
