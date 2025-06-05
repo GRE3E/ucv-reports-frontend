@@ -44,6 +44,15 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault(); // Previene recarga
     sendReport(token); // Llama con el token
   });
+
+  const logoutLink = document.getElementById("logoutLink");
+  if (logoutLink) {
+    logoutLink.addEventListener("click", function (e) {
+      e.preventDefault(); // Previene la navegación por defecto
+      localStorage.removeItem("access_token"); // Elimina el token
+      window.location.href = "/"; // Redirige a la página de inicio de sesión
+    });
+  }
 });
 
 // Envío del reporte
