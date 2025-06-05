@@ -1,6 +1,5 @@
 import { validateTokenAndRedirect, fetchWithAuth } from "./auth/auth_utils.js";
 
-// Mover fuera de DOMContentLoaded para que funcione desde HTML onclick
 window.toggleSidebar = function () {
   const sidebar = document.getElementById("sidebar");
   const overlay = document.getElementById("sidebarOverlay");
@@ -14,16 +13,21 @@ window.toggleSidebar = function () {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Validar token antes de continuar
   const token = validateTokenAndRedirect();
-  if (token) {
-    console.log("Token JWT disponible en reporte_enviar.js:", token);
-    try {
-      const payloadBase64 = token.split(".")[1];
-      const decodedPayload = JSON.parse(atob(payloadBase64));
-      console.log("ID de usuario (sub) del token:", decodedPayload.sub);
-    } catch (error) {
-      console.error("Error al decodificar el token JWT:", error);
-    }
+  if (!token) {
+    console.warn("Token no válido. Cancelando ejecución.");
+    return; // Detiene toda la ejecución si no hay token
+  }
+
+  // Mostrar token en consola si es válido
+  console.log("Token JWT disponible en reporte_enviar.js:", token);
+  try {
+    const payloadBase64 = token.split(".")[1];
+    const decodedPayload = JSON.parse(atob(payloadBase64));
+    console.log("ID de usuario (sub) del token:", decodedPayload.sub);
+  } catch (error) {
+    console.error("Error al decodificar el token JWT:", error);
   }
 
   window.addEventListener("resize", function () {
@@ -38,24 +42,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Evento submit del formulario
-  const form = document.getElementById("reportForm");
-  form.addEventListener("submit", function (e) {
-    e.preventDefault(); // Previene recarga
-    sendReport(token); // Llama con el token
-  });
-
+  // Manejo de logout
   const logoutLink = document.getElementById("logoutLink");
   if (logoutLink) {
     logoutLink.addEventListener("click", function (e) {
-      e.preventDefault(); // Previene la navegación por defecto
-      localStorage.removeItem("access_token"); // Elimina el token
-      window.location.href = "/"; // Redirige a la página de inicio de sesión
+      e.preventDefault();
+      localStorage.removeItem("access_token");
+      window.location.href = "/login";
     });
   }
+
+  // Envío del formulario
+  const form = document.getElementById("reportForm");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    sendReport(token);
+  });
 });
 
-// Envío del reporte
 async function sendReport(token) {
   const reportData = {
     facultad: document.getElementById("facultad").value,
@@ -91,28 +95,18 @@ async function sendReport(token) {
     const result = await response.json();
     console.log("Reporte enviado con éxito:", result);
 
-    // Extraer el ID de usuario del token
     let userId = null;
     if (token) {
       try {
         const payloadBase64 = token.split(".")[1];
         const decodedPayload = JSON.parse(atob(payloadBase64));
-        userId = decodedPayload.sub; // Asumiendo que 'sub' es el ID de usuario
+        userId = decodedPayload.sub;
       } catch (error) {
-        console.error(
-          "Error al decodificar el token JWT para obtener el ID de usuario:",
-          error
-        );
+        console.error("Error al decodificar el token:", error);
       }
     }
 
-    // Registrar en el historial si se obtuvo el userId y el reporte_id
     if (userId && result.id_reporte) {
-      console.log("Registrando historial con:", {
-        usuario_id: parseInt(userId),
-        reporte_id: parseInt(result.id_reporte),
-      });
-
       try {
         const historialResponse = await fetch(
           "https://ucv-reports-backend.onrender.com/historial-reportes/add",
@@ -132,12 +126,10 @@ async function sendReport(token) {
         if (!historialResponse.ok) {
           throw new Error(`HTTP error! status: ${historialResponse.status}`);
         }
-        console.log("Reporte registrado en el historial con éxito.");
-      } catch (historialError) {
-        console.error(
-          "Error al registrar el reporte en el historial:",
-          historialError
-        );
+
+        console.log("Reporte registrado en historial con éxito.");
+      } catch (error) {
+        console.error("Error al registrar historial:", error);
       }
     }
 

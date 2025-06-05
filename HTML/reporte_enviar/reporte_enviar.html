@@ -2,6 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="Cache-Control" content="no-store" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registrar Reporte</title>
     <link rel="stylesheet" href="../../CSS/reporte_enviar/reporte_enviar.css" />
@@ -61,89 +62,27 @@
 
         <section class="form-section">
           <div class="form-box">
-            <!-- FORMULARIO -->
             <form id="reportForm">
+              <!-- CAMPOS DE FORMULARIO -->
               <label
-                >Facultad:
-                <input
-                  type="text"
-                  id="facultad"
-                  placeholder="Ingrese la facultad"
-                  required
-                />
-              </label>
+                >Facultad:<input type="text" id="facultad" required
+              /></label>
+              <label>Turno:<input type="text" id="turno" required /></label>
               <label
-                >Turno:
-                <input
-                  type="text"
-                  id="turno"
-                  placeholder="Ingrese el turno"
-                  required
-                />
-              </label>
+                >Pabellón:<input type="text" id="pabellon" required
+              /></label>
+              <label>Piso:<input type="text" id="piso" required /></label>
+              <label>Aula:<input type="text" id="aula" required /></label>
               <label
-                >Pabellón:
-                <input
-                  type="text"
-                  id="pabellon"
-                  placeholder="Ingrese el pabellón"
-                  required
-                />
-              </label>
+                >Artículo:<input type="text" id="articulo" required
+              /></label>
+              <label>Motivo:<input type="text" id="motivo" required /></label>
               <label
-                >Piso:
-                <input
-                  type="text"
-                  id="piso"
-                  placeholder="Ingrese el piso"
-                  required
-                />
-              </label>
+                >Descripción:<input type="text" id="descripcion" required
+              /></label>
               <label
-                >Aula:
-                <input
-                  type="text"
-                  id="aula"
-                  placeholder="Ingrese el aula"
-                  required
-                />
-              </label>
-              <label
-                >Artículo:
-                <input
-                  type="text"
-                  id="articulo"
-                  placeholder="Ingrese el artículo"
-                  required
-                />
-              </label>
-              <label
-                >Motivo:
-                <input
-                  type="text"
-                  id="motivo"
-                  placeholder="Ingrese el motivo del reporte"
-                  required
-                />
-              </label>
-              <label
-                >Descripción:
-                <input
-                  type="text"
-                  id="descripcion"
-                  placeholder="Ingrese una descripción detallada del problema..."
-                  required
-                />
-              </label>
-              <label
-                >Evidencia:
-                <input
-                  type="text"
-                  id="evidencia"
-                  placeholder="Ingrese la evidencia"
-                  required
-                />
-              </label>
+                >Evidencia:<input type="text" id="evidencia" required
+              /></label>
               <button type="submit" class="submit-btn">
                 <i class="fas fa-paper-plane"></i>
                 Enviar Reporte
