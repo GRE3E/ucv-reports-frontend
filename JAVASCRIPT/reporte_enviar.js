@@ -180,6 +180,9 @@ async function loadAulas() {
 }
 
 async function sendReport(token) {
+  const evidenciaInput = document.getElementById("evidencia");
+  const file = evidenciaInput.files[0];
+
   const reportData = {
     facultad: document.getElementById("facultad").value,
     turno: document.getElementById("turno").value,
@@ -188,7 +191,6 @@ async function sendReport(token) {
     Salon: document.getElementById("aula").value,
     Articulos: document.getElementById("articulo").value,
     descripcion: document.getElementById("descripcion").value,
-    evidencia: document.getElementById("evidencia").value,
     fecha: new Date().toISOString(),
     estado: "Pendiente",
     Motivo: document.getElementById("motivo").value,
@@ -213,6 +215,35 @@ async function sendReport(token) {
 
     const result = await response.json();
     console.log("Reporte enviado con éxito:", result);
+
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const uploadResponse = await fetch(
+          `https://ucv-reports-backend.onrender.com/google-drive/reportes/${result.id_reporte}/upload-evidencia`,
+          {
+            method: "POST",
+            headers: {
+              ...(token && { Authorization: `Bearer ${token}` }),
+            },
+            body: formData,
+          }
+        );
+
+        if (!uploadResponse.ok) {
+          throw new Error(`HTTP error! status: ${uploadResponse.status}`);
+        }
+        const uploadResult = await uploadResponse.json();
+        console.log("Evidencia cargada con éxito:", uploadResult);
+      } catch (error) {
+        console.error("Error al cargar la evidencia:", error);
+        alert(
+          "Error al cargar la evidencia. Revisa la consola para más detalles."
+        );
+      }
+    }
 
     let userId = null;
     if (token) {
