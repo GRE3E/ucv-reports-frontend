@@ -14,9 +14,23 @@ export function validateTokenAndRedirect() {
     return null;
   }
 
-  // TODO: Add actual token validation (e.g., check expiration, verify signature with backend call)
-  // For now, we'll assume any existing token is valid until a backend call proves otherwise.
-  // A more robust solution would involve a backend endpoint to validate the token.
+  try {
+    const payloadBase64 = token.split(".")[1];
+    const decodedPayload = JSON.parse(atob(payloadBase64));
+    const expirationTime = decodedPayload.exp * 1000; // Convertir a milisegundos
+
+    if (Date.now() >= expirationTime) {
+      console.log("JWT token expired, redirecting to login.");
+      localStorage.removeItem("access_token");
+      window.location.href = "/login";
+      return null;
+    }
+  } catch (error) {
+    console.error("Error decoding or validating JWT token:", error);
+    localStorage.removeItem("access_token"); // Remove invalid token
+    window.location.href = "/login";
+    return null;
+  }
 
   return token;
 }
