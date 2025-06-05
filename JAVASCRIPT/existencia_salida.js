@@ -126,6 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 modalStockActual.style.display = "none";
                 modalSeleccionarUbicacion.style.display = "block";
                 limpiarFormularioUbicacion();
+                loadPabellonesSalida(); // Cargar pabellones al abrir el modal
               });
             });
         });
@@ -158,6 +159,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Funcionalidad para el modal Seleccionar Ubicación
+  const selectPabellonSalida = document.getElementById("pabellon");
+  const selectPisoSalida = document.getElementById("piso");
+  const selectSalonSalida = document.getElementById("salon");
+
+  if (selectPabellonSalida) {
+    selectPabellonSalida.addEventListener("change", loadPisosSalida);
+  }
+  if (selectPisoSalida) {
+    selectPisoSalida.addEventListener("change", loadAulasSalida);
+  }
 
   // Event listener para el botón 'Confirmar Ubicación'
   const botonConfirmarUbicacion = modalSeleccionarUbicacion.querySelector(
@@ -205,6 +216,106 @@ document.addEventListener("DOMContentLoaded", () => {
     // botonUsarActivo = null; // Descomentar si es necesario limpiar la referencia al cerrar sin confirmar
   }
 
+  // Funciones para cargar dinámicamente Pabellón, Piso y Salón
+  async function loadPabellonesSalida() {
+    try {
+      const response = await fetchWithAuth(
+        "https://ucv-reports-backend.onrender.com/pabellon"
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const pabellones = await response.json();
+      selectPabellonSalida.innerHTML =
+        '<option value="">Seleccione un pabellón</option>';
+      pabellones.forEach((pabellon) => {
+        const option = document.createElement("option");
+        option.value = pabellon.id;
+        option.textContent = pabellon.Pabellon;
+        selectPabellonSalida.appendChild(option);
+      });
+    } catch (error) {
+      console.error("Error al cargar los pabellones:", error);
+      alert(
+        "Error al cargar los pabellones. Revisa la consola para más detalles."
+      );
+    }
+  }
+
+  async function loadPisosSalida() {
+    const selectedPabellonId = selectPabellonSalida.value;
+    selectPisoSalida.innerHTML = '<option value="">Seleccione un piso</option>';
+    selectPisoSalida.disabled = true;
+
+    if (!selectedPabellonId) {
+      return;
+    }
+
+    try {
+      const response = await fetchWithAuth(
+        "https://ucv-reports-backend.onrender.com/piso"
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const pisos = await response.json();
+      const filteredPisos = pisos.filter(
+        (piso) => piso.idpabellon == selectedPabellonId
+      );
+
+      selectPisoSalida.disabled = false;
+      filteredPisos.forEach((piso) => {
+        const option = document.createElement("option");
+        option.value = piso.numero_piso;
+        option.textContent = piso.numero_piso;
+        selectPisoSalida.appendChild(option);
+      });
+    } catch (error) {
+      console.error("Error al cargar los pisos:", error);
+      alert("Error al cargar los pisos. Revisa la consola para más detalles.");
+    }
+  }
+
+  async function loadAulasSalida() {
+    const selectedPabellonId = selectPabellonSalida.value;
+    const selectedPisoNumber = selectPisoSalida.value;
+    selectSalonSalida.innerHTML =
+      '<option value="">Seleccione un salón</option>';
+    selectSalonSalida.disabled = true;
+
+    if (!selectedPabellonId || !selectedPisoNumber) {
+      return;
+    }
+
+    try {
+      const response = await fetchWithAuth(
+        "https://ucv-reports-backend.onrender.com/salon"
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const aulas = await response.json();
+      const filteredAulas = aulas.filter(
+        (aula) =>
+          aula.idpabellon == selectedPabellonId &&
+          aula.idpiso == selectedPisoNumber
+      );
+
+      selectSalonSalida.disabled = false;
+      filteredAulas.forEach((aula) => {
+        const option = document.createElement("option");
+        option.value = aula.nombre;
+        option.textContent = aula.nombre;
+        selectSalonSalida.appendChild(option);
+      });
+    } catch (error) {
+      console.error("Error al cargar los salones:", error);
+      alert(
+        "Error al cargar los salones. Revisa la consola para más detalles."
+      );
+    }
+  }
+
   // Cerrar modales al hacer clic fuera de su contenido
   window.onclick = function (event) {
     if (event.target == modalStockActual) {
@@ -214,4 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cerrarModalUbicacion();
     }
   };
+
+  // Cargar pabellones al abrir el modal de selección de ubicación
+  modalSeleccionarUbicacion.addEventListener("show", loadPabellonesSalida);
 });
