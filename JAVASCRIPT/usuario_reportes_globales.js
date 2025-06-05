@@ -90,6 +90,9 @@ function closeModal() {
   document.body.style.overflow = "auto";
 }
 
+window.openModal = openModal;
+window.closeModal = closeModal;
+
 import { validateTokenAndRedirect, fetchWithAuth } from "./auth/auth_utils.js";
 
 const token = localStorage.getItem("access_token");
