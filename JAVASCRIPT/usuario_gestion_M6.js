@@ -100,9 +100,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Add event listener for edit button
-      actionsCell
-        .querySelector(".btn-edit")
-        .addEventListener("click", () => openEditModal(user));
+      if (!is_disabled_user) {
+        actionsCell
+          .querySelector(".btn-edit")
+          .addEventListener("click", () => openEditModal(user));
+      }
     });
   };
 
