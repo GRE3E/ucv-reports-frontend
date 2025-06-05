@@ -383,8 +383,9 @@ async function abrirModalDetalleDesdeReportes(id_reporte) {
       <hr>
       <div><b>Evidencia:</b></div>
       <img id="imgEvidencia" src="${
-        detalleReporte.googleDriveFileId
-          ? `https://drive.google.com/uc?id=${detalleReporte.googleDriveFileId}`
+        detalleReporte.googleDriveFileId &&
+        detalleReporte.googleDriveFileId.length > 0
+          ? `https://lh3.googleusercontent.com/d/${detalleReporte.googleDriveFileId}`
           : "../../CSS/auth/images/Problema monitor.jpg"
       }" alt="Evidencia" style="max-width:100%;margin-top:10px;border-radius:8px;" onerror="this.src='../../CSS/auth/images/Problema monitor.jpg'">
     `;
