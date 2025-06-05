@@ -98,11 +98,15 @@ async function sendReport(token) {
     }
 
     // Registrar en el historial si se obtuvo el userId y el reporte_id
-    if (userId && result.id) {
-      // Asumiendo que el ID del reporte está en result.id
+    if (userId && result.id_reporte) {
+      console.log("Registrando historial con:", {
+        usuario_id: parseInt(userId),
+        reporte_id: parseInt(result.id_reporte),
+      });
+
       try {
         const historialResponse = await fetch(
-          "https://ucv-reports-backend.onrender.com/historial-reportes/add", // Usar el endpoint correcto
+          "https://ucv-reports-backend.onrender.com/historial-reportes/add",
           {
             method: "POST",
             headers: {
@@ -111,7 +115,7 @@ async function sendReport(token) {
             },
             body: JSON.stringify({
               usuario_id: parseInt(userId),
-              reporte_id: parseInt(result.id),
+              reporte_id: parseInt(result.id_reporte),
             }),
           }
         );
