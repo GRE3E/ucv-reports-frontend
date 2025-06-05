@@ -17,6 +17,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const token = validateTokenAndRedirect();
   if (token) {
     console.log("Token JWT disponible en reporte_enviar.js:", token);
+    try {
+      const payloadBase64 = token.split(".")[1];
+      const decodedPayload = JSON.parse(atob(payloadBase64));
+      console.log("ID de usuario (sub) del token:", decodedPayload.sub);
+    } catch (error) {
+      console.error("Error al decodificar el token JWT:", error);
+    }
   }
 
   window.addEventListener("resize", function () {
