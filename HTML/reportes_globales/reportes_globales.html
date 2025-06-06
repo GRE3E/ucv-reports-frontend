@@ -63,48 +63,47 @@
         <div class="reports-grid" id="reportsGrid">
           <!-- Las tarjetas se llenarán dinámicamente -->
         </div>
-      </div>
-    </div>
 
-    <!-- Modal de Detalle del Reporte -->
-    <div id="modalOverlay" class="modal-overlay" onclick="closeModal()">
-      <div class="modal-content" onclick="event.stopPropagation()">
-        <span class="close-button" onclick="closeModal()">&times;</span>
-        <h2>Detalles del Reporte</h2>
-        <div class="modal-body">
-          <div class="detail-item">
-            <span class="detail-label">Facultad:</span>
-            <span id="modalFacultad" class="info-value"></span>
-          </div>
-          <div class="detail-item">
-            <span class="detail-label">Turno:</span>
-            <span id="modalTurno" class="info-value"></span>
-          </div>
-          <div class="detail-item">
-            <span class="detail-label">Fecha:</span>
-            <span id="modalFecha" class="info-value"></span>
-          </div>
-          <div class="detail-item">
-            <span class="detail-label">Estado:</span>
-            <span id="modalEstado" class="info-value"></span>
-          </div>
-          <div class="detail-item">
-            <span class="detail-label">Lugar:</span>
-            <span id="modalLugar" class="info-value"></span>
-          </div>
-          <div class="detail-item">
-            <span class="detail-label">Descripción del Problema:</span>
-            <span id="modalDescripcion" class="info-value"></span>
-          </div>
-          <div class="detail-item evidence-section">
-            <span class="detail-label">Evidencia:</span>
-            <img
-              id="modalEvidencia"
-              src=""
-              alt="Evidencia del Reporte"
-              class="modal-image"
-              style="display: none"
-            />
+        <!-- Modal de Detalle del Reporte -->
+        <div id="modalOverlay" class="modal-overlay">
+          <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2>Detalle del Reporte</h2>
+            <div class="modal-body">
+              <div class="detail-item">
+                <strong>Facultad:</strong>
+                <span id="modalFacultad"></span>
+              </div>
+              <div class="detail-item">
+                <strong>Turno:</strong>
+                <span id="modalTurno"></span>
+              </div>
+              <div class="detail-item">
+                <strong>Fecha:</strong>
+                <span id="modalFecha"></span>
+              </div>
+              <div class="detail-item">
+                <strong>Estado:</strong>
+                <span id="modalEstado"></span>
+              </div>
+              <div class="detail-item">
+                <strong>Lugar:</strong>
+                <span id="modalLugar"></span>
+              </div>
+              <div class="detail-item">
+                <strong>Descripción:</strong>
+                <span id="modalDescripcion"></span>
+              </div>
+              <div class="detail-item evidence-section">
+                <strong>Evidencia:</strong>
+                <img
+                  id="modalEvidencia"
+                  src=""
+                  alt="Evidencia del Reporte"
+                  style="display: none"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
