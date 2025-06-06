@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
       selectSalonEntrada.disabled = false;
       filteredAulas.forEach((aula) => {
         const option = document.createElement("option");
-        option.value = aula.nombre;
+        option.value = aula.id;
         option.textContent = aula.nombre;
         selectSalonEntrada.appendChild(option);
       });
