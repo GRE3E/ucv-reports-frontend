@@ -206,13 +206,23 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const aulas = await response.json();
+      console.log("Aulas fetched:", aulas);
 
       // Filtrar por pabellón y piso
       const filteredAulas = aulas.filter((aula) => {
+        console.log(
+          `Checking aula: ${aula.nombre}, idpabellon: ${aula.idpabellon}, idpiso: ${aula.idpiso}`
+        );
         return (
           aula.idpabellon == selectedPabellonId && aula.idpiso == selectedPisoId
         );
       });
+      console.log(
+        "Selected Pabellon ID (loadAulasEntrada):",
+        selectedPabellonId
+      );
+      console.log("Selected Piso ID (loadAulasEntrada):", selectedPisoId);
+      console.log("Filtered Aulas:", filteredAulas);
 
       selectSalonEntrada.disabled = false;
       filteredAulas.forEach((aula) => {
