@@ -282,51 +282,110 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       formData.append("precio", document.getElementById("precio").value);
 
+      const cantidad = parseInt(document.getElementById("cantidad").value) || 1;
+
       try {
-        const hardwareData = {
-          idarticulostipo: (() => {
-            let parsedValue;
-            const articleTypeMap = {
-              ordenador: 1,
-              proyector: 2,
-              escritorio: 3,
-            };
+        let response;
+        if (cantidad > 1) {
+          const createMultipleHardwareDto = {
+            id_articulo: (() => {
+              let parsedValue;
+              const articleTypeMap = {
+                ordenador: 1,
+                proyector: 2,
+                escritorio: 3,
+              };
 
-            if (selectArticulo.value === "otro") {
-              parsedValue = parseInt(
-                document.getElementById("otroArticulo").value
-              );
-            } else if (articleTypeMap[selectArticulo.value]) {
-              parsedValue = articleTypeMap[selectArticulo.value];
-            } else {
-              parsedValue = parseInt(selectArticulo.value);
+              if (selectArticulo.value === "otro") {
+                parsedValue = parseInt(
+                  document.getElementById("otroArticulo").value
+                );
+              } else if (articleTypeMap[selectArticulo.value]) {
+                parsedValue = articleTypeMap[selectArticulo.value];
+              } else {
+                parsedValue = parseInt(selectArticulo.value);
+              }
+              return isNaN(parsedValue) ? 0 : parsedValue;
+            })(),
+            codigo_inicial: String(
+              document.getElementById("codigoProducto").value
+            ),
+            nombre_producto: String(
+              document.getElementById("nombreProducto").value
+            ),
+            precio_producto: parseFloat(
+              document.getElementById("precio").value || "0"
+            ),
+            imagen_producto: "../../CSS/auth/images/placeholder.jpg",
+            cantidad_registros: cantidad,
+            estado_producto: String("Pendiente"),
+            idpabellon:
+              parseInt(document.getElementById("pabellon").value) || 0,
+            idpiso: parseInt(document.getElementById("piso").value) || 0,
+            idsalon: parseInt(document.getElementById("salon").value) || 0,
+          };
+
+          console.log(
+            "Datos enviados al backend (multiple):",
+            createMultipleHardwareDto
+          );
+
+          response = await fetchWithAuth(
+            "https://ucv-reports-backend.onrender.com/hardware/multiple",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(createMultipleHardwareDto),
             }
-            return isNaN(parsedValue) ? 0 : parsedValue;
-          })(),
-          Codigo: String(document.getElementById("codigoProducto").value),
-          nombre: String(document.getElementById("nombreProducto").value),
-          Precio: parseFloat(document.getElementById("precio").value || "0"),
+          );
+        } else {
+          const hardwareData = {
+            idarticulostipo: (() => {
+              let parsedValue;
+              const articleTypeMap = {
+                ordenador: 1,
+                proyector: 2,
+                escritorio: 3,
+              };
 
-          idpabellon: parseInt(document.getElementById("pabellon").value) || 0,
-          idpiso: parseInt(document.getElementById("piso").value) || 0,
-          idsalon: parseInt(document.getElementById("salon").value) || 0,
-          imagen: "../../CSS/auth/images/placeholder.jpg",
-          Estado: String("Pendiente"),
-        };
+              if (selectArticulo.value === "otro") {
+                parsedValue = parseInt(
+                  document.getElementById("otroArticulo").value
+                );
+              } else if (articleTypeMap[selectArticulo.value]) {
+                parsedValue = articleTypeMap[selectArticulo.value];
+              } else {
+                parsedValue = parseInt(selectArticulo.value);
+              }
+              return isNaN(parsedValue) ? 0 : parsedValue;
+            })(),
+            Codigo: String(document.getElementById("codigoProducto").value),
+            nombre: String(document.getElementById("nombreProducto").value),
+            Precio: parseFloat(document.getElementById("precio").value || "0"),
 
-        console.log("Datos enviados al backend:", hardwareData);
+            idpabellon:
+              parseInt(document.getElementById("pabellon").value) || 0,
+            idpiso: parseInt(document.getElementById("piso").value) || 0,
+            idsalon: parseInt(document.getElementById("salon").value) || 0,
+            imagen: "../../CSS/auth/images/placeholder.jpg",
+            Estado: String("Pendiente"),
+          };
 
-        // Asumiendo que el backend tiene un endpoint para guardar productos
-        const response = await fetchWithAuth(
-          "https://ucv-reports-backend.onrender.com/hardware",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(hardwareData),
-          }
-        );
+          console.log("Datos enviados al backend (single):", hardwareData);
+
+          response = await fetchWithAuth(
+            "https://ucv-reports-backend.onrender.com/hardware",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(hardwareData),
+            }
+          );
+        }
 
         if (response.ok) {
           const newProduct = await response.json();
