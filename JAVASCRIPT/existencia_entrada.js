@@ -22,16 +22,72 @@ document.addEventListener("DOMContentLoaded", () => {
   } catch (error) {
     console.error("Error al decodificar el token JWT:", error);
   }
+
   const productosGridContainer = document.querySelector(
     ".productos-grid-container"
   );
+
+  // FUNCIÓN DE DEBUGGING COMPLETA
+  function debugFormValues() {
+    console.log("=== DEBUGGING FORM VALUES ===");
+
+    const pabellonSelect = document.getElementById("pabellon");
+    const pisoSelect = document.getElementById("piso");
+    const salonSelect = document.getElementById("salon");
+
+    console.log("Pabellón Element:", pabellonSelect);
+    console.log("Pabellón Value:", pabellonSelect?.value);
+    console.log("Pabellón Selected Index:", pabellonSelect?.selectedIndex);
+    console.log("Pabellón Options:", Array.from(pabellonSelect?.options || []));
+
+    console.log("Piso Element:", pisoSelect);
+    console.log("Piso Value:", pisoSelect?.value);
+    console.log("Piso Selected Index:", pisoSelect?.selectedIndex);
+    console.log("Piso Options:", Array.from(pisoSelect?.options || []));
+
+    console.log("Salón Element:", salonSelect);
+    console.log("Salón Value:", salonSelect?.value);
+    console.log("Salón Selected Index:", salonSelect?.selectedIndex);
+    console.log("Salón Options:", Array.from(salonSelect?.options || []));
+
+    console.log("=== END DEBUGGING ===");
+  }
+
+  // FUNCIÓN DE VALIDACIÓN MEJORADA
+  function validateFormValues() {
+    const pabellon = document.getElementById("pabellon").value;
+    const piso = document.getElementById("piso").value;
+    const salon = document.getElementById("salon").value;
+
+    const errors = [];
+
+    if (!pabellon || pabellon === "" || pabellon === "0") {
+      errors.push("Pabellón no seleccionado o inválido");
+    }
+
+    if (!piso || piso === "" || piso === "0") {
+      errors.push("Piso no seleccionado o inválido");
+    }
+
+    if (!salon || salon === "" || salon === "0") {
+      errors.push("Salón no seleccionado o inválido");
+    }
+
+    if (errors.length > 0) {
+      console.error("Errores de validación:", errors);
+      alert("Errores encontrados:\n" + errors.join("\n"));
+      return false;
+    }
+
+    return true;
+  }
 
   // Función para cargar y mostrar productos
   async function cargarProductos() {
     try {
       const response = await fetchWithAuth(
         "https://ucv-reports-backend.onrender.com/hardware"
-      ); // Ajusta esta URL a tu endpoint
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -66,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Funcionalidad para el modal Agregar Producto
   const modalAgregarProducto = document.getElementById("modalAgregarProducto");
-  const btnAgregarProducto = document.querySelector(".productos-nuevos-btn"); // Botón + Productos Nuevos
+  const btnAgregarProducto = document.querySelector(".productos-nuevos-btn");
   const spanCerrarModal = modalAgregarProducto.querySelector(".close");
   const selectArticulo = document.getElementById("articulo");
   const otroArticuloGroup = document.getElementById("otroArticuloGroup");
@@ -110,15 +166,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const selectSalonEntrada = document.getElementById("salon");
 
   if (selectPabellonEntrada) {
-    selectPabellonEntrada.addEventListener("change", loadPisosEntrada);
+    selectPabellonEntrada.addEventListener("change", function () {
+      console.log("Pabellón cambiado a:", this.value);
+      loadPisosEntrada();
+    });
   }
+
   if (selectPisoEntrada) {
-    selectPisoEntrada.addEventListener("change", loadAulasEntrada);
+    selectPisoEntrada.addEventListener("change", function () {
+      console.log("Piso cambiado a:", this.value);
+      loadAulasEntrada();
+    });
+  }
+
+  if (selectSalonEntrada) {
+    selectSalonEntrada.addEventListener("change", function () {
+      console.log("Salón cambiado a:", this.value);
+    });
   }
 
   // Funciones para cargar dinámicamente Pabellón, Piso y Salón
   async function loadPabellonesEntrada() {
     try {
+      console.log("Cargando pabellones...");
       const response = await fetchWithAuth(
         "https://ucv-reports-backend.onrender.com/pabellon"
       );
@@ -126,13 +196,19 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const pabellones = await response.json();
+      console.log("Pabellones recibidos:", pabellones);
+
       selectPabellonEntrada.innerHTML =
         '<option value="">Seleccione un pabellón</option>';
+
       pabellones.forEach((pabellon) => {
         const option = document.createElement("option");
         option.value = pabellon.id;
         option.textContent = pabellon.Pabellon;
         selectPabellonEntrada.appendChild(option);
+        console.log(
+          `Pabellón agregado: ID=${pabellon.id}, Nombre=${pabellon.Pabellon}`
+        );
       });
     } catch (error) {
       console.error("Error al cargar los pabellones:", error);
@@ -144,6 +220,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadPisosEntrada() {
     const selectedPabellonId = selectPabellonEntrada.value;
+    console.log("Cargando pisos para pabellón ID:", selectedPabellonId);
+
     selectPisoEntrada.innerHTML =
       '<option value="">Seleccione un piso</option>';
     selectPisoEntrada.disabled = true;
@@ -154,6 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
     selectSalonEntrada.disabled = true;
 
     if (!selectedPabellonId) {
+      console.log("No hay pabellón seleccionado, cancelando carga de pisos");
       return;
     }
 
@@ -165,9 +244,12 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const pisos = await response.json();
+      console.log("Pisos recibidos:", pisos);
+
       const filteredPisos = pisos.filter(
         (piso) => piso.idpabellon == selectedPabellonId
       );
+      console.log("Pisos filtrados:", filteredPisos);
 
       selectPisoEntrada.disabled = false;
       filteredPisos.forEach((piso) => {
@@ -175,11 +257,18 @@ document.addEventListener("DOMContentLoaded", () => {
         option.value = piso.numero_piso;
         option.textContent = piso.numero_piso;
         selectPisoEntrada.appendChild(option);
+        console.log(
+          `Piso agregado: Número=${piso.numero_piso}, PabellónID=${piso.idpabellon}`
+        );
       });
 
       // Automatically select the first piso if available and trigger change event
       if (filteredPisos.length > 0) {
         selectPisoEntrada.value = filteredPisos[0].numero_piso;
+        console.log(
+          "Auto-seleccionando primer piso:",
+          filteredPisos[0].numero_piso
+        );
         selectPisoEntrada.dispatchEvent(new Event("change"));
       }
     } catch (error) {
@@ -192,11 +281,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedPabellonId = selectPabellonEntrada.value;
     const selectedPisoId = selectPisoEntrada.value;
 
+    console.log("Cargando aulas para:", {
+      pabellon: selectedPabellonId,
+      piso: selectedPisoId,
+    });
+
     selectSalonEntrada.innerHTML =
       '<option value="">Seleccione un salón</option>';
     selectSalonEntrada.disabled = true;
 
     if (!selectedPabellonId || !selectedPisoId) {
+      console.log("Pabellón o piso no seleccionado, cancelando carga de aulas");
       return;
     }
 
@@ -208,13 +303,20 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const aulas = await response.json();
+      console.log("Aulas recibidas:", aulas);
 
       // Filtrar por pabellón y piso
       const filteredAulas = aulas.filter((aula) => {
-        return (
-          aula.idpabellon == selectedPabellonId && aula.idpiso == selectedPisoId
+        const match =
+          aula.idpabellon == selectedPabellonId &&
+          aula.idpiso == selectedPisoId;
+        console.log(
+          `Aula ${aula.nombre}: PabellónID=${aula.idpabellon}, PisoID=${aula.idpiso}, Match=${match}`
         );
+        return match;
       });
+
+      console.log("Aulas filtradas:", filteredAulas);
 
       selectSalonEntrada.disabled = false;
       filteredAulas.forEach((aula) => {
@@ -222,14 +324,20 @@ document.addEventListener("DOMContentLoaded", () => {
         option.value = aula.id;
         option.textContent = aula.nombre;
         selectSalonEntrada.appendChild(option);
+        console.log(`Aula agregada: ID=${aula.id}, Nombre=${aula.nombre}`);
       });
 
       // Seleccionar automáticamente el primer salón válido si existe
       if (filteredAulas.length > 0) {
         selectSalonEntrada.value = filteredAulas[0].id;
+        console.log("Auto-seleccionando primera aula:", filteredAulas[0].id);
         // Forzar evento de cambio para asegurar que el valor esté disponible
         const event = new Event("change", { bubbles: true });
         selectSalonEntrada.dispatchEvent(event);
+      } else {
+        console.warn(
+          "No se encontraron aulas para los criterios seleccionados"
+        );
       }
     } catch (error) {
       console.error("Error al cargar los salones:", error);
@@ -238,11 +346,23 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     }
   }
-  // Aquí puedes añadir la lógica para manejar el envío del formulario (botón Guardar)
+
+  // Manejo del envío del formulario
   const formAgregarProducto = document.getElementById("formAgregarProducto");
   if (formAgregarProducto) {
     formAgregarProducto.addEventListener("submit", async function (event) {
       event.preventDefault(); // Prevenir el envío por defecto del formulario
+
+      console.log("=== INICIANDO ENVÍO DEL FORMULARIO ===");
+
+      // DEBUGGING COMPLETO ANTES DEL ENVÍO
+      debugFormValues();
+
+      // VALIDACIÓN ANTES DEL ENVÍO
+      if (!validateFormValues()) {
+        console.error("Validación fallida, cancelando envío");
+        return;
+      }
 
       console.log("Valor de articulo:", selectArticulo.value);
       console.log(
@@ -265,10 +385,19 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Valor de piso:", document.getElementById("piso").value);
       console.log("Valor de salon:", document.getElementById("salon").value);
 
-      // Verificar que salon no sea undefined
+      // Verificar que salon no sea undefined CON MÁS DETALLE
       const salonValue = document.getElementById("salon").value;
-      if (!salonValue || salonValue === "") {
-        alert("Por favor selecciona un salón antes de continuar.");
+      const pabellonValue = document.getElementById("pabellon").value;
+      const pisoValue = document.getElementById("piso").value;
+
+      console.log("=== VERIFICACIÓN FINAL DE VALORES ===");
+      console.log("Salón final:", salonValue, typeof salonValue);
+      console.log("Pabellón final:", pabellonValue, typeof pabellonValue);
+      console.log("Piso final:", pisoValue, typeof pisoValue);
+
+      if (!salonValue || salonValue === "" || salonValue === "0") {
+        alert("Por favor selecciona un salón válido antes de continuar.");
+        debugFormValues(); // Debug adicional en caso de error
         return;
       }
 
@@ -327,10 +456,9 @@ document.addEventListener("DOMContentLoaded", () => {
             imagen_producto: "../../CSS/auth/images/placeholder.jpg",
             cantidad_registros: cantidad,
             estado_producto: String("Pendiente"),
-            idpabellon:
-              parseInt(document.getElementById("pabellon").value) || 0,
-            idpiso: parseInt(document.getElementById("piso").value) || 0,
-            idsalon: parseInt(document.getElementById("salon").value) || 0,
+            idpabellon: parseInt(pabellonValue) || 0,
+            idpiso: parseInt(pisoValue) || 0,
+            idsalon: parseInt(salonValue) || 0,
           };
 
           console.log(
@@ -372,11 +500,9 @@ document.addEventListener("DOMContentLoaded", () => {
             Codigo: String(document.getElementById("codigoProducto").value),
             nombre: String(document.getElementById("nombreProducto").value),
             Precio: parseFloat(document.getElementById("precio").value || "0"),
-
-            idpabellon:
-              parseInt(document.getElementById("pabellon").value) || 0,
-            idpiso: parseInt(document.getElementById("piso").value) || 0,
-            idsalon: parseInt(document.getElementById("salon").value) || 0,
+            idpabellon: parseInt(pabellonValue) || 0,
+            idpiso: parseInt(pisoValue) || 0,
+            idsalon: parseInt(salonValue) || 0,
             imagen: "../../CSS/auth/images/placeholder.jpg",
             Estado: String("Pendiente"),
           };
@@ -397,21 +523,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (response.ok) {
           const newProduct = await response.json();
+          console.log("Producto guardado exitosamente:", newProduct);
           alert("Producto guardado exitosamente!");
+
           // Añadir el nuevo producto a la UI
           const productoCard = document.createElement("div");
           productoCard.classList.add("producto-card");
 
-          // Asumiendo que la respuesta del backend incluye la URL de la imagen guardada
-          // o que podemos construirla. Por ahora, usaremos un placeholder o la URL temporal.
           const imageUrl =
-            newProduct.urlImagen || "../../CSS/auth/images/placeholder.jpg"; // Ajusta esto según tu backend
+            newProduct.urlImagen || "../../CSS/auth/images/placeholder.jpg";
 
           productoCard.innerHTML = `
                       <img src="${imageUrl}" alt="${newProduct.nombre}">
                       <div class="producto-card-info">
                           <h3>Tipo: ${newProduct.nombre}</h3>
-
                       </div>
                       <button class="btn comprar">
                           <i class="fas fa-shopping-cart"></i>
@@ -426,6 +551,7 @@ document.addEventListener("DOMContentLoaded", () => {
           cargarProductos(); // Recargar productos después de agregar uno nuevo
         } else {
           const errorData = await response.json();
+          console.error("Error del backend:", errorData);
           alert(
             `Error al guardar el producto: ${
               errorData.message || response.statusText
