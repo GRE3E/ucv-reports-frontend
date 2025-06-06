@@ -165,21 +165,23 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const pisos = await response.json();
-      console.log("Pisos fetched:", pisos);
-      console.log("Selected Pabellon ID:", selectedPabellonId);
       const filteredPisos = pisos.filter(
         (piso) => piso.idpabellon == selectedPabellonId
       );
-      console.log("Filtered Pisos:", filteredPisos);
 
       selectPisoEntrada.disabled = false;
       filteredPisos.forEach((piso) => {
         const option = document.createElement("option");
-        // Usar el ID del piso como value
-        option.value = piso.id;
+        option.value = piso.numero_piso;
         option.textContent = piso.numero_piso;
         selectPisoEntrada.appendChild(option);
       });
+
+      // Automatically select the first piso if available and trigger change event
+      if (filteredPisos.length > 0) {
+        selectPisoEntrada.value = filteredPisos[0].numero_piso;
+        selectPisoEntrada.dispatchEvent(new Event("change"));
+      }
     } catch (error) {
       console.error("Error al cargar los pisos:", error);
       alert("Error al cargar los pisos. Revisa la consola para más detalles.");
@@ -206,23 +208,13 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const aulas = await response.json();
-      console.log("Aulas fetched:", aulas);
 
       // Filtrar por pabellón y piso
       const filteredAulas = aulas.filter((aula) => {
-        console.log(
-          `Checking aula: ${aula.nombre}, idpabellon: ${aula.idpabellon}, idpiso: ${aula.idpiso}`
-        );
         return (
           aula.idpabellon == selectedPabellonId && aula.idpiso == selectedPisoId
         );
       });
-      console.log(
-        "Selected Pabellon ID (loadAulasEntrada):",
-        selectedPabellonId
-      );
-      console.log("Selected Piso ID (loadAulasEntrada):", selectedPisoId);
-      console.log("Filtered Aulas:", filteredAulas);
 
       selectSalonEntrada.disabled = false;
       filteredAulas.forEach((aula) => {
