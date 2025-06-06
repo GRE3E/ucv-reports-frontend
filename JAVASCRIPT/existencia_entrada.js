@@ -193,6 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const filtradas = aulas.filter(
         (aula) => aula.idpabellon == pabellon && aula.idpiso == piso
       );
+      console.log("Aulas filtradas:", filtradas);
       filtradas.forEach((aula) => {
         const option = document.createElement("option");
         option.value = aula.idsalon; // CORREGIDO: usar idsalon en lugar de id
@@ -202,6 +203,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (filtradas.length > 0) {
         selectSalonEntrada.value = filtradas[0].idsalon;
+        console.log(
+          "Valor de selectSalonEntrada después de asignar:",
+          selectSalonEntrada.value
+        );
         selectSalonEntrada.dispatchEvent(new Event("change"));
       }
       selectSalonEntrada.disabled = false;
