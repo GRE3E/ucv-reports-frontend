@@ -66,6 +66,50 @@
       </div>
     </div>
 
+    <!-- Modal de Detalle del Reporte -->
+    <div id="modalOverlay" class="modal-overlay" onclick="closeModal()">
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <h2>Detalles del Reporte</h2>
+        <div class="modal-body">
+          <div class="detail-item">
+            <span class="detail-label">Facultad:</span>
+            <span id="modalFacultad" class="info-value"></span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Turno:</span>
+            <span id="modalTurno" class="info-value"></span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Fecha:</span>
+            <span id="modalFecha" class="info-value"></span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Estado:</span>
+            <span id="modalEstado" class="info-value"></span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Lugar:</span>
+            <span id="modalLugar" class="info-value"></span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Descripción del Problema:</span>
+            <span id="modalDescripcion" class="info-value"></span>
+          </div>
+          <div class="detail-item evidence-section">
+            <span class="detail-label">Evidencia:</span>
+            <img
+              id="modalEvidencia"
+              src=""
+              alt="Evidencia del Reporte"
+              class="modal-image"
+              style="display: none"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script
       type="module"
       src="../../JAVASCRIPT/usuario_reportes_globales.js"
