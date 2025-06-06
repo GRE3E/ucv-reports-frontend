@@ -227,6 +227,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // Automatically select the first salon if available
       if (filteredAulas.length > 0) {
         selectSalonEntrada.value = filteredAulas[0].id;
+        console.log(
+          "Valor de salon después de selección automática:",
+          selectSalonEntrada.value
+        );
         selectSalonEntrada.dispatchEvent(new Event("change"));
       }
     } catch (error) {
