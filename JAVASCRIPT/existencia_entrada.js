@@ -196,13 +196,13 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Aulas filtradas:", filtradas);
       filtradas.forEach((aula) => {
         const option = document.createElement("option");
-        option.value = aula.idsalon; // CORREGIDO: usar idsalon en lugar de id
+        option.value = aula.id_salon; // CORREGIDO: usar id_salon en lugar de id
         option.textContent = aula.nombre;
         selectSalonEntrada.appendChild(option);
       });
 
       if (filtradas.length > 0) {
-        selectSalonEntrada.value = filtradas[0].idsalon;
+        selectSalonEntrada.value = filtradas[0].id_salon;
         console.log(
           "Valor de selectSalonEntrada después de asignar:",
           selectSalonEntrada.value
