@@ -148,6 +148,11 @@ document.addEventListener("DOMContentLoaded", () => {
       '<option value="">Seleccione un piso</option>';
     selectPisoEntrada.disabled = true;
 
+    // Limpiar también el select de salón
+    selectSalonEntrada.innerHTML =
+      '<option value="">Seleccione un salón</option>';
+    selectSalonEntrada.disabled = true;
+
     if (!selectedPabellonId) {
       return;
     }
@@ -167,7 +172,8 @@ document.addEventListener("DOMContentLoaded", () => {
       selectPisoEntrada.disabled = false;
       filteredPisos.forEach((piso) => {
         const option = document.createElement("option");
-        option.value = piso.numero_piso;
+        // Usar el ID del piso como value
+        option.value = piso.id;
         option.textContent = piso.numero_piso;
         selectPisoEntrada.appendChild(option);
       });
@@ -179,12 +185,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadAulasEntrada() {
     const selectedPabellonId = selectPabellonEntrada.value;
-    const selectedPisoNumber = selectPisoEntrada.value;
+    const selectedPisoId = selectPisoEntrada.value;
+
     selectSalonEntrada.innerHTML =
       '<option value="">Seleccione un salón</option>';
     selectSalonEntrada.disabled = true;
 
-    if (!selectedPabellonId || !selectedPisoNumber) {
+    if (!selectedPabellonId || !selectedPisoId) {
       return;
     }
 
@@ -196,11 +203,13 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const aulas = await response.json();
-      const filteredAulas = aulas.filter(
-        (aula) =>
-          aula.idpabellon == selectedPabellonId &&
-          aula.idpiso == selectedPisoNumber
-      );
+
+      // Filtrar por pabellón y piso
+      const filteredAulas = aulas.filter((aula) => {
+        return (
+          aula.idpabellon == selectedPabellonId && aula.idpiso == selectedPisoId
+        );
+      });
 
       selectSalonEntrada.disabled = false;
       filteredAulas.forEach((aula) => {
@@ -242,6 +251,13 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       console.log("Valor de piso:", document.getElementById("piso").value);
       console.log("Valor de salon:", document.getElementById("salon").value);
+
+      // Verificar que salon no sea undefined
+      const salonValue = document.getElementById("salon").value;
+      if (!salonValue || salonValue === "") {
+        alert("Por favor selecciona un salón antes de continuar.");
+        return;
+      }
 
       const formData = new FormData();
       formData.append("articulo", selectArticulo.value);
