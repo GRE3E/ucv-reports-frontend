@@ -165,9 +165,12 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const pisos = await response.json();
+      console.log("Pisos fetched:", pisos);
+      console.log("Selected Pabellon ID:", selectedPabellonId);
       const filteredPisos = pisos.filter(
         (piso) => piso.idpabellon == selectedPabellonId
       );
+      console.log("Filtered Pisos:", filteredPisos);
 
       selectPisoEntrada.disabled = false;
       filteredPisos.forEach((piso) => {
