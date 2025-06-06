@@ -361,14 +361,26 @@ body {
 
 .status-approved {
   color: #1abc9c;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  border: none;
 }
 
 .status-pending {
   color: #f39c12;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  border: none;
 }
 
 .status-process {
   color: #3498db;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  border: none;
 }
 
 @keyframes fadeIn {

@@ -64,46 +64,75 @@
           <!-- Las tarjetas se llenarán dinámicamente -->
         </div>
 
-        <!-- Modal de Detalle del Reporte -->
-        <div id="modalOverlay" class="modal-overlay">
-          <div class="modal-content">
-            <span class="close-button" onclick="closeModal()">&times;</span>
-            <h2>Detalle del Reporte</h2>
-            <div class="modal-body">
-              <div class="detail-item">
-                <strong>Facultad:</strong>
-                <span id="modalFacultad"></span>
-              </div>
-              <div class="detail-item">
-                <strong>Turno:</strong>
-                <span id="modalTurno"></span>
-              </div>
-              <div class="detail-item">
-                <strong>Fecha:</strong>
-                <span id="modalFecha"></span>
-              </div>
-              <div class="detail-item">
-                <strong>Estado:</strong>
-                <span id="modalEstado"></span>
-              </div>
-              <div class="detail-item">
-                <strong>Lugar:</strong>
-                <span id="modalLugar"></span>
-              </div>
-              <div class="detail-item">
-                <strong>Descripción:</strong>
-                <span id="modalDescripcion"></span>
-              </div>
-              <div class="detail-item evidence-section">
-                <strong>Evidencia:</strong>
-                <img
-                  id="modalEvidencia"
-                  src=""
-                  alt="Evidencia del Reporte"
-                  style="display: none"
-                />
-              </div>
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+      <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <h2 class="modal-title">
+            <i class="fas fa-file-alt"></i>
+            Detalles del Reporte
+          </h2>
+          <button class="close-btn" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-content">
+          <div class="modal-info">
+            <div class="info-item">
+              <span class="info-label">
+                <i class="fas fa-university"></i>
+                Facultad:
+              </span>
+              <span class="info-value" id="modalFacultad"></span>
             </div>
+            <div class="info-item">
+              <span class="info-label">
+                <i class="fas fa-clock"></i>
+                Turno:
+              </span>
+              <span class="info-value" id="modalTurno"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">
+                <i class="fas fa-calendar-check"></i>
+                Fecha:
+              </span>
+              <span class="info-value" id="modalFecha"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">
+                <i class="fas fa-check-circle"></i>
+                Estado:
+              </span>
+              <span class="info-value" id="modalEstado"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">
+                <i class="fas fa-exclamation-triangle"></i>
+                Lugar del Problema:
+              </span>
+              <span class="info-value" id="modalLugar"></span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">
+                <i class="fas fa-file-alt"></i>
+                Descripción del Problema:
+              </span>
+              <span class="info-value" id="modalDescripcion"></span>
+            </div>
+          </div>
+          <div class="evidence-section">
+            <h3 class="evidence-title">
+              <i class="fas fa-camera"></i>
+              Evidencia:
+            </h3>
+            <img
+              src=""
+              alt="Evidencia del problema"
+              class="evidence-image"
+              id="modalEvidencia"
+              style="display: none"
+            />
           </div>
         </div>
       </div>
