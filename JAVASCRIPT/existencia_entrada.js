@@ -224,14 +224,12 @@ document.addEventListener("DOMContentLoaded", () => {
         selectSalonEntrada.appendChild(option);
       });
 
-      // Automatically select the first salon if available
+      // Seleccionar automáticamente el primer salón válido si existe
       if (filteredAulas.length > 0) {
         selectSalonEntrada.value = filteredAulas[0].id;
-        console.log(
-          "Valor de salon después de selección automática:",
-          selectSalonEntrada.value
-        );
-        selectSalonEntrada.dispatchEvent(new Event("change"));
+        // Forzar evento de cambio para asegurar que el valor esté disponible
+        const event = new Event("change", { bubbles: true });
+        selectSalonEntrada.dispatchEvent(event);
       }
     } catch (error) {
       console.error("Error al cargar los salones:", error);
