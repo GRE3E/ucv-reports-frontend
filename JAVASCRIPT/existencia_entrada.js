@@ -223,6 +223,12 @@ document.addEventListener("DOMContentLoaded", () => {
         option.textContent = aula.nombre;
         selectSalonEntrada.appendChild(option);
       });
+
+      // Automatically select the first salon if available
+      if (filteredAulas.length > 0) {
+        selectSalonEntrada.value = filteredAulas[0].id;
+        selectSalonEntrada.dispatchEvent(new Event("change"));
+      }
     } catch (error) {
       console.error("Error al cargar los salones:", error);
       alert(
