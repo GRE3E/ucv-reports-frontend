@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const pabellonSelect = document.getElementById("pabellon");
     const pisoSelect = document.getElementById("piso");
     const salonSelect = document.getElementById("salon");
-    console.log("salonSelect (inside debugFormValues):", salonSelect);
     console.log("Pabellón Value:", pabellonSelect?.value);
     console.log("Piso Value:", pisoSelect?.value);
     console.log("Salón Value:", salonSelect?.value);
@@ -93,7 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const selectPabellonEntrada = document.getElementById("pabellon");
   const selectPisoEntrada = document.getElementById("piso");
   const selectSalonEntrada = document.getElementById("salon");
-  console.log("selectSalonEntrada (initialization):", selectSalonEntrada);
 
   if (btnAgregarProducto) {
     btnAgregarProducto.onclick = () => {
