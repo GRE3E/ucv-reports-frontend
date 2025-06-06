@@ -479,7 +479,7 @@
             const data = await response.json();
             console.log("Response from change-password:", data);
 
-            if (data.success) {
+            if (data.message && data.message.includes("exitosa")) {
               usuarioVerificado = data.userId;
               mostrarPasoPassword();
             } else {
@@ -529,7 +529,7 @@
             const data = await response.json();
             console.log("Response from change-password:", data);
 
-            if (data.success) {
+            if (data.message && data.message.includes("exitosa")) {
               console.log("Contraseña cambiada exitosamente.");
               alert(
                 "Contraseña cambiada exitosamente. Serás redirigido al login."

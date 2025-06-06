@@ -149,6 +149,13 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   const spanCerrarUbicacion = modalSeleccionarUbicacion.querySelector(".close");
 
+  // Cerrar modal Stock Actual al hacer clic en la X
+  if (spanCerrarStockActual) {
+    spanCerrarStockActual.onclick = function () {
+      modalStockActual.style.display = "none";
+    };
+  }
+
   let botonUsarActivo = null; // Variable para guardar el botón 'Usar' activo
 
   // Función para limpiar el formulario de selección de ubicación
